@@ -86,12 +86,12 @@ h1 .mx{margin-left:.55em;color:var(--c);text-shadow:none}
 @keyframes gfx{0%{transform:none;text-shadow:none}20%{transform:translate(-2px,0) skewX(-6deg);text-shadow:2px 0 var(--m),-2px 0 var(--c)}40%{transform:translate(2px,1px);text-shadow:-2px 0 var(--m),2px 0 var(--c)}60%{transform:translate(-1px,-1px) skewX(4deg);text-shadow:1px 0 var(--m)}80%{transform:translate(1px,0)}100%{transform:none;text-shadow:none}}
 .gfx{animation:gfx .38s steps(4) 1}
 h1::after{content:"_";animation:blink 1s steps(1) infinite}
-h1.logo{display:flex;align-items:center;height:46px;font-size:0;--fs:20px;font-weight:700;letter-spacing:.08em;color:var(--c);text-shadow:none;animation:none;flex:0 1 auto;min-width:0}
-h1.logo::before{content:"";flex:0 0 158px;height:46px;background:var(--c);-webkit-mask:url(logo.png) left center/contain no-repeat;mask:url(logo.png) left center/contain no-repeat;filter:drop-shadow(0 0 5px var(--c))}
+h1.logo{display:flex;align-items:center;height:26px;font-size:0;--fs:20px;font-weight:700;letter-spacing:.08em;color:var(--c);text-shadow:none;animation:none;flex:0 0 auto;min-width:max-content;overflow:visible}
+h1.logo::before{content:"";flex:0 0 91px;height:26px;background:var(--c);-webkit-mask:url(logo.png) left center/contain no-repeat;mask:url(logo.png) left center/contain no-repeat;filter:drop-shadow(0 0 5px var(--c))}
 h1.logo .gt,h1.logo .mx,h1.logo::after{display:inline-block;font-size:var(--fs);transform:scaleY(1.7);text-shadow:0 0 6px var(--c)}
 h1.logo .gt,h1.logo .mx{margin-left:.8em}
 h1.logo::after{margin-left:.1em}
-@media(max-width:559px){h1.logo{height:36px;--fs:14px}h1.logo::before{flex-basis:124px;height:36px}}
+@media(max-width:559px){h1.logo{height:18px;--fs:14px}h1.logo::before{flex-basis:63px;height:18px}}
 
 button svg{display:block;margin:auto}#rnd,#fav,#hb,#gb,#pt,#mn{padding:7px 10px}
 .gl{display:flex;gap:8px;align-items:center;color:var(--dim);font-size:12px}.gl input{flex:1;accent-color:var(--c)}.gl button{flex:1}#rm{color:var(--dim);font-size:11px;max-width:240px}
