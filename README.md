@@ -1,8 +1,10 @@
 # e4rth.net
 
-Static site for E4RTH R4DIO (GitHub Pages). `/play/` is the browser version of the app.
+Static site for E4RTH R4DIO (GitHub Pages).
 
-URLs: `/` landing, `/support/`, `/privacy/`, `/terms/`.
-Before publishing, search for `class="ph"` (yellow placeholders) and fill in name, email, address, state/country.
-Upload the CONTENTS of this folder to the repo root (keep `CNAME` and `.nojekyll`).
-When the app is live, replace the COMING SOON badge in `index.html` with your App Store link.
+- `/` is the globe itself (the browser version of the app)
+- `/support/`, `/privacy/`, `/terms/` are the App Store URLs (also linked from the globe's settings menu)
+
+Before publishing, search `support/`, `privacy/` and `terms/` for `class="ph"` (yellow placeholders) and fill in name, email, address, state/country.
+Upload the CONTENTS of this folder to the repo root (keep `CNAME`).
+When the app is live, set `APPSTORE_URL` near the end of `index.html` (search for it) to your App Store link; the menu button then changes from "coming soon" to "Get the iOS app".

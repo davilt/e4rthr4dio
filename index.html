@@ -1,32 +1,1368 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tune the planet · E4RTH R4DIO</title><meta name="color-scheme" content="dark"><style>*{box-sizing:border-box}html{background:#000}body{margin:0;background:#000;color:#00ff66;font:16px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-webkit-text-size-adjust:100%}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,255,102,.035) 0 1px,transparent 1px 3px)}
-main{max-width:860px;margin:0 auto;padding:32px 20px 80px;position:relative}
-nav{display:flex;gap:18px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid rgba(0,255,102,.35);margin-bottom:28px;font-size:14px;letter-spacing:.08em}
-nav a{color:#00ff66;text-decoration:none;opacity:.65}nav a.on,nav a:hover{opacity:1;text-shadow:0 0 8px #00ff66}
-nav b{margin-right:auto;letter-spacing:.18em;text-shadow:0 0 8px #00ff66}
-h1{font-size:26px;letter-spacing:.12em;margin:.2em 0 .6em;text-shadow:0 0 12px rgba(0,255,102,.6)}
-h2{font-size:17px;letter-spacing:.1em;margin:2em 0 .5em;border-left:3px solid #00ff66;padding-left:10px}
-p,li{color:#b6ffd0}li{margin:.35em 0}strong{color:#00ff66}a{color:#00ff66}
-.card{border:1px solid rgba(0,255,102,.4);border-radius:10px;padding:16px 18px;margin:16px 0;background:rgba(0,255,102,.04)}
-.card h3{margin:0 0 6px;font-size:15px;letter-spacing:.06em}.card p{margin:.3em 0}
-.hero img{width:100%;border-radius:12px;border:1px solid rgba(0,255,102,.4)}.badge{display:inline-block;border:1px solid #00ff66;border-radius:999px;padding:6px 14px;font-size:13px;letter-spacing:.12em}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.grid .card{margin:0}.gallery{display:flex;gap:14px;overflow-x:auto;padding:10px 0;scroll-snap-type:x mandatory}.gallery figure{margin:0;flex:0 0 200px;scroll-snap-align:start}.gallery img{width:100%;border-radius:18px;border:1px solid rgba(0,255,102,.4)}.gallery figcaption{font-size:11px;letter-spacing:.1em;text-align:center;margin-top:6px;opacity:.7}.ph{background:#ffd60a;color:#000;padding:0 4px;border-radius:3px}
-footer{margin-top:48px;font-size:13px;opacity:.55}</style></head><body><main><nav><b>E4RTH R4DIO</b><a href="/" class=on>HOME</a><a href="/support/">SUPPORT</a><a href="/privacy/">PRIVACY</a><a href="/terms/">TERMS</a></nav><div class="hero"><img src="/img/banner.jpg" alt="E4RTH R4DIO: a rotating vector globe with headphones"></div>
-<h1>TUNE THE PLANET</h1>
-<p>E4RTH R4DIO is a world radio for iPhone. Spin a glowing vector globe, tap a city and hear what is playing there right now, from thousands of live stations across the planet.</p>
-<p><span class="badge">COMING SOON TO THE APP STORE</span></p><p><a class="badge" href="/play/">TRY IT IN YOUR BROWSER</a></p>
-<h2>FEATURES</h2>
-<div class="grid">
-<div class="card"><h3>VECTOR GLOBE</h3><p>Drag, flick and coast with momentum. Every dot is a live station.</p></div>
-<div class="card"><h3>SEE THE SOUND</h3><p>An audio-reactive ASCII spectrum moves with the music.</p></div>
-<div class="card"><h3>LOCK SCREEN + ISLAND</h3><p>Controls on the lock screen and a Live Activity in the Dynamic Island.</p></div>
-<div class="card"><h3>SLEEP TIMER</h3><p>Fall asleep to 15, 30 or 60 minutes of radio.</p></div>
-<div class="card"><h3>SIRI + SHORTCUTS</h3><p>Play a station, a random favorite, or pause, by voice.</p></div>
-<div class="card"><h3>SHARE A STATION</h3><p>Send a link that opens the station straight in the app.</p></div>
-<div class="card"><h3>M4X</h3><p>One purchase, no subscription: favorites widgets, alternate icons, red colorway and more.</p></div>
-<div class="card"><h3>PRIVATE</h3><p>No ads, no tracking, no accounts. Your favorites stay on your device.</p></div>
-</div>
-<h2>OPTIMIZED FOR iPHONE DUO</h2>
-<p>The layout adapts to both the folded and unfolded screens, and the globe adjusts its detail to keep frame rates smooth on any device.</p>
-<div class="gallery"><figure><img loading="lazy" src="/img/01-tune-the-planet.jpg" alt="TUNE THE PLANET"><figcaption>TUNE THE PLANET</figcaption></figure><figure><img loading="lazy" src="/img/02-see-the-sound.jpg" alt="SEE THE SOUND"><figcaption>SEE THE SOUND</figcaption></figure><figure><img loading="lazy" src="/img/03-thousands-of-stations.jpg" alt="THOUSANDS OF STATIONS"><figcaption>THOUSANDS OF STATIONS</figcaption></figure><figure><img loading="lazy" src="/img/04-go-m4x.jpg" alt="GO M4X"><figcaption>GO M4X</figcaption></figure><figure><img loading="lazy" src="/img/05-always-within-reach.jpg" alt="ALWAYS WITHIN REACH"><figcaption>ALWAYS WITHIN REACH</figcaption></figure></div>
-<h2>HELP</h2>
-<p>Questions or problems? Visit <a href="/support/">Support</a>.</p><footer>E4RTH R4DIO is not affiliated with Apple Inc. Station data from the community-run Radio Browser directory.</footer></main></body></html>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#000000"><meta name="color-scheme" content="dark">
+<title>E4RTH R4DIO</title>
+<style>html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
+:root{--c:#00ff41;--m:#b6ffc8;--bg:#000000;--dim:#0b7a2a;--cr:0,255,65;--mr:182,255,200;--dk:0,12,3;--bk:#020a03;--bk2:#031a08;--hd:#0a3a14;--tn:0,70,22}
+html.red{--c:#ff0000;--m:#ff3b30;--dim:#8a0000;--cr:255,0,0;--mr:255,59,48;--dk:8,0,0;--bk:#050000;--bk2:#120000;--hd:#2e0000;--tn:70,0,0}   /* iOS StandBy night-mode red: pure red on black, no pink */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:#000;color-scheme:dark}
+body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input{-webkit-user-select:text;user-select:text}
+html,body{margin:0;height:100%;background:radial-gradient(ellipse at center,var(--bk2) 0,var(--bg) 70%);color:var(--c);font:13px/1.4 "Share Tech Mono",ui-monospace,Menlo,Consolas,monospace;overflow:hidden}
+#rain{position:fixed;inset:0;width:100%;height:100%;opacity:.3;pointer-events:none}
+canvas#g{position:fixed;inset:0;width:100%;height:100%;cursor:grab;touch-action:none}
+canvas#g:active{cursor:grabbing}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px);z-index:50}
+#top{position:fixed;top:0;left:0;right:0;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;display:flex;gap:10px;align-items:center;z-index:5;pointer-events:none}
+#top>*{pointer-events:auto}
+h1{margin:0;font-size:20px;letter-spacing:.18em;color:#fff;text-shadow:2px 0 var(--m),-2px 0 var(--c);animation:gl 5s infinite steps(1)}
+@keyframes gl{0%,93%,100%{transform:none}94%{transform:translate(3px,0);text-shadow:-4px 0 var(--m),4px 0 var(--c)}96%{transform:translate(-2px,1px)}}
+#q{flex:1;max-width:260px;background:rgba(0,0,0,.8);border:1px solid var(--dim);color:var(--c);padding:7px 9px;font:inherit;outline:none}
+#q:focus{border-color:var(--c);box-shadow:0 0 10px var(--c)}
+button{background:rgba(0,0,0,.8);border:1px solid var(--dim);color:var(--c);font:inherit;padding:7px 10px;cursor:pointer}
+button:hover,button:focus-visible{border-color:var(--m);color:#fff;box-shadow:0 0 10px var(--m);outline:none}
+#hud{position:fixed;left:14px;bottom:96px;color:var(--dim);z-index:4;pointer-events:none}
+#hud b{color:var(--c);font-weight:400}
+#panel{position:fixed;right:12px;top:calc(60px + env(safe-area-inset-top,0px));width:310px;max-height:calc(100% - 190px);overflow:auto;background:rgba(0,0,0,.88);border:1px solid var(--dim);z-index:5;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
+#panel h2{margin:0;padding:10px 12px;font-size:13px;font-weight:400;color:var(--m);border-bottom:1px solid var(--dim);position:sticky;top:0;background:var(--bk)}
+.st{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid rgba(var(--cr),.12);cursor:pointer}
+.st:hover{background:rgba(var(--cr),.08)}
+.st.on{background:rgba(var(--mr),.14);color:#fff;box-shadow:inset 3px 0 var(--m)}
+.st .t{flex:1;min-width:0}.st .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st .s{color:var(--dim);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st .f{border:0;background:none;padding:2px 4px;color:var(--dim);box-shadow:none}
+.st .f.y{color:var(--m)}
+.empty .cur{animation:blink 1s steps(1) infinite}
+.empty{padding:14px 12px;color:var(--dim)}
+#bgv{position:absolute;left:0;top:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+#bar{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;background:rgba(0,0,0,.92);border-top:1px solid var(--c);box-shadow:0 -4px 24px rgba(var(--cr),.2);z-index:6}
+#bf{width:44px;height:44px;padding:0;flex:none;border:0;background:none;box-shadow:none}#bf:hover{border:0;box-shadow:none;color:#fff}#bf:focus-visible{border:0;box-shadow:none;outline:1px dotted var(--c)}#bf.y{color:var(--m)}#bf.y svg{fill:currentColor}
+#sh{width:44px;height:44px;padding:0;flex:none;border:0;background:none;box-shadow:none}#sh:hover{border:0;box-shadow:none;color:#fff}#sh:focus-visible{border:0;box-shadow:none;outline:1px dotted var(--c)}
+#toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:none;z-index:15;background:rgba(var(--dk),.95);border:1px solid var(--c);padding:7px 12px;box-shadow:0 0 14px rgba(var(--cr),.4);pointer-events:none;white-space:nowrap}#toast.on{display:block}
+#mus{position:fixed;left:14px;bottom:calc(92px + env(safe-area-inset-bottom,0px));display:none;flex-direction:column;gap:6px;background:rgba(0,0,0,.95);border:1px solid var(--c);padding:10px;z-index:12;min-width:220px;max-width:min(92vw,320px)}
+#mus.on{display:flex}#mq{color:#fff;margin-bottom:2px;overflow-wrap:anywhere}
+#np .k{display:block;max-width:100%;margin-top:3px;padding:2px 8px;min-height:0;font-size:12px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:none}
+#play{width:44px;height:44px;border-radius:50%;font-size:16px;padding:0;flex:none}
+#np{flex:1;min-width:0}#np .n{color:#fff;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#np .s{color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#st{color:var(--m)}
+#vis{width:110px;height:32px;flex:none}
+
+#tx{position:fixed;inset:0;display:none;place-items:center;z-index:20;background:rgba(0,0,0,.55)}
+#tx.on{display:grid}
+#tx .box{width:min(92vw,380px);border:1px solid var(--c);background:rgba(var(--dk),.96);padding:16px;box-shadow:0 0 30px var(--c);animation:txp 1s infinite alternate;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%)}
+@keyframes txp{from{box-shadow:0 0 10px var(--c)}to{box-shadow:0 0 34px var(--c)}}
+@keyframes cd{to{transform:scaleX(0)}}
+#tx h3{margin:0 0 10px;color:#fff;letter-spacing:.14em;font-size:15px;font-weight:400;animation:gl 3s infinite steps(1)}
+#tx .row{color:var(--dim)}#tx .row b{color:var(--c);font-weight:400}
+#tx .bt{display:flex;gap:10px;margin-top:14px}#tx .bt button{flex:1;min-height:44px}
+#acc{color:#fff;border-color:var(--c);background:rgba(var(--cr),.15)}
+#tx .tm{height:3px;background:var(--dim);margin-top:12px}#tx .tm i{display:block;height:100%;background:var(--c);transform-origin:left;animation:cd 15s linear forwards}
+h1{cursor:pointer}
+h1{white-space:nowrap;min-width:0;overflow:hidden}
+h1 .gt{margin-left:.55em;color:var(--c);text-shadow:none}
+h1 .mx{margin-left:.55em;color:var(--c);text-shadow:none}
+#sat{position:fixed;right:16px;bottom:calc(100px + env(safe-area-inset-bottom,0px));width:104px;height:104px;display:none;z-index:8;pointer-events:none;perspective:420px;filter:drop-shadow(0 0 8px rgba(var(--cr),.6))}
+#sat.on{display:block}#sati{width:100%;height:100%;will-change:transform}
+@media(max-width:559px){#sat{width:84px;height:84px;bottom:calc(36% + 104px + env(safe-area-inset-bottom,0px))}}
+#mn{width:44px;height:44px;padding:0;flex:none;border:0;background:none;box-shadow:none;font-size:24px;line-height:1}
+#mn:hover{border:0;box-shadow:none;color:#fff}#mn:focus-visible{border:0;box-shadow:none;outline:1px dotted var(--c)}
+#menu{top:auto!important;bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+#gpop{position:fixed;right:12px;top:calc(48px + env(safe-area-inset-top,0px));display:none;flex-direction:column;background:rgba(0,0,0,.95);border:1px solid var(--dim);padding:6px;z-index:12;min-width:220px;max-height:calc(100% - 150px);overflow:auto}
+#gpop.on{display:flex}#gpop .gh{color:var(--dim);font-size:11px;padding:2px 6px 6px}
+#gc{display:flex;flex-direction:column;gap:2px}
+#gc button{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;border-color:transparent;background:none;padding:7px 8px;min-height:0}
+#gc button i{font-style:normal;color:var(--dim);font-size:11px;margin-left:12px}
+#gc button.on{color:#fff;border-color:var(--c);background:rgba(var(--cr),.16)}
+#gb.on{border-color:var(--c);box-shadow:0 0 8px rgba(var(--cr),.5);color:#fff}
+#menu{max-height:calc(100% - 150px);overflow:auto}
+#panel{transition:opacity .2s,transform .2s}
+#panel.hide{opacity:0;pointer-events:none;visibility:hidden;transform:translateY(16px)}
+#panel h2{touch-action:none}
+#pt.on{border-color:var(--c);box-shadow:0 0 8px rgba(var(--cr),.4)}
+@media(min-width:560px){#panel h2{cursor:grab}#panel h2::after{content:"::";float:right;color:var(--dim)}}
+@keyframes gfx{0%{transform:none;text-shadow:none}20%{transform:translate(-2px,0) skewX(-6deg);text-shadow:2px 0 var(--m),-2px 0 var(--c)}40%{transform:translate(2px,1px);text-shadow:-2px 0 var(--m),2px 0 var(--c)}60%{transform:translate(-1px,-1px) skewX(4deg);text-shadow:1px 0 var(--m)}80%{transform:translate(1px,0)}100%{transform:none;text-shadow:none}}
+.gfx{animation:gfx .38s steps(4) 1}
+h1::after{content:"_";animation:blink 1s steps(1) infinite}
+button svg{display:block;margin:auto}#rnd,#fav,#hb,#gb,#pt,#mn{padding:7px 10px}
+.gl{display:flex;gap:8px;align-items:center;color:var(--dim);font-size:12px}.gl input{flex:1;accent-color:var(--c)}.gl button{flex:1}#rm{color:var(--dim);font-size:11px;max-width:240px}
+#menu{position:fixed;right:12px;top:calc(48px + env(safe-area-inset-top,0px));display:none;flex-direction:column;gap:6px;background:rgba(0,0,0,.94);border:1px solid var(--dim);padding:8px;z-index:12;min-width:210px}
+#menu.on{display:flex}#am{color:var(--dim);font-size:11px;max-width:240px}
+#boot{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%);width:min(92vw,420px);display:none;z-index:30}
+#boot.on{display:grid}#boot.out{opacity:0;transition:opacity .5s}
+#boot .bx{border:1px solid var(--c);background:rgba(var(--dk),.95);box-shadow:0 0 26px rgba(var(--cr),.4)}
+#boot .bt{background:var(--c);color:#000;padding:3px 10px;font-size:12px;letter-spacing:.12em}
+#boot pre{margin:0;padding:10px 12px 0;font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;color:var(--c);white-space:pre-wrap;min-height:7.2em}
+#boot #bp{min-height:0;padding:6px 12px 12px;color:#fff}#boot #br{margin:0 12px 12px}
+#tip{position:fixed;display:none;z-index:9;pointer-events:none;max-width:280px;background:rgba(var(--dk),.94);border:1px solid var(--c);padding:6px 9px;font-size:11px;line-height:1.5;color:var(--c);box-shadow:0 0 14px rgba(var(--cr),.4)}
+#tip.on{display:block}#tip b{color:#fff;font-weight:400}
+#tn{position:fixed;left:50%;top:46%;transform:translate(-50%,-50%);width:min(88vw,340px);display:none;z-index:9;pointer-events:none;background:rgba(var(--dk),.94);border:1px solid var(--c);box-shadow:0 0 22px rgba(var(--cr),.45)}
+#tn.on{display:block}
+#tn .tt{background:var(--c);color:#000;padding:2px 8px;font-size:11px;letter-spacing:.12em}
+#tn pre{margin:0;padding:10px 10px 12px;font:12px/1.55 ui-monospace,Menlo,Consolas,monospace;color:var(--c);white-space:pre-wrap;overflow:hidden}
+#tn pre::after{content:"_";animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+#lg{flex:1;min-width:0;background:rgba(0,0,0,.8);border:1px solid var(--dim);color:var(--c);font:inherit;padding:6px 8px;outline:none}
+#lg:focus{border-color:var(--c)}#lg option{background:#000;color:var(--c)}
+.rtl #panel,.rtl #menu,.rtl #gpop,.rtl #tx .box,.rtl #tip,.rtl #mus,.rtl #np,.rtl #hud{direction:rtl}
+.rtl #gc button{text-align:right}
+#pod{position:fixed;left:14px;top:calc(110px + env(safe-area-inset-top,0px));width:140px;height:128px;display:none;z-index:7;touch-action:none;cursor:grab;font-size:8px;line-height:1.25;filter:drop-shadow(0 0 7px rgba(var(--cr),.4))}
+#pod.on{display:block}
+#pod.live{animation:bob 3.2s ease-in-out infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes bob{50%{transform:translateY(-5px)}}
+#pod .hull{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#pod .beam{opacity:.25}#pod.live .beam{animation:beam 1.4s ease-in-out infinite alternate}
+@keyframes beam{from{opacity:.15}to{opacity:.6}}
+#pod.live .cup{animation:lt .9s steps(1) infinite}#pod .eye{transform-box:fill-box;transform-origin:center}#pod.live .eye{animation:blink 4s infinite}#pod .lt{opacity:.35}#pod.live .lt{animation:lt .9s steps(1) infinite}
+#pod.live .lt:nth-of-type(2){animation-delay:-.18s}#pod.live .lt:nth-of-type(3){animation-delay:-.36s}#pod.live .lt:nth-of-type(4){animation-delay:-.54s}#pod.live .lt:nth-of-type(5){animation-delay:-.72s}
+@keyframes lt{50%{opacity:1}}
+#pod .sc{position:absolute;left:-12px;top:91px;width:164px;height:37px;padding:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;text-shadow:0 0 3px #000,0 0 3px #000}#pod .l1,#pod .l2{max-width:100%}
+#pod .l1{font-size:11px;font-weight:bold;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#pod .l2{font-size:8px;color:var(--c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pod .eq{margin-top:auto;width:70px;display:flex;gap:2px;align-items:flex-end;height:6px}#pod .eq i{flex:1;background:var(--c);height:1px;opacity:.7}
+#pod.live .eq i{animation:eq .7s ease-in-out infinite alternate}#pod.live .eq i:nth-child(2){animation-delay:-.2s}#pod.live .eq i:nth-child(3){animation-delay:-.45s}#pod.live .eq i:nth-child(4){animation-delay:-.1s}#pod.live .eq i:nth-child(5){animation-delay:-.35s}
+@keyframes eq{from{height:1px}to{height:6px}}
+#pod button{position:absolute;width:18px;height:18px;min-height:0;padding:0;border:1px solid var(--dim);border-radius:50%;background:rgba(var(--dk),.9);box-shadow:none;color:var(--c);font-size:7px;line-height:1;display:grid;place-items:center}
+#pod .d.y{color:#ff4d6d;border-color:#ff4d6d;text-shadow:0 0 5px #ff4d6d}#pod button:hover{color:#fff;border-color:var(--m);box-shadow:none}
+#pod .a{left:11px;top:60px}#pod .u{left:34px;top:64px}#pod .c{left:56px;top:58px;width:28px;height:28px;font-size:10px;border-color:var(--c)}#pod .d{left:88px;top:64px}#pod .b{left:111px;top:60px}
+@media(max-width:559px){#pod{top:calc(150px + env(safe-area-inset-top,0px));left:10px}}
+@media(prefers-reduced-motion:reduce){#pod.live,#pod.live .beam,#pod.live .lt,#pod.live .cup,#pod.live .eq i{animation:none}}
+.rtl #panel h2,.rtl #tx h3,.rtl #boot .bt,.rtl #tn .tt,.rtl .st,.rtl #panel .empty{letter-spacing:0}
+.zb{position:fixed;left:14px;top:60px;display:flex;flex-direction:column;gap:6px;z-index:5}
+@media(max-width:899px){#q{font-size:16px}}
+@media(pointer:coarse){button{min-height:40px}.st{padding:12px}}
+@media(min-width:560px) and (max-width:899px){#top{flex-wrap:wrap;gap:6px}#menu,#gpop{top:calc(100px + env(safe-area-inset-top,0px))}#panel{width:260px;top:calc(108px + env(safe-area-inset-top,0px));max-height:calc(100% - 210px)}#hud,#vis{display:none}#vol{width:70px}}
+@media(max-width:559px){#top{flex-wrap:wrap;gap:6px}h1{font-size:15px;flex:1}#q{order:5;flex:1 0 100%;max-width:none}#rnd,#fav,#hb,#gb,#pt,#mn{order:6;flex:1}#menu,#gpop{top:calc(130px + env(safe-area-inset-top,0px));left:10px;right:10px}.zb{top:150px;left:auto;right:10px}#panel{left:0;right:0;width:auto;top:auto;bottom:calc(96px + env(safe-area-inset-bottom,0px));max-height:34%;border-width:1px 0 0;clip-path:none}#panel.min{max-height:40px;overflow:hidden}#panel h2::before{content:"";display:block;width:36px;height:3px;background:var(--dim);margin:0 auto 6px}#hud,#vis,#vol{display:none}#bar{gap:10px}}
+@supports(height:100dvh){html,body{height:100dvh}}
+html,body{width:100%}
+@media(prefers-reduced-motion:reduce){h1,#tx h3,#tx .box,h1::after,#tn pre::after,.empty .cur{animation:none}}
+#pw,#ip{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:18px}#pw.on,#ip.on{display:flex}
+.pwc{width:min(340px,100%);max-height:90%;overflow:auto;border:1px solid var(--c);background:var(--bk);box-shadow:0 0 24px rgba(var(--cr),.25);padding:16px}
+.pwc h3{margin:0 0 6px;color:var(--c);letter-spacing:.12em;font-size:15px}.pwc p{color:var(--dim);margin:4px 0}.pwc ul{list-style:none;padding:0;margin:12px 0}.pwc li{margin:5px 0}.pwc li:before{content:'> ';color:var(--c)}
+.pwc button{display:block;width:100%;margin-top:8px}.pwc button:disabled{opacity:.5}#pwm{min-height:1.3em;text-align:center}
+#ig{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}.ico{padding:0!important;margin:0!important;border:1px solid var(--dim);background:none;color:var(--m);font-size:10px;text-align:center}.ico img{display:block;width:100%;border-radius:20%}.ico span{display:block;padding:3px 0}.ico.on{border-color:var(--c);box-shadow:0 0 8px rgba(var(--cr),.5)}
+/* compact settings menu: two columns, tighter rows */
+#menu{grid-template-columns:1fr 1fr;gap:4px;padding:6px;min-width:0;width:min(300px,calc(100vw - 24px))}#menu.on{display:grid}
+#menu button{padding:5px 6px;font-size:11px;line-height:1.2;min-height:0}
+#menu .gl,#menu #rm,#menu #am,#menu #apl,#menu #pro,#menu #ic{grid-column:1/-1}
+/* tidy menu */
+#menu{text-align:center}
+#menu button{display:flex;align-items:center;justify-content:center;text-align:center}
+#menu .gl{justify-content:center}#menu .gl>span{flex:0 0 auto}
+#menu select{text-align:center;text-align-last:center}
+#menu #am{text-align:center}
+#menu #sl{grid-column:1/-1}
+#menu #dl,#menu #lk{grid-column:1/-1}#menu #dl{font-weight:700;letter-spacing:.06em;border-color:var(--c)}#menu #dl:disabled{opacity:.6;cursor:default}
+#lk{display:flex;justify-content:center;gap:14px;font-size:10px;letter-spacing:.08em;padding-top:2px}#lk a{color:var(--dim);text-decoration:underline;text-underline-offset:2px}#lk a:hover{color:var(--c)}
+#menu #pro{font-weight:700;letter-spacing:.08em;border-color:var(--c)}#menu #rm:empty{display:none}
+#menu .gl{font-size:11px;gap:6px}#menu .gl button{flex:0 0 38px}#menu select{flex:1;min-width:0;padding:3px;font-size:11px}#menu #am{font-size:10px;max-width:none}
+/* phone portrait: give the station name the room, buttons hug the right edge, status tag moves to a small tab above the bar */
+@media(max-width:559px){
+#bar{padding-left:10px;padding-right:8px;gap:6px}
+#bf,#sh{width:34px;height:40px}#bar #mn{padding:6px 7px;flex:none}
+#np .n{font-size:14px}
+#st{position:absolute;right:10px;top:-19px;font-size:10px;line-height:1;padding:3px 6px;background:rgba(0,0,0,.88);border:1px solid var(--dim);border-bottom:0;color:var(--m)}
+}
+</style><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head><body>
+<canvas id="rain"></canvas>
+<canvas id="g"></canvas>
+<div id="top"><h1>E4RTH R4DIO</h1><input id="q" placeholder="se4rch ind3x" data-i18n-attr="placeholder:search" autocomplete="off"><button id="rnd" title="Shuffle" aria-label="Shuffle" data-i18n-attr="title:shuffle,aria-label:shuffle"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></button><button id="fav" title="Favorites" aria-label="Favorites" data-i18n-attr="title:favorites,aria-label:favorites"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></button><button id="hb" title="History" aria-label="History" data-i18n-attr="title:history,aria-label:history"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></button><button id="gb" title="Genre" aria-label="Genre filter" aria-haspopup="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg></button><button id="pt" class="on" title="Show or hide the station list" aria-label="Show or hide the station list" data-i18n-attr="title:togglePanel,aria-label:togglePanel"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg></button></div>
+<div id="gpop" role="menu"><div class="gh" data-i18n="genre">Genre</div><div id="gc"></div></div>
+<div id="menu"><button id="ix" title="Random incoming transmissions" data-i18n-attr="title:interceptTip">Intercept: ON</button><button id="ar">Rotation: ON</button><button id="rx">Audio reactive: OFF</button><button id="sb">Satellite: OFF</button><button id="pb">Mini player: OFF</button><button id="th"></button><button id="sl">Sleep timer: OFF</button><label class="gl"><span data-i18n="dotGlow">Dot glow</span> <input id="glw" type="range" min="0" max="100" value="35" aria-label="Dot glow" data-i18n-attr="aria-label:dotGlow"></label><label class="gl"><span data-i18n="language">Language</span> <select id="lg" aria-label="Language" data-i18n-attr="aria-label:language"></select></label><button id="ic" hidden></button><button id="pro" hidden></button><button id="apl" hidden>Sign in with Apple</button><div id="am"></div><button id="dl" hidden></button><div id="lk"><a href="https://e4rth.net/support/" target="_blank" rel="noopener" data-i18n="lnkSupport">Support</a><a href="https://e4rth.net/privacy/" target="_blank" rel="noopener" data-i18n="lnkPrivacy">Privacy</a><a href="https://e4rth.net/terms/" target="_blank" rel="noopener" data-i18n="lnkTerms">Terms</a></div></div>
+<div id="pw" role="dialog" aria-modal="true"><div class="pwc"><h3 data-i18n="proTitle">E4RTH R4DIO M4X</h3><p data-i18n="proTag">One-time purchase. No subscription.</p><ul><li data-i18n="proF1">Alternate app icons</li><li data-i18n="proF2">Spaceship mini player controls</li><li data-i18n="proF3">Audio-reactive glow, satellites and visualizer</li><li data-i18n="proF4">All genre filters</li><li data-i18n="proF5">Unlimited favorites</li><li data-i18n="proF6">Red colorway</li></ul><button id="pwb"></button><button id="pwr" data-i18n="proRestore">Restore purchase</button><button id="pwx" data-i18n="proClose">Not now</button><p id="pwm"></p></div></div>
+<div id="ip" role="dialog" aria-modal="true"><div class="pwc"><h3 data-i18n="appIcon">App icon</h3><div id="ig"></div><button id="ipx" data-i18n="proClose">Not now</button></div></div>
+<div id="tn" aria-hidden="true"><div class="tt" data-i18n="ttyTitle">tty0 // TUNING</div><pre><span id="tnn"></span>
+<span id="tno"></span>
+<span id="tnb"></span>
+<span id="tns"></span></pre></div>
+<div id="boot" role="status" aria-live="polite"><div class="bx"><div class="bt" data-i18n="launchTitle">E4RTH R4DIO // LAUNCH SEQUENCE</div><pre id="bl"></pre><pre id="bp"></pre><button id="br" hidden data-i18n="retry">Retry</button></div></div>
+<div id="sat" aria-hidden="true"><div id="sati"><svg viewBox="0 0 100 100" width="100%" height="100%" fill="rgba(0,20,5,.92)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--c)"><path d="M36 50h4M60 50h4M50 62v13" fill="none"/><rect x="5" y="41" width="31" height="18"/><rect x="64" y="41" width="31" height="18"/><path d="M15.3 41v18M25.6 41v18M5 50h31M74.3 41v18M84.6 41v18M64 50h31" fill="none" stroke-width="1.4"/><rect x="40" y="38" width="20" height="24" rx="2"/><path d="M45 46h10M45 54h10" fill="none" stroke-width="1.4"/><path d="M50 38v-5"/><path d="M38 31c6 8 18 8 24 0Z"/><circle cx="50" cy="22" r="2.2" stroke="none" style="fill:var(--c)"/><path d="M50 31v-7" fill="none" stroke-width="1.6"/><circle cx="50" cy="78" r="2.4" stroke="none" style="fill:var(--c)"/><path d="M42 15c5-5 11-5 16 0" fill="none" style="opacity:var(--lv,0)"/><path d="M35 9c8-8 22-8 30 0" fill="none" style="opacity:var(--lv,0)"/></svg></div></div>
+<div id="tip"></div><div id="toast" role="status"></div>
+<div id="pod" aria-label="Mini player"><svg class="hull" viewBox="0 0 140 128" aria-hidden="true"><defs><linearGradient id="bm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-opacity=".55" style="stop-color:var(--c)"/><stop offset="1" stop-opacity="0" style="stop-color:var(--c)"/></linearGradient></defs><polygon class="beam" points="54,88 86,88 112,127 28,127" fill="url(#bm)"/><path d="M34 54C34 6 106 6 106 54Z" stroke-width="1.2" style="fill:rgba(var(--tn),.35);stroke:var(--c)"/><g class="alien" transform="translate(70 52) scale(.82) translate(-70 -52)"><path d="M70 12C56 12 53 28 57 38C60 45 65 49 70 49C75 49 80 45 83 38C87 28 84 12 70 12Z" stroke-width="1" style="fill:var(--hd);stroke:var(--c)"/><path class="eye" d="M58 27C62 26 67 30 68 36C63 36 59 32 58 27Z" fill="#000" stroke-width=".7" style="stroke:var(--m)"/><path class="eye" d="M82 27C78 26 73 30 72 36C77 36 81 32 82 27Z" fill="#000" stroke-width=".7" style="stroke:var(--m)"/><circle cx="63" cy="31" r="1.1" style="fill:var(--m)"/><circle cx="77" cy="31" r="1.1" style="fill:var(--m)"/><path d="M67 43H73" stroke-width=".8" fill="none" style="stroke:var(--c)"/><path d="M52 31C49 0 91 0 88 31" fill="none" stroke-width="2.6" stroke-linecap="round" style="stroke:var(--c)"/><path d="M52 31C49 0 91 0 88 31" fill="none" stroke-width="1" stroke-linecap="round" style="stroke:var(--bk)"/><rect class="cup" x="46" y="24" width="10" height="18" rx="4" stroke-width="1.3" style="fill:var(--bk);stroke:var(--c)"/><rect class="cup" x="84" y="24" width="10" height="18" rx="4" stroke-width="1.3" style="fill:var(--bk);stroke:var(--c)"/><path d="M49.5 29V37M90.5 29V37" stroke-width="1" stroke-linecap="round" style="stroke:var(--dim)"/></g><ellipse cx="70" cy="68" rx="66" ry="22" stroke-width="1.4" style="fill:var(--bk);stroke:var(--c)"/><ellipse cx="70" cy="68" rx="50" ry="14" fill="none" stroke-width=".8" style="stroke:var(--dim)"/><circle class="lt" cx="24" cy="79" r="1.8" style="fill:var(--m)"/><circle class="lt" cx="46" cy="87" r="1.8" style="fill:var(--m)"/><circle class="lt" cx="70" cy="90" r="1.8" style="fill:var(--m)"/><circle class="lt" cx="94" cy="87" r="1.8" style="fill:var(--m)"/><circle class="lt" cx="116" cy="79" r="1.8" style="fill:var(--m)"/><path d="M70 6V0M66 0h8" stroke-width="1" fill="none" style="stroke:var(--c)"/></svg><div class="sc"><div class="l1"></div><div class="l2"></div><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div><button class="u" id="pu" aria-label="Shuffle" data-i18n-attr="aria-label:shuffle">&#8644;</button><button class="d" id="pd" aria-label="Favorite" data-i18n-attr="aria-label:favThis">&#9825;</button><button class="a" id="pa" aria-label="Previous" data-i18n-attr="aria-label:prev">&#9664;&#9664;</button><button class="b" id="pn" aria-label="Next" data-i18n-attr="aria-label:next">&#9654;&#9654;</button><button class="c" id="pc" aria-label="Play or stop" data-i18n-attr="aria-label:playStop">&#9654;</button></div>
+
+<div id="hud"><span data-i18n="region">Region</span> <b id="ctry">-</b><br><span data-i18n="signals">Signals</span> <b id="cnt">scanning...</b></div>
+<div id="panel"><h2>&gt; SYSTEM ONLINE</h2><div class="empty">&gt; DRAG TO ROTATE THE GRID<br>&gt; SELECT A GREEN SIGNAL TO JACK IN<br>&gt; SHUFFLE FOR A RANDOM FREQUENCY<span class="cur">_</span></div></div>
+<div id="tx" role="alertdialog" aria-live="assertive" aria-label="Incoming transmission" data-i18n-attr="aria-label:txTitle"><div class="box"><h3>&#9650; <span data-i18n="txTitle">INCOMING TRANSMISSION</span></h3><div class="row"><span data-i18n="txOrigin">ORIGIN</span> <b id="txo">-</b></div><div class="row"><span data-i18n="txFreq">FREQ</span> <b id="txf">-</b></div><div class="row"><span data-i18n="txSignal">SIGNAL</span> <b id="txs">-</b></div><div class="row"><span data-i18n="txEnc">ENCRYPTION</span> <b data-i18n="txNone">NONE</b></div><div class="bt"><button id="acc" data-i18n="accept">Accept</button><button id="rej" data-i18n="reject">Reject</button></div><div class="tm"><i></i></div></div></div>
+<div id="mus"><div id="mq"></div><button data-s="spotify">Spotify</button><button data-s="yt">YouTube</button><button data-s="apple">Apple Music</button></div>
+<div id="bar"><canvas id="bgv" aria-hidden="true"></canvas><button id="play" aria-label="Play or stop" data-i18n-attr="aria-label:playStop">&#9654;</button><div id="np"><div class="n" data-i18n="noSignal">No signal</div><div class="s" data-i18n="pickStation">Pick a station</div></div><button id="bf" title="Add this station to favorites" aria-label="Favorite this station" data-i18n-attr="title:favThis,aria-label:favThis"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></button><button id="sh" title="Share" aria-label="Share" data-i18n-attr="title:share,aria-label:share"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v14"/></svg></button><button id="mn" title="Settings" aria-label="Settings" aria-haspopup="true" data-i18n-attr="title:settings,aria-label:settings">&#9881;</button><span id="st">IDLE</span><canvas id="vis" width="220" height="64"></canvas></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-geo@3.1.0/dist/d3-geo.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+/* colorway: the CSS variables drive the page, TH mirrors them for the canvases */
+const TH={c:'#00ff41',m:'#b6ffc8',dim:'#0b7a2a',cr:'0,255,65',mr:'182,255,200',dk:'0,12,3'};
+
+if(typeof d3==='undefined'||typeof topojson==='undefined'){document.body.insertAdjacentHTML('beforeend','<div style="position:fixed;inset:0;display:grid;place-items:center;z-index:99;text-align:center;padding:20px">Could not load the globe libraries (d3 / topojson from cdn.jsdelivr.net).<br>Open this file in a normal browser tab with internet access.</div>');throw new Error('libs missing')}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* ---------- languages ---------- */
+const I18N={
+en:{search:"se4rch ind3x",shuffle:"Shuffle",favorites:"Favorites",history:"History",genre:"Genre",genreFilter:"Genre filter",genreTitle:"Genre: {g}",genreFilterOn:"Genre filter: {g}",togglePanel:"Show or hide the station list",settings:"Settings",all:"All",
+intercept:"Intercept",interceptTip:"Random incoming transmissions",rotation:"Rotation",audioReactive:"Audio reactive",satellite:"Satellite",on:"ON",off:"OFF",dotGlow:"Dot glow",zoom:"Zoom",zoomIn:"Zoom in",zoomOut:"Zoom out",language:"Language",share:"Share",linkCopied:"Link copied",miniPlayer:"Mini player",prev:"Previous",next:"Next",
+signIn:"Sign in with Apple",signedInAs:"Signed in as {n} - sign out",signedIn:"Signed in - sign out",acctSaved:"Favorites and history are saved to your account.",acctPrompt:"Sign in to keep favorites and history.",acctIos:"Sign in is available in the iOS app.",
+rxLive:"Reacting to live audio.",rxSim:"Simulated pulse (this stream blocks audio analysis).",
+ttyTitle:"tty0 // TUNING",launchTitle:"E4RTH R4DIO // LAUNCH SEQUENCE",retry:"Retry",region:"Region",signals:"Signals",
+sysOnline:"SYSTEM ONLINE",intro1:"DRAG TO ROTATE THE GRID",intro2:"SELECT A GREEN SIGNAL TO JACK IN",intro3:"SHUFFLE FOR A RANDOM FREQUENCY",
+txTitle:"INCOMING TRANSMISSION",txOrigin:"ORIGIN",txFreq:"FREQ",txSignal:"SIGNAL",txEnc:"ENCRYPTION",txNone:"NONE",accept:"Accept",reject:"Reject",
+getIos:"Get the iOS app",iosSoon:"iOS app: coming soon",lnkSupport:"Support",lnkPrivacy:"Privacy",lnkTerms:"Terms",noSignal:"No signal",pickStation:"Pick a station",proTitle:"E4RTH R4DIO M4X",proTag:"One-time purchase. No subscription.",proF1:"Alternate app icons",proF2:"Spaceship mini player controls",proF3:"Audio-reactive glow, satellites and visualizer",proF4:"All genre filters",proF5:"Unlimited favorites",proBuy:"Unlock M4X for {p}",proRestore:"Restore purchase",proClose:"Not now",proOn:"M4X unlocked. Thank you!",proBusy:"Talking to the App Store...",proFail:"Purchase did not complete.",proPending:"Purchase pending approval.",proMenu:"Unlock M4X",proMenuOn:"M4X: unlocked",proLock:"[M4X]",appIcon:"App icon",iconDone:"Icon changed.",favLimit:"Free version: up to {n} favorites. Unlock M4X for unlimited.",colorway:"Colorway",themeGreen:"Green",themeRed:"Red",proF6:"Red colorway",sleepTimer:"Sleep timer",playStop:"Play or stop",favThis:"Add this station to favorites",
+stIdle:"IDLE",stTuning:"TUNING",stLive:"LIVE",stBuffer:"BUFFER",stDead:"DEAD",stTap:"TAP PLAY",stTimeout:"TIMEOUT",
+tnLock:"LOCK",tnOrigin:"ORIGIN",tnStatus:"STATUS",tnHandshake:"HANDSHAKE",tnLocked:"LOCKED",tnLost:"SIGNAL LOST",unknown:"UNKNOWN",
+bInit:"INITIALIZING GRID",bCal:"CALIBRATING ANTENNA ARRAY",bScan:"SCANNING RELAY MIRRORS",bLink:"LINK {m} ESTABLISHED",bDecode:"DECODING SIGNALS: {n}",bIndex:"INDEXING TRANSMISSIONS",bAcq:"SIGNALS ACQUIRED: {n}",bFail:"LINK FAILED: {m}",bCheck:"CHECK CONNECTION AND RETRY",
+cScan:"scanning...",cCached:"{n} cached",cCachedUpd:"{n} cached, updating...",cLoading:"{n} loading...",cLive:"{n} live",cOffline:"offline - {m}",
+nStations:"{n} stations",savedN:"{n} saved",foundN:"{n} found",searchTitle:"Search",clearHist:"Clear history",noSigTitle:"> NO SIGNAL",noSigFound:"> NO SIGNAL FOUND. TRY ANOTHER SECTOR.",noLog:"> NO TRANSMISSIONS LOGGED.",approx:"approx. location",notLoaded:"Station list not loaded",stillLoading:"Still loading, try again in a few seconds.",noneReceived:"No stations received.",loadingDots:"Loading...",ready:"Ready",genreOff:"Genre filter off",
+agoNow:"just now",agoM:"{n}m ago",agoH:"{n}h ago",agoD:"{n}d ago",
+tipOne:"{n} STATION",tipMany:"{n} STATIONS",moreN:"+{n} MORE",findSong:"Find this song",
+gn_pop:"Pop",gn_rock:"Rock",gn_metal:"Metal",gn_alt:"Alternative",gn_elec:"Electronic",gn_hiphop:"Hip-hop",gn_jazz:"Jazz & blues",gn_class:"Classical",gn_news:"News & talk",gn_amb:"Ambient",gn_country:"Country & folk",gn_latin:"Latin",gn_world:"Reggae & world",gn_oldies:"Oldies & soul",gn_faith:"Faith"},
+
+zh:{search:"搜索索引",shuffle:"随机",favorites:"收藏",history:"历史",genre:"流派",genreFilter:"流派筛选",genreTitle:"流派：{g}",genreFilterOn:"流派筛选：{g}",togglePanel:"显示或隐藏电台列表",settings:"设置",all:"全部",
+intercept:"拦截",interceptTip:"随机来电信号",rotation:"自转",audioReactive:"音频响应",satellite:"卫星",on:"开",off:"关",dotGlow:"光点亮度",zoom:"缩放",zoomIn:"放大",zoomOut:"缩小",language:"语言",share:"分享",linkCopied:"已复制链接",miniPlayer:"迷你播放器",prev:"上一个",next:"下一个",
+signIn:"使用 Apple 登录",signedInAs:"已登录：{n}（点击退出）",signedIn:"已登录（点击退出）",acctSaved:"收藏和历史记录已保存到你的账户。",acctPrompt:"登录以保存收藏和历史记录。",acctIos:"仅 iOS 应用支持登录。",
+rxLive:"正在响应实时音频。",rxSim:"模拟脉冲（此电台不允许音频分析）。",
+ttyTitle:"tty0 // 调谐中",launchTitle:"E4RTH R4DIO // 启动序列",retry:"重试",region:"地区",signals:"信号",
+sysOnline:"系统在线",intro1:"拖动以旋转网格",intro2:"选择绿色信号接入",intro3:"点击随机按钮切换到随机频率",
+txTitle:"来电信号",txOrigin:"来源",txFreq:"频率",txSignal:"信号",txEnc:"加密",txNone:"无",accept:"接听",reject:"拒绝",
+getIos:"获取 iOS 应用",iosSoon:"iOS 应用即将推出",lnkSupport:"支持",lnkPrivacy:"隐私",lnkTerms:"条款",noSignal:"无信号",pickStation:"选择电台",proTitle:"E4RTH R4DIO M4X",proTag:"一次性购买，无需订阅。",proF1:"备用应用图标",proF2:"飞船迷你播放器控制按钮",proF3:"随音乐律动的光效、卫星和频谱",proF4:"全部流派筛选",proF5:"无限收藏",proBuy:"以 {p} 解锁 M4X",proRestore:"恢复购买",proClose:"暂不",proOn:"M4X 已解锁，谢谢！",proBusy:"正在连接 App Store…",proFail:"购买未完成。",proPending:"购买等待批准中。",proMenu:"解锁 M4X",proMenuOn:"M4X：已解锁",proLock:"[M4X]",appIcon:"应用图标",iconDone:"图标已更改。",favLimit:"免费版最多 {n} 个收藏。解锁 M4X 即可无限收藏。",colorway:"配色",themeGreen:"绿色",themeRed:"红色",proF6:"红色配色",sleepTimer:"睡眠定时",playStop:"播放或停止",favThis:"收藏此电台",
+stIdle:"空闲",stTuning:"调谐中",stLive:"直播",stBuffer:"缓冲",stDead:"无响应",stTap:"点按播放",stTimeout:"超时",
+tnLock:"锁定",tnOrigin:"来源",tnStatus:"状态",tnHandshake:"握手",tnLocked:"已锁定",tnLost:"信号丢失",unknown:"未知",
+bInit:"初始化网格",bCal:"校准天线阵列",bScan:"扫描中继镜像",bLink:"链路 {m} 已建立",bDecode:"解码信号：{n}",bIndex:"索引传输",bAcq:"已获取信号：{n}",bFail:"链路失败：{m}",bCheck:"请检查网络连接后重试",
+cScan:"扫描中...",cCached:"已缓存 {n}",cCachedUpd:"已缓存 {n}，更新中...",cLoading:"加载中 {n}...",cLive:"{n} 在线",cOffline:"离线 - {m}",
+nStations:"{n} 个电台",savedN:"已收藏 {n}",foundN:"找到 {n}",searchTitle:"搜索",clearHist:"清除历史",noSigTitle:"> 无信号",noSigFound:"> 未找到信号。请尝试其他区域。",noLog:"> 暂无传输记录。",approx:"大致位置",notLoaded:"电台列表未加载",stillLoading:"仍在加载，请几秒后重试。",noneReceived:"未收到电台。",loadingDots:"加载中...",ready:"就绪",genreOff:"已关闭流派筛选",
+agoNow:"刚刚",agoM:"{n} 分钟前",agoH:"{n} 小时前",agoD:"{n} 天前",
+tipOne:"{n} 个电台",tipMany:"{n} 个电台",moreN:"另有 {n} 个",findSong:"查找这首歌",
+gn_pop:"流行",gn_rock:"摇滚",gn_metal:"金属",gn_alt:"另类",gn_elec:"电子",gn_hiphop:"嘻哈",gn_jazz:"爵士与蓝调",gn_class:"古典",gn_news:"新闻与谈话",gn_amb:"氛围",gn_country:"乡村与民谣",gn_latin:"拉丁",gn_world:"雷鬼与世界音乐",gn_oldies:"怀旧与灵魂乐",gn_faith:"宗教"},
+
+es:{search:"búsqueda",shuffle:"Aleatorio",favorites:"Favoritos",history:"Historial",genre:"Género",genreFilter:"Filtro de género",genreTitle:"Género: {g}",genreFilterOn:"Filtro de género: {g}",togglePanel:"Mostrar u ocultar la lista de emisoras",settings:"Ajustes",all:"Todos",
+intercept:"Intercepción",interceptTip:"Transmisiones entrantes aleatorias",rotation:"Rotación",audioReactive:"Reactivo al audio",satellite:"Satélite",on:"ON",off:"OFF",dotGlow:"Brillo de puntos",zoom:"Zoom",zoomIn:"Acercar",zoomOut:"Alejar",language:"Idioma",share:"Compartir",linkCopied:"Enlace copiado",miniPlayer:"Minirreproductor",prev:"Anterior",next:"Siguiente",
+signIn:"Iniciar sesión con Apple",signedInAs:"Sesión iniciada como {n} - cerrar sesión",signedIn:"Sesión iniciada - cerrar sesión",acctSaved:"Los favoritos y el historial se guardan en tu cuenta.",acctPrompt:"Inicia sesión para conservar favoritos e historial.",acctIos:"El inicio de sesión solo está disponible en la app de iOS.",
+rxLive:"Reaccionando al audio en vivo.",rxSim:"Pulso simulado (esta emisora bloquea el análisis de audio).",
+ttyTitle:"tty0 // SINTONIZANDO",launchTitle:"E4RTH R4DIO // SECUENCIA DE LANZAMIENTO",retry:"Reintentar",region:"Región",signals:"Señales",
+sysOnline:"SISTEMA EN LÍNEA",intro1:"ARRASTRA PARA GIRAR LA CUADRÍCULA",intro2:"ELIGE UNA SEÑAL VERDE PARA CONECTARTE",intro3:"USA ALEATORIO PARA UNA FRECUENCIA AL AZAR",
+txTitle:"TRANSMISIÓN ENTRANTE",txOrigin:"ORIGEN",txFreq:"FREC",txSignal:"SEÑAL",txEnc:"CIFRADO",txNone:"NINGUNO",accept:"Aceptar",reject:"Rechazar",
+getIos:"Descargar en iOS",iosSoon:"App iOS: próximamente",lnkSupport:"Soporte",lnkPrivacy:"Privacidad",lnkTerms:"Términos",noSignal:"Sin señal",pickStation:"Elige una emisora",proTitle:"E4RTH R4DIO M4X",proTag:"Compra única. Sin suscripción.",proF1:"Iconos de app alternativos",proF2:"Controles del minirreproductor nave espacial",proF3:"Brillo, satélites y visualizador al ritmo de la música",proF4:"Todos los filtros de género",proF5:"Favoritos ilimitados",proBuy:"Desbloquear M4X por {p}",proRestore:"Restaurar compra",proClose:"Ahora no",proOn:"¡M4X desbloqueado! Gracias.",proBusy:"Conectando con la App Store…",proFail:"La compra no se completó.",proPending:"Compra pendiente de aprobación.",proMenu:"Desbloquear M4X",proMenuOn:"M4X: desbloqueado",proLock:"[M4X]",appIcon:"Icono de la app",iconDone:"Icono cambiado.",favLimit:"Versión gratuita: hasta {n} favoritos. Desbloquea M4X para ilimitados.",colorway:"Colores",themeGreen:"Verde",themeRed:"Rojo",proF6:"Paleta roja",sleepTimer:"Temporizador",playStop:"Reproducir o detener",favThis:"Añadir esta emisora a favoritos",
+stIdle:"INACTIVO",stTuning:"SINTONIZANDO",stLive:"EN VIVO",stBuffer:"BÚFER",stDead:"SIN SEÑAL",stTap:"TOCA REPRODUCIR",stTimeout:"TIEMPO AGOTADO",
+tnLock:"FIJAR",tnOrigin:"ORIGEN",tnStatus:"ESTADO",tnHandshake:"ENLACE",tnLocked:"FIJADO",tnLost:"SEÑAL PERDIDA",unknown:"DESCONOCIDO",
+bInit:"INICIALIZANDO CUADRÍCULA",bCal:"CALIBRANDO MATRIZ DE ANTENAS",bScan:"ESCANEANDO RETRANSMISORES",bLink:"ENLACE {m} ESTABLECIDO",bDecode:"DECODIFICANDO SEÑALES: {n}",bIndex:"INDEXANDO TRANSMISIONES",bAcq:"SEÑALES ADQUIRIDAS: {n}",bFail:"ENLACE FALLIDO: {m}",bCheck:"REVISA LA CONEXIÓN Y REINTENTA",
+cScan:"escaneando...",cCached:"{n} en caché",cCachedUpd:"{n} en caché, actualizando...",cLoading:"{n} cargando...",cLive:"{n} en vivo",cOffline:"sin conexión - {m}",
+nStations:"{n} emisoras",savedN:"{n} guardadas",foundN:"{n} encontradas",searchTitle:"Búsqueda",clearHist:"Borrar historial",noSigTitle:"> SIN SEÑAL",noSigFound:"> NO SE ENCONTRÓ SEÑAL. PRUEBA OTRO SECTOR.",noLog:"> SIN TRANSMISIONES REGISTRADAS.",approx:"ubicación aprox.",notLoaded:"Lista de emisoras no cargada",stillLoading:"Aún cargando, inténtalo de nuevo en unos segundos.",noneReceived:"No se recibieron emisoras.",loadingDots:"Cargando...",ready:"Listo",genreOff:"Filtro de género desactivado",
+agoNow:"ahora mismo",agoM:"hace {n} min",agoH:"hace {n} h",agoD:"hace {n} d",
+tipOne:"{n} EMISORA",tipMany:"{n} EMISORAS",moreN:"+{n} MÁS",findSong:"Buscar esta canción",
+gn_pop:"Pop",gn_rock:"Rock",gn_metal:"Metal",gn_alt:"Alternativo",gn_elec:"Electrónica",gn_hiphop:"Hip-hop",gn_jazz:"Jazz y blues",gn_class:"Clásica",gn_news:"Noticias y charla",gn_amb:"Ambiental",gn_country:"Country y folk",gn_latin:"Latina",gn_world:"Reggae y mundo",gn_oldies:"Oldies y soul",gn_faith:"Fe"},
+
+ar:{search:"فهرس البحث",shuffle:"عشوائي",favorites:"المفضلة",history:"السجل",genre:"النوع",genreFilter:"تصفية النوع",genreTitle:"النوع: {g}",genreFilterOn:"تصفية النوع: {g}",togglePanel:"إظهار قائمة المحطات أو إخفاؤها",settings:"الإعدادات",all:"الكل",
+intercept:"الاعتراض",interceptTip:"إرسال وارد عشوائي",rotation:"الدوران",audioReactive:"تفاعل مع الصوت",satellite:"القمر الصناعي",on:"تشغيل",off:"إيقاف",dotGlow:"توهج النقاط",zoom:"التكبير",zoomIn:"تكبير",zoomOut:"تصغير",language:"اللغة",share:"مشاركة",linkCopied:"تم نسخ الرابط",miniPlayer:"مشغّل مصغّر",prev:"السابق",next:"التالي",
+signIn:"تسجيل الدخول باستخدام Apple",signedInAs:"تم تسجيل الدخول باسم {n} - تسجيل الخروج",signedIn:"تم تسجيل الدخول - تسجيل الخروج",acctSaved:"يتم حفظ المفضلة والسجل في حسابك.",acctPrompt:"سجّل الدخول للاحتفاظ بالمفضلة والسجل.",acctIos:"تسجيل الدخول متاح في تطبيق iOS فقط.",
+rxLive:"يتفاعل مع الصوت المباشر.",rxSim:"نبض محاكى (هذه المحطة تمنع تحليل الصوت).",
+ttyTitle:"tty0 // ضبط التردد",launchTitle:"E4RTH R4DIO // تسلسل الإطلاق",retry:"إعادة المحاولة",region:"المنطقة",signals:"الإشارات",
+sysOnline:"النظام متصل",intro1:"اسحب لتدوير الشبكة",intro2:"اختر إشارة خضراء للاتصال",intro3:"اضغط عشوائي لتردد عشوائي",
+txTitle:"إرسال وارد",txOrigin:"المصدر",txFreq:"التردد",txSignal:"الإشارة",txEnc:"التشفير",txNone:"لا يوجد",accept:"قبول",reject:"رفض",
+getIos:"احصل على تطبيق iOS",iosSoon:"تطبيق iOS قريبًا",lnkSupport:"الدعم",lnkPrivacy:"الخصوصية",lnkTerms:"الشروط",noSignal:"لا توجد إشارة",pickStation:"اختر محطة",proTitle:"E4RTH R4DIO M4X",proTag:"عملية شراء لمرة واحدة. بدون اشتراك.",proF1:"أيقونات بديلة للتطبيق",proF2:"أزرار التحكم في المشغّل المصغّر",proF3:"توهج وأقمار ومرئيات تتفاعل مع الصوت",proF4:"جميع مرشّحات النوع",proF5:"مفضلات غير محدودة",proBuy:"افتح M4X مقابل {p}",proRestore:"استعادة الشراء",proClose:"ليس الآن",proOn:"تم فتح M4X. شكرًا لك!",proBusy:"جارٍ الاتصال بـ App Store…",proFail:"لم تكتمل عملية الشراء.",proPending:"الشراء بانتظار الموافقة.",proMenu:"افتح M4X",proMenuOn:"M4X: مفعّل",proLock:"[M4X]",appIcon:"أيقونة التطبيق",iconDone:"تم تغيير الأيقونة.",favLimit:"النسخة المجانية: حتى {n} مفضلات. افتح M4X للحصول على عدد غير محدود.",colorway:"نمط الألوان",themeGreen:"أخضر",themeRed:"أحمر",proF6:"نمط الألوان الأحمر",sleepTimer:"مؤقت النوم",playStop:"تشغيل أو إيقاف",favThis:"أضف هذه المحطة إلى المفضلة",
+stIdle:"خامل",stTuning:"ضبط",stLive:"مباشر",stBuffer:"تخزين مؤقت",stDead:"لا استجابة",stTap:"اضغط للتشغيل",stTimeout:"انتهت المهلة",
+tnLock:"قفل",tnOrigin:"المصدر",tnStatus:"الحالة",tnHandshake:"مصافحة",tnLocked:"تم القفل",tnLost:"فُقدت الإشارة",unknown:"غير معروف",
+bInit:"تهيئة الشبكة",bCal:"معايرة مصفوفة الهوائيات",bScan:"فحص مرايا الترحيل",bLink:"تم إنشاء الرابط {m}",bDecode:"فك ترميز الإشارات: {n}",bIndex:"فهرسة الإرسالات",bAcq:"تم الحصول على الإشارات: {n}",bFail:"فشل الرابط: {m}",bCheck:"تحقق من الاتصال وأعد المحاولة",
+cScan:"جارٍ الفحص...",cCached:"{n} مخزنة",cCachedUpd:"{n} مخزنة، جارٍ التحديث...",cLoading:"{n} قيد التحميل...",cLive:"{n} مباشرة",cOffline:"غير متصل - {m}",
+nStations:"{n} محطة",savedN:"{n} محفوظة",foundN:"{n} نتيجة",searchTitle:"بحث",clearHist:"مسح السجل",noSigTitle:"> لا توجد إشارة",noSigFound:"> لم يتم العثور على إشارة. جرّب قطاعًا آخر.",noLog:"> لا توجد إرسالات مسجلة.",approx:"موقع تقريبي",notLoaded:"لم يتم تحميل قائمة المحطات",stillLoading:"لا يزال التحميل جارٍ، حاول بعد ثوانٍ.",noneReceived:"لم يتم استلام أي محطات.",loadingDots:"جارٍ التحميل...",ready:"جاهز",genreOff:"تم إيقاف تصفية النوع",
+agoNow:"الآن",agoM:"منذ {n} د",agoH:"منذ {n} س",agoD:"منذ {n} ي",
+tipOne:"{n} محطة",tipMany:"{n} محطات",moreN:"+{n} أخرى",findSong:"ابحث عن هذه الأغنية",
+gn_pop:"بوب",gn_rock:"روك",gn_metal:"ميتال",gn_alt:"بديل",gn_elec:"إلكتروني",gn_hiphop:"هيب هوب",gn_jazz:"جاز وبلوز",gn_class:"كلاسيكي",gn_news:"أخبار وحوارات",gn_amb:"أجواء هادئة",gn_country:"كانتري وفولك",gn_latin:"لاتيني",gn_world:"ريغي وموسيقى العالم",gn_oldies:"أغاني قديمة وسول",gn_faith:"ديني"},
+
+fr:{search:"recherche",shuffle:"Aléatoire",favorites:"Favoris",history:"Historique",genre:"Genre",genreFilter:"Filtre de genre",genreTitle:"Genre : {g}",genreFilterOn:"Filtre de genre : {g}",togglePanel:"Afficher ou masquer la liste des stations",settings:"Réglages",all:"Tous",
+intercept:"Interception",interceptTip:"Transmissions entrantes aléatoires",rotation:"Rotation",audioReactive:"Réactif à l'audio",satellite:"Satellite",on:"ON",off:"OFF",dotGlow:"Éclat des points",zoom:"Zoom",zoomIn:"Zoom avant",zoomOut:"Zoom arrière",language:"Langue",share:"Partager",linkCopied:"Lien copié",miniPlayer:"Mini lecteur",prev:"Précédent",next:"Suivant",
+signIn:"Se connecter avec Apple",signedInAs:"Connecté en tant que {n} - se déconnecter",signedIn:"Connecté - se déconnecter",acctSaved:"Les favoris et l'historique sont enregistrés sur votre compte.",acctPrompt:"Connectez-vous pour conserver favoris et historique.",acctIos:"La connexion est disponible dans l'app iOS.",
+rxLive:"Réagit à l'audio en direct.",rxSim:"Pulsation simulée (ce flux bloque l'analyse audio).",
+ttyTitle:"tty0 // SYNTONISATION",launchTitle:"E4RTH R4DIO // SÉQUENCE DE LANCEMENT",retry:"Réessayer",region:"Région",signals:"Signaux",
+sysOnline:"SYSTÈME EN LIGNE",intro1:"GLISSEZ POUR FAIRE TOURNER LA GRILLE",intro2:"CHOISISSEZ UN SIGNAL VERT POUR VOUS CONNECTER",intro3:"ALÉATOIRE POUR UNE FRÉQUENCE AU HASARD",
+txTitle:"TRANSMISSION ENTRANTE",txOrigin:"ORIGINE",txFreq:"FRÉQ",txSignal:"SIGNAL",txEnc:"CHIFFREMENT",txNone:"AUCUN",accept:"Accepter",reject:"Refuser",
+getIos:"Télécharger sur iOS",iosSoon:"App iOS : bientôt",lnkSupport:"Assistance",lnkPrivacy:"Confidentialité",lnkTerms:"Conditions",noSignal:"Aucun signal",pickStation:"Choisissez une station",proTitle:"E4RTH R4DIO M4X",proTag:"Achat unique. Sans abonnement.",proF1:"Icônes d'app alternatives",proF2:"Commandes du mini-lecteur soucoupe",proF3:"Lueur, satellites et visualiseur réactifs à l'audio",proF4:"Tous les filtres de genre",proF5:"Favoris illimités",proBuy:"Débloquer M4X pour {p}",proRestore:"Restaurer l'achat",proClose:"Plus tard",proOn:"M4X débloqué. Merci !",proBusy:"Connexion à l'App Store…",proFail:"L'achat n'a pas abouti.",proPending:"Achat en attente d'approbation.",proMenu:"Débloquer M4X",proMenuOn:"M4X : débloqué",proLock:"[M4X]",appIcon:"Icône de l'app",iconDone:"Icône modifiée.",favLimit:"Version gratuite : jusqu'à {n} favoris. Débloquez M4X pour un nombre illimité.",colorway:"Couleurs",themeGreen:"Vert",themeRed:"Rouge",proF6:"Palette rouge",sleepTimer:"Minuterie",playStop:"Lecture ou arrêt",favThis:"Ajouter cette station aux favoris",
+stIdle:"INACTIF",stTuning:"SYNTONISATION",stLive:"EN DIRECT",stBuffer:"TAMPON",stDead:"HORS LIGNE",stTap:"APPUYEZ SUR LECTURE",stTimeout:"DÉLAI DÉPASSÉ",
+tnLock:"VERROU",tnOrigin:"ORIGINE",tnStatus:"ÉTAT",tnHandshake:"POIGNÉE DE MAIN",tnLocked:"VERROUILLÉ",tnLost:"SIGNAL PERDU",unknown:"INCONNU",
+bInit:"INITIALISATION DE LA GRILLE",bCal:"CALIBRAGE DU RÉSEAU D'ANTENNES",bScan:"ANALYSE DES RELAIS",bLink:"LIEN {m} ÉTABLI",bDecode:"DÉCODAGE DES SIGNAUX : {n}",bIndex:"INDEXATION DES TRANSMISSIONS",bAcq:"SIGNAUX ACQUIS : {n}",bFail:"ÉCHEC DU LIEN : {m}",bCheck:"VÉRIFIEZ LA CONNEXION ET RÉESSAYEZ",
+cScan:"analyse...",cCached:"{n} en cache",cCachedUpd:"{n} en cache, mise à jour...",cLoading:"{n} chargement...",cLive:"{n} en direct",cOffline:"hors ligne - {m}",
+nStations:"{n} stations",savedN:"{n} enregistrées",foundN:"{n} trouvées",searchTitle:"Recherche",clearHist:"Effacer l'historique",noSigTitle:"> AUCUN SIGNAL",noSigFound:"> AUCUN SIGNAL TROUVÉ. ESSAYEZ UN AUTRE SECTEUR.",noLog:"> AUCUNE TRANSMISSION ENREGISTRÉE.",approx:"position approx.",notLoaded:"Liste des stations non chargée",stillLoading:"Chargement en cours, réessayez dans quelques secondes.",noneReceived:"Aucune station reçue.",loadingDots:"Chargement...",ready:"Prêt",genreOff:"Filtre de genre désactivé",
+agoNow:"à l'instant",agoM:"il y a {n} min",agoH:"il y a {n} h",agoD:"il y a {n} j",
+tipOne:"{n} STATION",tipMany:"{n} STATIONS",moreN:"+{n} DE PLUS",findSong:"Trouver ce morceau",
+gn_pop:"Pop",gn_rock:"Rock",gn_metal:"Metal",gn_alt:"Alternatif",gn_elec:"Électronique",gn_hiphop:"Hip-hop",gn_jazz:"Jazz et blues",gn_class:"Classique",gn_news:"Infos et débats",gn_amb:"Ambiance",gn_country:"Country et folk",gn_latin:"Latino",gn_world:"Reggae et musiques du monde",gn_oldies:"Oldies et soul",gn_faith:"Spirituel"},
+
+ru:{search:"поиск",shuffle:"Случайно",favorites:"Избранное",history:"История",genre:"Жанр",genreFilter:"Фильтр жанра",genreTitle:"Жанр: {g}",genreFilterOn:"Фильтр жанра: {g}",togglePanel:"Показать или скрыть список станций",settings:"Настройки",all:"Все",
+intercept:"Перехват",interceptTip:"Случайные входящие передачи",rotation:"Вращение",audioReactive:"Реакция на звук",satellite:"Спутник",on:"ВКЛ",off:"ВЫКЛ",dotGlow:"Свечение точек",zoom:"Масштаб",zoomIn:"Приблизить",zoomOut:"Отдалить",language:"Язык",share:"Поделиться",linkCopied:"Ссылка скопирована",miniPlayer:"Мини-плеер",prev:"Назад",next:"Вперёд",
+signIn:"Войти через Apple",signedInAs:"Вход выполнен: {n} - выйти",signedIn:"Вход выполнен - выйти",acctSaved:"Избранное и история сохраняются в вашей учётной записи.",acctPrompt:"Войдите, чтобы сохранять избранное и историю.",acctIos:"Вход доступен только в приложении для iOS.",
+rxLive:"Реагирует на звук в реальном времени.",rxSim:"Имитация пульса (эта станция блокирует анализ звука).",
+ttyTitle:"tty0 // НАСТРОЙКА",launchTitle:"E4RTH R4DIO // ПОСЛЕДОВАТЕЛЬНОСТЬ ЗАПУСКА",retry:"Повторить",region:"Регион",signals:"Сигналы",
+sysOnline:"СИСТЕМА В СЕТИ",intro1:"ПЕРЕТАЩИТЕ, ЧТОБЫ ВРАЩАТЬ СЕТКУ",intro2:"ВЫБЕРИТЕ ЗЕЛЁНЫЙ СИГНАЛ ДЛЯ ПОДКЛЮЧЕНИЯ",intro3:"СЛУЧАЙНО — ДЛЯ СЛУЧАЙНОЙ ЧАСТОТЫ",
+txTitle:"ВХОДЯЩАЯ ПЕРЕДАЧА",txOrigin:"ИСТОЧНИК",txFreq:"ЧАСТ",txSignal:"СИГНАЛ",txEnc:"ШИФРОВАНИЕ",txNone:"НЕТ",accept:"Принять",reject:"Отклонить",
+getIos:"Скачать для iOS",iosSoon:"Приложение iOS скоро",lnkSupport:"Поддержка",lnkPrivacy:"Конфиденциальность",lnkTerms:"Условия",noSignal:"Нет сигнала",pickStation:"Выберите станцию",proTitle:"E4RTH R4DIO M4X",proTag:"Разовая покупка. Без подписки.",proF1:"Альтернативные значки приложения",proF2:"Управление мини-плеером",proF3:"Свечение, спутники и визуализатор под музыку",proF4:"Все жанровые фильтры",proF5:"Неограниченное избранное",proBuy:"Открыть M4X за {p}",proRestore:"Восстановить покупку",proClose:"Не сейчас",proOn:"M4X открыт. Спасибо!",proBusy:"Связь с App Store…",proFail:"Покупка не завершена.",proPending:"Покупка ожидает одобрения.",proMenu:"Открыть M4X",proMenuOn:"M4X: открыт",proLock:"[M4X]",appIcon:"Значок приложения",iconDone:"Значок изменён.",favLimit:"В бесплатной версии до {n} избранных. Откройте M4X, чтобы снять лимит.",colorway:"Цвета",themeGreen:"Зелёный",themeRed:"Красный",proF6:"Красная цветовая схема",sleepTimer:"Таймер сна",playStop:"Воспроизведение или остановка",favThis:"Добавить станцию в избранное",
+stIdle:"ОЖИДАНИЕ",stTuning:"НАСТРОЙКА",stLive:"ЭФИР",stBuffer:"БУФЕР",stDead:"НЕТ ОТВЕТА",stTap:"НАЖМИТЕ ПУСК",stTimeout:"ТАЙМАУТ",
+tnLock:"ЗАХВАТ",tnOrigin:"ИСТОЧНИК",tnStatus:"СТАТУС",tnHandshake:"РУКОПОЖАТИЕ",tnLocked:"ЗАХВАЧЕНО",tnLost:"СИГНАЛ ПОТЕРЯН",unknown:"НЕИЗВЕСТНО",
+bInit:"ИНИЦИАЛИЗАЦИЯ СЕТКИ",bCal:"КАЛИБРОВКА АНТЕННОЙ РЕШЁТКИ",bScan:"СКАНИРОВАНИЕ РЕТРАНСЛЯТОРОВ",bLink:"КАНАЛ {m} УСТАНОВЛЕН",bDecode:"ДЕКОДИРОВАНИЕ СИГНАЛОВ: {n}",bIndex:"ИНДЕКСАЦИЯ ПЕРЕДАЧ",bAcq:"СИГНАЛОВ ПОЛУЧЕНО: {n}",bFail:"СБОЙ КАНАЛА: {m}",bCheck:"ПРОВЕРЬТЕ СОЕДИНЕНИЕ И ПОВТОРИТЕ",
+cScan:"сканирование...",cCached:"{n} в кэше",cCachedUpd:"{n} в кэше, обновление...",cLoading:"{n} загрузка...",cLive:"{n} в эфире",cOffline:"нет сети - {m}",
+nStations:"станций: {n}",savedN:"сохранено: {n}",foundN:"найдено: {n}",searchTitle:"Поиск",clearHist:"Очистить историю",noSigTitle:"> НЕТ СИГНАЛА",noSigFound:"> СИГНАЛ НЕ НАЙДЕН. ПОПРОБУЙТЕ ДРУГОЙ СЕКТОР.",noLog:"> ПЕРЕДАЧИ НЕ ЗАПИСАНЫ.",approx:"примерное место",notLoaded:"Список станций не загружен",stillLoading:"Всё ещё загружается, повторите через несколько секунд.",noneReceived:"Станции не получены.",loadingDots:"Загрузка...",ready:"Готово",genreOff:"Фильтр жанра выключен",
+agoNow:"только что",agoM:"{n} мин назад",agoH:"{n} ч назад",agoD:"{n} дн назад",
+tipOne:"СТАНЦИЙ: {n}",tipMany:"СТАНЦИЙ: {n}",moreN:"ЕЩЁ {n}",findSong:"Найти эту песню",
+gn_pop:"Поп",gn_rock:"Рок",gn_metal:"Метал",gn_alt:"Альтернатива",gn_elec:"Электронная",gn_hiphop:"Хип-хоп",gn_jazz:"Джаз и блюз",gn_class:"Классика",gn_news:"Новости и разговорное",gn_amb:"Эмбиент",gn_country:"Кантри и фолк",gn_latin:"Латинская",gn_world:"Регги и музыка мира",gn_oldies:"Ретро и соул",gn_faith:"Религиозная"},
+
+ja:{search:"検索インデックス",shuffle:"シャッフル",favorites:"お気に入り",history:"履歴",genre:"ジャンル",genreFilter:"ジャンルフィルター",genreTitle:"ジャンル：{g}",genreFilterOn:"ジャンルフィルター：{g}",togglePanel:"局リストの表示/非表示",settings:"設定",all:"すべて",
+intercept:"傍受",interceptTip:"ランダムな着信送信",rotation:"自動回転",audioReactive:"音声に反応",satellite:"衛星",on:"オン",off:"オフ",dotGlow:"ドットの輝き",zoom:"ズーム",zoomIn:"拡大",zoomOut:"縮小",language:"言語",share:"共有",linkCopied:"リンクをコピーしました",miniPlayer:"ミニプレーヤー",prev:"前へ",next:"次へ",
+signIn:"Appleでサインイン",signedInAs:"{n} としてサインイン中 - サインアウト",signedIn:"サインイン中 - サインアウト",acctSaved:"お気に入りと履歴はアカウントに保存されます。",acctPrompt:"サインインするとお気に入りと履歴を保存できます。",acctIos:"サインインはiOSアプリでのみ利用できます。",
+rxLive:"ライブ音声に反応しています。",rxSim:"疑似パルス（この局は音声解析をブロックしています）。",
+ttyTitle:"tty0 // 同調中",launchTitle:"E4RTH R4DIO // 起動シーケンス",retry:"再試行",region:"地域",signals:"信号",
+sysOnline:"システムオンライン",intro1:"ドラッグでグリッドを回転",intro2:"緑の信号を選んで接続",intro3:"シャッフルでランダムな周波数へ",
+txTitle:"着信送信",txOrigin:"発信元",txFreq:"周波数",txSignal:"信号",txEnc:"暗号化",txNone:"なし",accept:"受ける",reject:"拒否",
+getIos:"iOSアプリを入手",iosSoon:"iOSアプリ近日公開",lnkSupport:"サポート",lnkPrivacy:"プライバシー",lnkTerms:"利用規約",noSignal:"信号なし",pickStation:"局を選択",proTitle:"E4RTH R4DIO M4X",proTag:"買い切り。サブスクリプションなし。",proF1:"代替アプリアイコン",proF2:"宇宙船ミニプレーヤーの操作",proF3:"音に反応するグロー・衛星・ビジュアライザー",proF4:"すべてのジャンルフィルター",proF5:"お気に入り無制限",proBuy:"{p}でM4Xを解除",proRestore:"購入を復元",proClose:"あとで",proOn:"M4Xを解除しました。ありがとうございます！",proBusy:"App Storeに接続中…",proFail:"購入が完了しませんでした。",proPending:"購入は承認待ちです。",proMenu:"M4Xを解除",proMenuOn:"M4X：解除済み",proLock:"[M4X]",appIcon:"アプリアイコン",iconDone:"アイコンを変更しました。",favLimit:"無料版ではお気に入りは{n}件までです。M4Xで無制限になります。",colorway:"カラー",themeGreen:"グリーン",themeRed:"レッド",proF6:"レッドカラー",sleepTimer:"スリープタイマー",playStop:"再生/停止",favThis:"この局をお気に入りに追加",
+stIdle:"待機中",stTuning:"同調中",stLive:"ライブ",stBuffer:"バッファ中",stDead:"応答なし",stTap:"再生をタップ",stTimeout:"タイムアウト",
+tnLock:"ロック",tnOrigin:"発信元",tnStatus:"状態",tnHandshake:"ハンドシェイク",tnLocked:"ロック完了",tnLost:"信号喪失",unknown:"不明",
+bInit:"グリッドを初期化中",bCal:"アンテナアレイを調整中",bScan:"中継ミラーをスキャン中",bLink:"リンク {m} を確立",bDecode:"信号をデコード中：{n}",bIndex:"送信をインデックス化中",bAcq:"信号を取得：{n}",bFail:"リンク失敗：{m}",bCheck:"接続を確認して再試行してください",
+cScan:"スキャン中...",cCached:"{n} 件キャッシュ",cCachedUpd:"{n} 件キャッシュ、更新中...",cLoading:"{n} 読み込み中...",cLive:"{n} 件ライブ",cOffline:"オフライン - {m}",
+nStations:"{n} 局",savedN:"{n} 件保存",foundN:"{n} 件見つかりました",searchTitle:"検索",clearHist:"履歴を消去",noSigTitle:"> 信号なし",noSigFound:"> 信号が見つかりません。別のセクターを試してください。",noLog:"> 記録された送信はありません。",approx:"おおよその位置",notLoaded:"局リストを読み込めていません",stillLoading:"読み込み中です。数秒後にもう一度お試しください。",noneReceived:"局を受信できませんでした。",loadingDots:"読み込み中...",ready:"準備完了",genreOff:"ジャンルフィルターをオフにしました",
+agoNow:"たった今",agoM:"{n} 分前",agoH:"{n} 時間前",agoD:"{n} 日前",
+tipOne:"{n} 局",tipMany:"{n} 局",moreN:"ほか {n} 局",findSong:"この曲を探す",
+gn_pop:"ポップ",gn_rock:"ロック",gn_metal:"メタル",gn_alt:"オルタナティブ",gn_elec:"エレクトロニック",gn_hiphop:"ヒップホップ",gn_jazz:"ジャズ＆ブルース",gn_class:"クラシック",gn_news:"ニュース＆トーク",gn_amb:"アンビエント",gn_country:"カントリー＆フォーク",gn_latin:"ラテン",gn_world:"レゲエ＆ワールド",gn_oldies:"オールディーズ＆ソウル",gn_faith:"宗教"},
+
+vi:{search:"tìm kiếm",shuffle:"Ngẫu nhiên",favorites:"Yêu thích",history:"Lịch sử",genre:"Thể loại",genreFilter:"Lọc thể loại",genreTitle:"Thể loại: {g}",genreFilterOn:"Lọc thể loại: {g}",togglePanel:"Hiện hoặc ẩn danh sách đài",settings:"Cài đặt",all:"Tất cả",
+intercept:"Chặn bắt",interceptTip:"Truyền tin đến ngẫu nhiên",rotation:"Xoay",audioReactive:"Phản ứng âm thanh",satellite:"Vệ tinh",on:"BẬT",off:"TẮT",dotGlow:"Độ sáng chấm",zoom:"Thu phóng",zoomIn:"Phóng to",zoomOut:"Thu nhỏ",language:"Ngôn ngữ",share:"Chia sẻ",linkCopied:"Đã sao chép liên kết",miniPlayer:"Máy nghe nhạc mini",prev:"Trước",next:"Sau",
+signIn:"Đăng nhập bằng Apple",signedInAs:"Đã đăng nhập: {n} - đăng xuất",signedIn:"Đã đăng nhập - đăng xuất",acctSaved:"Yêu thích và lịch sử được lưu vào tài khoản của bạn.",acctPrompt:"Đăng nhập để giữ yêu thích và lịch sử.",acctIos:"Chỉ có thể đăng nhập trong ứng dụng iOS.",
+rxLive:"Đang phản ứng theo âm thanh trực tiếp.",rxSim:"Xung mô phỏng (đài này chặn phân tích âm thanh).",
+ttyTitle:"tty0 // ĐANG DÒ ĐÀI",launchTitle:"E4RTH R4DIO // TRÌNH TỰ KHỞI ĐỘNG",retry:"Thử lại",region:"Khu vực",signals:"Tín hiệu",
+sysOnline:"HỆ THỐNG TRỰC TUYẾN",intro1:"KÉO ĐỂ XOAY LƯỚI",intro2:"CHỌN TÍN HIỆU XANH ĐỂ KẾT NỐI",intro3:"NHẤN NGẪU NHIÊN ĐỂ CHỌN TẦN SỐ BẤT KỲ",
+txTitle:"TRUYỀN TIN ĐẾN",txOrigin:"NGUỒN",txFreq:"TẦN SỐ",txSignal:"TÍN HIỆU",txEnc:"MÃ HÓA",txNone:"KHÔNG",accept:"Chấp nhận",reject:"Từ chối",
+getIos:"Tải ứng dụng iOS",iosSoon:"Ứng dụng iOS: sắp ra mắt",lnkSupport:"Hỗ trợ",lnkPrivacy:"Quyền riêng tư",lnkTerms:"Điều khoản",noSignal:"Không có tín hiệu",pickStation:"Chọn một đài",proTitle:"E4RTH R4DIO M4X",proTag:"Mua một lần. Không đăng ký.",proF1:"Biểu tượng ứng dụng thay thế",proF2:"Nút điều khiển trình phát mini",proF3:"Ánh sáng, vệ tinh và trình hiển thị theo nhạc",proF4:"Tất cả bộ lọc thể loại",proF5:"Yêu thích không giới hạn",proBuy:"Mở khóa M4X với {p}",proRestore:"Khôi phục giao dịch mua",proClose:"Để sau",proOn:"Đã mở khóa M4X. Cảm ơn bạn!",proBusy:"Đang kết nối App Store…",proFail:"Giao dịch chưa hoàn tất.",proPending:"Giao dịch đang chờ phê duyệt.",proMenu:"Mở khóa M4X",proMenuOn:"M4X: đã mở khóa",proLock:"[M4X]",appIcon:"Biểu tượng ứng dụng",iconDone:"Đã đổi biểu tượng.",favLimit:"Bản miễn phí: tối đa {n} mục yêu thích. Mở khóa M4X để không giới hạn.",colorway:"Màu",themeGreen:"Xanh",themeRed:"Đỏ",proF6:"Bảng màu đỏ",sleepTimer:"Hẹn giờ tắt",playStop:"Phát hoặc dừng",favThis:"Thêm đài này vào yêu thích",
+stIdle:"NGHỈ",stTuning:"ĐANG DÒ",stLive:"TRỰC TIẾP",stBuffer:"ĐỆM",stDead:"KHÔNG PHẢN HỒI",stTap:"CHẠM ĐỂ PHÁT",stTimeout:"HẾT GIỜ",
+tnLock:"KHÓA",tnOrigin:"NGUỒN",tnStatus:"TRẠNG THÁI",tnHandshake:"BẮT TAY",tnLocked:"ĐÃ KHÓA",tnLost:"MẤT TÍN HIỆU",unknown:"KHÔNG RÕ",
+bInit:"KHỞI TẠO LƯỚI",bCal:"HIỆU CHỈNH DÀN ANTEN",bScan:"QUÉT MÁY CHỦ TIẾP SÓNG",bLink:"ĐÃ THIẾT LẬP LIÊN KẾT {m}",bDecode:"GIẢI MÃ TÍN HIỆU: {n}",bIndex:"LẬP CHỈ MỤC TRUYỀN TIN",bAcq:"ĐÃ THU TÍN HIỆU: {n}",bFail:"LIÊN KẾT THẤT BẠI: {m}",bCheck:"KIỂM TRA KẾT NỐI VÀ THỬ LẠI",
+cScan:"đang quét...",cCached:"{n} đã lưu đệm",cCachedUpd:"{n} đã lưu đệm, đang cập nhật...",cLoading:"{n} đang tải...",cLive:"{n} trực tiếp",cOffline:"ngoại tuyến - {m}",
+nStations:"{n} đài",savedN:"{n} đã lưu",foundN:"tìm thấy {n}",searchTitle:"Tìm kiếm",clearHist:"Xóa lịch sử",noSigTitle:"> KHÔNG CÓ TÍN HIỆU",noSigFound:"> KHÔNG TÌM THẤY TÍN HIỆU. THỬ KHU VỰC KHÁC.",noLog:"> CHƯA GHI NHẬN TRUYỀN TIN.",approx:"vị trí ước chừng",notLoaded:"Chưa tải danh sách đài",stillLoading:"Vẫn đang tải, hãy thử lại sau vài giây.",noneReceived:"Không nhận được đài nào.",loadingDots:"Đang tải...",ready:"Sẵn sàng",genreOff:"Đã tắt lọc thể loại",
+agoNow:"vừa xong",agoM:"{n} phút trước",agoH:"{n} giờ trước",agoD:"{n} ngày trước",
+tipOne:"{n} ĐÀI",tipMany:"{n} ĐÀI",moreN:"+{n} NỮA",findSong:"Tìm bài hát này",
+gn_pop:"Pop",gn_rock:"Rock",gn_metal:"Metal",gn_alt:"Alternative",gn_elec:"Điện tử",gn_hiphop:"Hip-hop",gn_jazz:"Jazz & blues",gn_class:"Cổ điển",gn_news:"Tin tức & trò chuyện",gn_amb:"Ambient",gn_country:"Country & dân gian",gn_latin:"Latin",gn_world:"Reggae & thế giới",gn_oldies:"Nhạc xưa & soul",gn_faith:"Tôn giáo"},
+
+de:{search:"Suchindex",shuffle:"Zufall",favorites:"Favoriten",history:"Verlauf",genre:"Genre",genreFilter:"Genre-Filter",genreTitle:"Genre: {g}",genreFilterOn:"Genre-Filter: {g}",togglePanel:"Senderliste ein- oder ausblenden",settings:"Einstellungen",all:"Alle",
+intercept:"Abfangen",interceptTip:"Zufällige eingehende Übertragungen",rotation:"Rotation",audioReactive:"Audio-reaktiv",satellite:"Satellit",on:"AN",off:"AUS",dotGlow:"Punktleuchten",zoom:"Zoom",zoomIn:"Vergrößern",zoomOut:"Verkleinern",language:"Sprache",share:"Teilen",linkCopied:"Link kopiert",miniPlayer:"Mini-Player",prev:"Zurück",next:"Weiter",
+signIn:"Mit Apple anmelden",signedInAs:"Angemeldet als {n} - abmelden",signedIn:"Angemeldet - abmelden",acctSaved:"Favoriten und Verlauf werden in deinem Konto gespeichert.",acctPrompt:"Melde dich an, um Favoriten und Verlauf zu behalten.",acctIos:"Die Anmeldung ist nur in der iOS-App verfügbar.",
+rxLive:"Reagiert auf Live-Audio.",rxSim:"Simulierter Puls (dieser Stream blockiert die Audioanalyse).",
+ttyTitle:"tty0 // ABSTIMMUNG",launchTitle:"E4RTH R4DIO // STARTSEQUENZ",retry:"Erneut versuchen",region:"Region",signals:"Signale",
+sysOnline:"SYSTEM ONLINE",intro1:"ZIEHEN, UM DAS GITTER ZU DREHEN",intro2:"GRÜNES SIGNAL ZUM VERBINDEN WÄHLEN",intro3:"ZUFALL FÜR EINE ZUFÄLLIGE FREQUENZ",
+txTitle:"EINGEHENDE ÜBERTRAGUNG",txOrigin:"HERKUNFT",txFreq:"FREQ",txSignal:"SIGNAL",txEnc:"VERSCHLÜSSELUNG",txNone:"KEINE",accept:"Annehmen",reject:"Ablehnen",
+getIos:"iOS-App laden",iosSoon:"iOS-App: bald verfügbar",lnkSupport:"Support",lnkPrivacy:"Datenschutz",lnkTerms:"Nutzungsbedingungen",noSignal:"Kein Signal",pickStation:"Sender wählen",proTitle:"E4RTH R4DIO M4X",proTag:"Einmalkauf. Kein Abo.",proF1:"Alternative App-Symbole",proF2:"Steuerung des Raumschiff-Miniplayers",proF3:"Audioreaktives Leuchten, Satelliten und Visualizer",proF4:"Alle Genrefilter",proF5:"Unbegrenzt Favoriten",proBuy:"Mit M4X für {p} freischalten",proRestore:"Kauf wiederherstellen",proClose:"Nicht jetzt",proOn:"M4X freigeschaltet. Danke!",proBusy:"Verbindung zum App Store…",proFail:"Kauf nicht abgeschlossen.",proPending:"Kauf wartet auf Genehmigung.",proMenu:"M4X freischalten",proMenuOn:"M4X: freigeschaltet",proLock:"[M4X]",appIcon:"App-Symbol",iconDone:"Symbol geändert.",favLimit:"Gratisversion: bis zu {n} Favoriten. Mit M4X unbegrenzt.",colorway:"Farbe",themeGreen:"Grün",themeRed:"Rot",proF6:"Rote Farbvariante",sleepTimer:"Schlaf-Timer",playStop:"Wiedergabe oder Stopp",favThis:"Diesen Sender zu Favoriten hinzufügen",
+stIdle:"LEERLAUF",stTuning:"ABSTIMMUNG",stLive:"LIVE",stBuffer:"PUFFER",stDead:"KEINE ANTWORT",stTap:"WIEDERGABE TIPPEN",stTimeout:"ZEITÜBERSCHREITUNG",
+tnLock:"SPERRE",tnOrigin:"HERKUNFT",tnStatus:"STATUS",tnHandshake:"HANDSHAKE",tnLocked:"GESPERRT",tnLost:"SIGNAL VERLOREN",unknown:"UNBEKANNT",
+bInit:"GITTER WIRD INITIALISIERT",bCal:"ANTENNENFELD WIRD KALIBRIERT",bScan:"RELAIS-SPIEGEL WERDEN GESCANNT",bLink:"VERBINDUNG {m} HERGESTELLT",bDecode:"SIGNALE WERDEN DEKODIERT: {n}",bIndex:"ÜBERTRAGUNGEN WERDEN INDIZIERT",bAcq:"SIGNALE ERFASST: {n}",bFail:"VERBINDUNG FEHLGESCHLAGEN: {m}",bCheck:"VERBINDUNG PRÜFEN UND ERNEUT VERSUCHEN",
+cScan:"Scan läuft...",cCached:"{n} im Cache",cCachedUpd:"{n} im Cache, Aktualisierung...",cLoading:"{n} werden geladen...",cLive:"{n} live",cOffline:"offline - {m}",
+nStations:"{n} Sender",savedN:"{n} gespeichert",foundN:"{n} gefunden",searchTitle:"Suche",clearHist:"Verlauf löschen",noSigTitle:"> KEIN SIGNAL",noSigFound:"> KEIN SIGNAL GEFUNDEN. ANDEREN SEKTOR VERSUCHEN.",noLog:"> KEINE ÜBERTRAGUNGEN PROTOKOLLIERT.",approx:"ungefährer Standort",notLoaded:"Senderliste nicht geladen",stillLoading:"Lädt noch, versuche es in ein paar Sekunden erneut.",noneReceived:"Keine Sender empfangen.",loadingDots:"Lädt...",ready:"Bereit",genreOff:"Genre-Filter aus",
+agoNow:"gerade eben",agoM:"vor {n} Min.",agoH:"vor {n} Std.",agoD:"vor {n} T.",
+tipOne:"{n} SENDER",tipMany:"{n} SENDER",moreN:"+{n} WEITERE",findSong:"Diesen Song suchen",
+gn_pop:"Pop",gn_rock:"Rock",gn_metal:"Metal",gn_alt:"Alternative",gn_elec:"Elektronisch",gn_hiphop:"Hip-Hop",gn_jazz:"Jazz & Blues",gn_class:"Klassik",gn_news:"Nachrichten & Talk",gn_amb:"Ambient",gn_country:"Country & Folk",gn_latin:"Latin",gn_world:"Reggae & Weltmusik",gn_oldies:"Oldies & Soul",gn_faith:"Religiös"}
+};
+const LANGS=[['en','English'],['zh','中文'],['es','Español'],['ar','العربية'],['fr','Français'],['ru','Русский'],['ja','日本語'],['vi','Tiếng Việt'],['de','Deutsch']];
+let lang='en';try{const l=localStorage.getItem('ng_lang');if(l&&I18N[l])lang=l}catch(e){}
+const T=(k,v)=>{let t=I18N[lang]&&I18N[lang][k];if(t==null)t=I18N.en[k];if(t==null)return k;return v?t.replace(/\{(\w+)\}/g,(m,n)=>v[n]!=null?v[n]:m):t};
+const GN=id=>T('gn_'+id);
+let cntK='cScan',cntV={};const setCnt=(k,v)=>{cntK=k;cntV=v||{};$('cnt').textContent=T(k,cntV)};
+const SK={IDLE:'stIdle',TUNING:'stTuning',LIVE:'stLive',BUFFER:'stBuffer',DEAD:'stDead','TAP PLAY':'stTap',TIMEOUT:'stTimeout'};
+let stCode='IDLE',introOn=true;
+const introHTML=()=>'<h2>&gt; '+esc(T('sysOnline'))+'</h2><div class="empty">'+['intro1','intro2','intro3'].map(k=>'&gt; '+esc(T(k))).join('<br>')+'<span class="cur">_</span></div>';
+
+const cv=$('g'),ctx=cv.getContext('2d'),vc=$('vis').getContext('2d');
+const proj=d3.geoOrthographic().clipAngle(90).precision(.6),path=d3.geoPath(proj,ctx);
+const grat=d3.geoGraticule10(),sphere={type:'Sphere'};
+const KMAX=80;let autoRot=true;try{autoRot=localStorage.getItem('ng_rot')!=='off'}catch(e){}
+let activeGenre=null,gList=null,panelHidden=false,W,H,DPR,base,k=1,rot=[0,-15],land=null,feats=[],stations=[],hoverF=null,sel=null,cur=null,list=[],tween=null,lastAct=0,drag=null,live=false,tries=0;
+let favs=[];try{favs=JSON.parse(localStorage.getItem('ng_favs')||'[]')}catch(e){}
+const saveFavs=()=>saveAll();
+
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rc=$('rain'),rx=rc.getContext('2d'),CH='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';let drops=[],rl=0;
+function rainSize(){rc.width=W;rc.height=H;drops=Array.from({length:Math.ceil(W/16)},()=>Math.random()*H/16)}
+function rain(t){if(RM||QL>=3||t-rl<(QL>=2?120:QL>=1?80:55))return;rl=t;rx.fillStyle='rgba(0,0,0,.09)';rx.fillRect(0,0,W,H);rx.font='14px monospace';for(let i=0;i<drops.length;i++){rx.fillStyle=Math.random()<.04?TH.m:TH.c;rx.fillText(CH[Math.floor(Math.random()*CH.length)],i*16,drops[i]*16);if(drops[i]*16>H&&Math.random()>.975)drops[i]=0;drops[i]++}}
+const glow=document.createElement('canvas');glow.width=glow.height=64;
+function mkGlow(){const g2=glow.getContext('2d');g2.clearRect(0,0,64,64);const gr=g2.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba('+TH.cr+',1)');gr.addColorStop(.4,'rgba('+TH.cr+',.25)');gr.addColorStop(1,'rgba('+TH.cr+',0)');g2.fillStyle=gr;g2.fillRect(0,0,64,64)}mkGlow()
+let clus=[];
+function buildClusters(){gList=null;const m=new Map();for(const s of S()){const key=Math.round(s.lat*2)+','+Math.round(s.lon*2);let c=m.get(key);if(!c){c={lat:0,lon:0,n:0,v:0,top:s,tv:-1,m:[]};m.set(key,c)}c.m.push(s);c.n++;c.v+=s.v;c.lat+=s.lat;c.lon+=s.lon;if(s.v>c.tv){c.tv=s.v;c.top=s}}
+clus=[...m.values()].map(c=>{const lat=c.lat/c.n,lon=c.lon/c.n,la=lat*RAD,lo=lon*RAD;return{lat,lon,n:c.n,v:c.v,l:c.top.st||'',cy:c.top.c||'',m:c.m.sort((a,b)=>b.v-a.v).slice(0,6),x:Math.cos(la)*Math.cos(lo),y:Math.cos(la)*Math.sin(lo),z:Math.sin(la)}}).sort((a,b)=>b.v-a.v);renderGenres()}
+let QL=0;function resize(){DPR=Math.min(devicePixelRatio||1,QL>=3?1:2);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;const m=W<560,t=W>=560&&W<900,cw=t&&!panelHidden?W-272:W;let cy=H/2-20;base=t?Math.min(cw*.46,H*.36):Math.min(W,H)*.4;
+  if(m){   // phones: fit the globe between the top bar and the station sheet (or the player bar when the sheet is hidden)
+    const tb=$('top').getBoundingClientRect().bottom+4,bh=$('bar').offsetHeight||80,bb=panelHidden?H-bh-6:H-bh-16-H*.34;
+    base=Math.max(90,Math.min(W*.47,(bb-tb)/2*.97));cy=(tb+bb)/2}
+  proj.translate([cw/2,cy]);rainSize()}
+let rzT=0;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(resize,90)});addEventListener('orientationchange',()=>setTimeout(resize,250));resize();
+
+/* ---------- data ---------- */
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r=>r.json()).then(t=>{feats=topojson.feature(t,t.objects.countries).features;land={type:'FeatureCollection',features:feats};setTimeout(trySpread,0)}).catch(()=>{});
+const FALLBACK=['de1','de2','nl1','at1'].map(x=>`https://${x}.api.radio-browser.info`);
+const tmo=ms=>{const c=new AbortController();setTimeout(()=>c.abort(),ms);return c.signal};
+async function mirrors(){
+  for(const h of FALLBACK){
+    try{
+      const j=await (await fetch(h+'/json/servers',{signal:tmo(5000)})).json();
+      const n=[...new Set(j.map(x=>x.name).filter(Boolean))].map(x=>'https://'+x);
+      if(n.length){for(let i=n.length-1;i>0;i--){const r=Math.floor(Math.random()*(i+1));[n[i],n[r]]=[n[r],n[i]]}return [...n,...FALLBACK.filter(f=>!n.includes(f))]}
+    }catch(e){}
+  }
+  return FALLBACK;
+}
+const bootEl=$('boot'),bootLines=[];let bootOn=false,bootP=0,bootT=0;
+function bootRender(){$('bl').textContent=bootLines.slice(-6).join('\n');const n=Math.round(bootP/5);$('bp').textContent='['+'#'.repeat(n)+'.'.repeat(20-n)+'] '+String(Math.round(bootP)).padStart(3,' ')+'%'}
+function bootLine(t){if(!bootOn)return;bootLines.push('> '+t);bootRender()}
+function bootProg(p){if(!bootOn)return;bootP=Math.max(bootP,Math.min(99,p));bootRender()}
+function bootStart(){bootOn=true;bootP=0;bootLines.length=0;$('br').hidden=true;bootEl.classList.remove('out');bootEl.classList.add('on');
+  [T('bInit'),T('bCal')].forEach(bootLine);bootRender();
+  clearInterval(bootT);bootT=setInterval(()=>{if(bootP<12)bootProg(bootP+1.5)},120)}
+function bootEnd(ok,msg){
+  if(!bootOn)return;clearInterval(bootT);
+  if(ok){bootP=100;bootLine(T('bAcq',{n:stations.length}));bootLine(T('sysOnline'));bootRender();bootOn=false;setTimeout(()=>{bootEl.classList.add('out');setTimeout(()=>bootEl.classList.remove('on'),500)},700)}
+  else{bootLine(T('bFail',{m:msg||T('unknown')}));bootLine(T('bCheck'));$('br').hidden=false;bootOn=false}
+}
+$('br').onclick=()=>{bootEl.classList.remove('on');loadStations()};
+let loadErr='',loading=false;
+const IN_APP=!!window.R4DIO_APP,CHUNK=10000,TTL=864e5,RAD=Math.PI/180,HLS=!!document.createElement('audio').canPlayType('application/vnd.apple.mpegurl');
+const idb={
+  open(){return new Promise((res,rej)=>{const r=indexedDB.open('r4dio',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})},
+  async get(k){try{const d=await this.open();return await new Promise(res=>{const q=d.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>res(null)})}catch(e){return null}},
+  async set(k,v){try{const d=await this.open();await new Promise(res=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=t.onerror=t.onabort=()=>res()})}catch(e){}}
+};
+const HLSOK=()=>HLS||!!(window.Hls&&Hls.isSupported());
+const BAD=new Set();try{JSON.parse(localStorage.getItem('ng_bad')||'[]').forEach(x=>BAD.add(x))}catch(e){}
+const LOGIN=/\/\/[^\/?#]*@|[?&#](?:login|password|passwd|pwd|username)=|\/(?:login|signin|sign-in)(?:[\/?#]|$)/i;   // credentials or a login page in the stream URL
+const okSt=s=>{const u=s.url_resolved;if(!u||BAD.has(s.stationuuid)||LOGIN.test(u)||!(IN_APP||u.startsWith('https')))return false;if(/\.(m3u|pls|asx)(\?|$)/i.test(u))return false;if((s.hls||/\.m3u8(\?|$)/i.test(u))&&!HLSOK())return false;return !!(s.geo_lat||s.geo_long||CEN[s.countrycode])};
+const GV=2;   // bump when the genre rules change
+const GENRES=[['pop','Pop',/\bpop\b|top ?40|chart|hits/],['rock','Rock',/rock|punk|grunge/],['metal','Metal',/metal|hardcore|thrash|doom|death ?metal/],['alt','Alternative',/alternative|\balt\b|indie|emo|shoegaze|post-?punk|new wave/],['elec','Electronic',/electro|techno|house|trance|\bedm\b|dance|dubstep|drum ?(&|and|n)? ?bass|\bdnb\b|club/],['hiphop','Hip-hop',/hip.?hop|\brap\b|r&b|\brnb\b|urban|trap/],['jazz','Jazz & blues',/jazz|swing|bebop|blues|smooth/],['class','Classical',/classical|opera|orchestra|baroque|symphon/],['news','News & talk',/news|talk|politic|sport|information/],['amb','Ambient',/ambient|chill|lounge|relax|downtempo|meditat|sleep|new age/],['country','Country & folk',/country|folk|bluegrass|americana/],['latin','Latin',/latin|salsa|reggaeton|cumbia|bachata|tropical|merengue|regional mexican/],['world','Reggae & world',/reggae|\bska\b|afro|world|bollywood|arab|k-?pop|j-?pop/],['oldies','Oldies & soul',/oldies|\b[5-9]0s\b|retro|disco|funk|soul|motown|classic hits/],['faith','Faith',/christian|gospel|religio|islam|quran|catholic|worship|bible/]];
+function genresOf(t){t=(t||'').toLowerCase();return t?GENRES.filter(g=>g[2].test(t)).map(g=>g[0]):[]}
+function S(){return activeGenre===null?stations:(gList||(gList=stations.filter(s=>s.g&&s.g.includes(activeGenre))))}
+const CEN={};'AF:33.9,67.7,4;AL:41.2,20.2;DZ:28,2.6,6;AD:42.5,1.6;AO:-11.2,17.9,5;AG:17.1,-61.8;AR:-34,-64,6;AM:40.1,45;AU:-25.7,134,8;AT:47.5,14.6;AZ:40.4,47.6;BS:25,-77.4;BH:26,50.5;BD:23.7,90.4;BB:13.2,-59.5;BY:53.7,27.9;BE:50.6,4.7;BZ:17.2,-88.5;BJ:9.3,2.3;BT:27.5,90.4;BO:-16.3,-63.6,4;BA:44,17.8;BW:-22.3,24.7;BR:-10,-52,8;BN:4.5,114.7;BG:42.7,25.5;BF:12.2,-1.6;BI:-3.4,29.9;KH:12.6,104.9;CM:5.7,12.7;CA:56,-96,9;CV:16,-24;CF:6.6,20.9;TD:15.5,18.7;CL:-35,-71,5;CN:35,103,8;CO:4.6,-74.1,3;KM:-11.9,43.3;CG:-0.7,15.2;CD:-2.9,23.7,6;CR:9.9,-84.1;CI:7.5,-5.5;HR:45.1,15.2;CU:21.5,-79.5,2.5;CY:35.1,33.4;CZ:49.8,15.5;DK:56,9.5;DJ:11.8,42.6;DM:15.4,-61.4;DO:18.9,-70.2;EC:-1.8,-78.2;EG:26.8,30.8,4;SV:13.8,-88.9;GQ:1.6,10.3;ER:15.2,39.8;EE:58.7,25.5;SZ:-26.5,31.5;ET:9.1,40.5,4;FJ:-17.7,178;FI:62,26,3;FR:46.6,2.4,3;GA:-0.8,11.6;GM:13.4,-15.4;GE:42.3,43.4;DE:51.1,10.4,3;GH:7.9,-1;GR:39,22,3;GD:12.1,-61.7;GT:15.5,-90.3;GN:10.9,-10.9;GW:12,-15;GY:4.9,-58.9;HT:19,-72.7;HN:14.8,-86.6;HU:47.2,19.5;IS:64.9,-18.6,2.5;IN:22.9,79,8;ID:-2.5,118,8;IR:32.4,53.7,5;IQ:33,43.7,3;IE:53.2,-8.1;IL:31.5,34.9,.8;IT:42.8,12.6,3;JM:18.1,-77.3;JP:36.2,138.3,4;KZ:48,67,8;KE:.2,37.9;KP:40.3,127.2;KR:36.5,127.9,1.5;KW:29.3,47.5;KG:41.2,74.8;LA:18.2,103.9;LV:56.9,24.6;LB:33.9,35.9;LS:-29.6,28.2;LR:6.4,-9.4;LY:27,17,5;LI:47.2,9.6;LT:55.2,23.9;LU:49.8,6.1;MG:-19,46.7,3;MW:-13.3,34.3;MY:3.8,102,3;MV:3.2,73.2;ML:17.6,-4,6;MT:35.9,14.4;MR:20.3,-10.9,5;MU:-20.3,57.6;MX:23.6,-102.5,6;MD:47.4,28.4;MC:43.7,7.4;MN:46.9,103.8,6;ME:42.7,19.4;MA:31.8,-7.1,3;MZ:-18.7,35.5,4;MM:21.9,95.9,4;NA:-22.6,17.1,4;NP:28.4,84.1,2;NL:52.1,5.3;NZ:-41,173,4;NI:12.9,-85.2;NE:17.6,8.1,5;NG:9.1,8.7,4;MK:41.6,21.7;NO:62,10,4;OM:21.5,55.9,3;PK:30.4,69.3,4;PA:8.5,-80.8;PG:-6.3,143.9,3;PY:-23.4,-58.4,2;PE:-9.2,-75,4;PH:12.9,122.8,4;PL:52,19.1,2.5;PT:39.6,-8,1.5;QA:25.3,51.2;RO:45.9,25,2.5;RU:58,56,8;RW:-1.9,29.9;KN:17.3,-62.7;LC:13.9,-61;VC:13.2,-61.2;WS:-13.8,-172.1;SM:43.9,12.5;ST:.2,6.6;SA:24,45,5;SN:14.5,-14.5;RS:44,21;SC:-4.7,55.5;SL:8.5,-11.8;SG:1.35,103.8,.1;SK:48.7,19.7;SI:46.1,14.8;SB:-9.6,160.2;SO:5.2,46.2,4;ZA:-29,24.7,4;SS:7.9,30;ES:40.2,-3.7,3;LK:7.9,80.7;SD:15.6,30,5;SR:3.9,-56;SE:62,15,4;CH:46.8,8.2;SY:34.8,39,2;TW:23.7,121,1;TJ:38.9,71.3;TZ:-6.4,34.9,4;TH:15.9,101,3;TL:-8.9,125.7;TG:8.6,.8;TO:-21.2,-175.2;TT:10.7,-61.2;TN:34,9.5,2;TR:39,35,4;TM:39,59.6;UG:1.4,32.3;UA:48.4,31.2,4;AE:24.3,54.4,1;GB:53,-1.8,3;US:39.5,-98.4,9;UY:-32.8,-56;UZ:41.4,64.6;VU:-15.4,166.9;VA:41.9,12.45;VE:7,-66,4;VN:15.5,107.5,4;YE:15.6,48,3;ZM:-13.1,27.8,4;ZW:-19,29.2;XK:42.6,20.9;PS:31.9,35.2;HK:22.3,114.2,.1;MO:22.2,113.5,.05;PR:18.2,-66.5;GL:72,-40,5'.split(';').forEach(e=>{const[k,v]=e.split(':');CEN[k]=v.split(',').map(Number)});
+function hash(t){let h=2166136261;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function place(s){   // stations with no coordinates: spread them around their country's centre
+  if(s.geo_lat||s.geo_long)return[s.geo_lat,s.geo_long,0];
+  const c=CEN[s.countrycode],h=hash(s.stationuuid||s.name||''),a=(h%360)*RAD,d=Math.sqrt(((h>>>9)%1000)/1000)*(c[2]||1.5);
+  const lat=Math.max(-85,Math.min(85,c[0]+d*Math.sin(a)));return[lat,c[1]+d*Math.cos(a)/Math.max(.3,Math.cos(lat*RAD)),1];
+}
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function bboxHas(f,pt){const b=d3.geoBounds(f);let x=pt[0];const x0=b[0][0];let x1=b[1][0];if(x0>x1){x1+=360;if(x<x0)x+=360}return x>=x0&&x<=x1&&pt[1]>=b[0][1]&&pt[1]<=b[1][1]}
+function regionFor(cc){   // the country's real outline (mainland only, unless it is mostly islands)
+  const c=CEN[cc];if(!c)return null;const pt=[c[1],c[0]];
+  let f=feats.find(f=>d3.geoContains(f,pt));
+  if(!f){   // centre point falls in the sea (island nations): take the nearest outline whose bounding box covers it
+    let bd=9;for(const g of feats){if(!bboxHas(g,pt))continue;const d=d3.geoDistance(pt,d3.geoCentroid(g));if(d<bd){bd=d;f=g}}
+  }
+  if(!f)return null;
+  let reg=f;
+  if(f.geometry.type==='MultiPolygon'){
+    const polys=f.geometry.coordinates.map(co=>({type:'Feature',geometry:{type:'Polygon',coordinates:co}})),ar=polys.map(q=>d3.geoArea(q)),tot=ar.reduce((a,b)=>a+b,0),mx=Math.max(...ar);
+    if(mx/tot>=.6)reg=polys[ar.indexOf(mx)];
+  }
+  const b=d3.geoBounds(reg);let x1=b[1][0];if(b[0][0]>x1)x1+=360;
+  const verts=[];(function walk(a){if(typeof a[0]==='number')verts.push(a);else a.forEach(walk)})(reg.geometry.coordinates);
+  return{f:reg,x0:b[0][0],x1,y0:b[0][1],y1:b[1][1],verts};
+}
+let spreadBusy=false;
+const CBOX={};
+function countryBox(cc){   // padded bounding box of the whole country (all its islands/territories); null if unknown
+  if(cc in CBOX)return CBOX[cc];
+  let box=null;const c=CEN[cc];
+  if(c){
+    const pt=[c[1],c[0]];let f=feats.find(f=>d3.geoContains(f,pt));
+    if(!f){let bd=9;for(const g of feats){if(!bboxHas(g,pt))continue;const d=d3.geoDistance(pt,d3.geoCentroid(g));if(d<bd){bd=d;f=g}}}
+    if(f){const b=d3.geoBounds(f);let x1=b[1][0];if(b[0][0]>x1)x1+=360;box={x0:b[0][0]-2,x1:x1+2,y0:b[0][1]-2,y1:b[1][1]+2}}
+  }
+  return CBOX[cc]=box;
+}
+function inBox(bx,lat,lon){if(lat<bx.y0||lat>bx.y1)return false;let x=lon;if(x<bx.x0)x+=360;return x>=bx.x0&&x<=bx.x1}
+function fixCoords(){   // user-entered coordinates are often wrong (swapped, wrong sign, other continent): check them against the country
+  let n=0;
+  for(const s of stations){
+    if(s.ck||s.a!==0||!s.co)continue;
+    const bx=countryBox(s.co);if(!bx)continue;
+    s.ck=1;
+    if(Math.abs(s.lat)<=90&&Math.abs(s.lon)<=180&&inBox(bx,s.lat,s.lon))continue;
+    const la=s.lat,lo=s.lon;let fix=null;
+    for(const p of [[lo,la],[-la,lo],[la,-lo],[-la,-lo],[-lo,la],[lo,-la],[-lo,-la]]){
+      if(Math.abs(p[0])<=90&&Math.abs(p[1])<=180&&inBox(bx,p[0],p[1])){fix=p;break}
+    }
+    if(fix){s.lat=fix[0];s.lon=fix[1];const a=s.lat*RAD,o=s.lon*RAD;s.x=Math.cos(a)*Math.cos(o);s.y=Math.cos(a)*Math.sin(o);s.z=Math.sin(a)}
+    else{s.a=1;s.cc=s.co}   // no repair fits: let the spreader drop it inside its country
+    n++;
+  }
+  return n;
+}
+function trySpread(){   // move approximate stations from the little disc to random points inside their country outline
+  if(!feats.length||!stations.length||spreadBusy)return;
+  spreadBusy=true;let moved=fixCoords();const cache={};
+  for(const s of stations){
+    if(s.a!==1||!s.cc)continue;
+    let reg=cache[s.cc];if(reg===undefined)reg=cache[s.cc]=regionFor(s.cc);
+    if(!reg)continue;
+    const r=rng(hash(s.id||s.n));let lat=0,lon=0,ok=false;
+    for(let t=0;t<200;t++){
+      lon=reg.x0+r()*(reg.x1-reg.x0);lat=reg.y0+r()*(reg.y1-reg.y0);if(lon>180)lon-=360;
+      if(d3.geoContains(reg.f,[lon,lat])){ok=true;break}
+    }
+    if(!ok&&reg.verts.length){const v=reg.verts[Math.floor(r()*reg.verts.length)];lon=v[0];lat=v[1];ok=true}   // coastline point: still inside the country
+    if(ok){const la=lat*RAD,lo=lon*RAD;s.lat=lat;s.lon=lon;s.x=Math.cos(la)*Math.cos(lo);s.y=Math.cos(la)*Math.sin(lo);s.z=Math.sin(la);s.a=2;moved++}
+  }
+  spreadBusy=false;
+  if(moved){gList=null;buildClusters()}
+}
+function conv(s){
+  const pl=place(s);s.geo_lat=pl[0];s.geo_long=pl[1];
+  const la=s.geo_lat*RAD,lo=s.geo_long*RAD,n=(s.name||'').trim().slice(0,80)||'Unnamed',tg=(s.tags||'').slice(0,40);
+  return{a:pl[2],cc:pl[2]?s.countrycode:'',co:s.countrycode||'',h:s.hls?1:0,id:s.stationuuid,n,u:s.url_resolved,lat:s.geo_lat,lon:s.geo_long,c:s.country,st:s.state,b:s.bitrate,k:s.codec,v:s.votes,tg,g:genresOf(s.tags),
+    q:(n+' '+s.country+' '+(s.state||'')+' '+tg).toLowerCase(),x:Math.cos(la)*Math.cos(lo),y:Math.cos(la)*Math.sin(lo),z:Math.sin(la)};
+}
+async function loadStations(){
+  if(loading)return;loading=true;loadErr='';
+  const key=IN_APP?'app5':'web5',cached=await idb.get('stations');
+  if(cached&&cached.key===key&&cached.list&&cached.list.length){
+    stations=cached.list.filter(s=>!BAD.has(s.id)&&!LOGIN.test(s.u));const regen=cached.gv!==GV;stations.forEach(s=>{if(regen||!s.g)s.g=genresOf(s.tg)});buildClusters();trySpread();setCnt('cCached',{n:stations.length});
+    if(Date.now()-cached.t<TTL&&!regen){loading=false;return}
+  }
+  if(stations.length)setCnt('cCachedUpd',{n:stations.length});else setCnt('cScan');
+  if(!stations.length)bootStart();
+  const fresh=[];let ok=false;
+  bootLine(T('bScan'));bootProg(14);
+  for(const h of await mirrors()){
+    bootLine(T('bLink',{m:h.replace('https://','').split('.')[0].toUpperCase()}));bootProg(18);
+    try{
+      fresh.length=0;
+      for(let off=0;;off+=CHUNK){
+        const r=await fetch(h+'/json/stations/search?hidebroken=true'+(IN_APP?'':'&is_https=true')+'&order=votes&reverse=true&limit='+CHUNK+'&offset='+off,{signal:tmo(60000)});
+        const j=await r.json();
+        for(const s of j)if(okSt(s))fresh.push(conv(s));
+        bootLine(T('bDecode',{n:fresh.length}));bootProg(20+75*(1-Math.exp(-fresh.length/22000)));
+        if(!cached||!stations.length){stations=fresh.slice();buildClusters();setCnt('cLoading',{n:stations.length})}
+        if(j.length<CHUNK)break;
+      }
+      ok=true;break;
+    }catch(e){loadErr=String(e&&e.message||e)}
+  }
+  loading=false;
+  if(ok){bootLine(T('bIndex'));stations=fresh;trySpread();buildClusters();bootEnd(true);setCnt('cLive',{n:stations.length});idb.set('stations',{key,t:Date.now(),gv:GV,list:fresh})}
+  else if(!stations.length){setCnt('cOffline',{m:loadErr});bootEnd(false,loadErr)}
+}
+loadStations();
+
+/* ---------- render ---------- */
+let lastT=0;
+const tk=new Float32Array(72);let fEma=16,fN=0,qUp=0,qDn=0,qPrec=.6;
+function governor(raw){   // adaptive quality: drop effects when frames run long, restore them when there is headroom
+  if(raw>250||raw<=0)return;if(++fN<40)return;
+  fEma+=(raw-fEma)*.08;
+  if(fEma>32&&QL<3){if(++qDn>90){QL++;qDn=0;qUp=0;fEma=16;if(QL===3)resize()}}else qDn=0;
+  if(fEma<13&&QL>0){if(++qUp>480){QL--;qUp=0;fEma=16;if(QL===2)resize()}}else qUp=0;
+}
+function frame(t){
+  const raw=t-lastT;governor(raw);
+  const dt=Math.min(.05,raw/1000||0);lastT=t;
+  const pr=QL>=2?1.6:.6;if(pr!==qPrec){qPrec=pr;proj.precision(pr)}
+  if(drag&&t-lastAct>3000)drag=null;
+  if(autoRot&&!drag&&!tween&&t-lastAct>2500)rot[0]+=dt*7/Math.sqrt(k);
+  if(!drag&&!tween&&(vel[0]||vel[1])){   // momentum after a flick
+    rot[0]+=vel[0]*dt;rot[1]=Math.max(-85,Math.min(85,rot[1]+vel[1]*dt));const f=Math.pow(.06,dt);vel[0]*=f;vel[1]*=f;lastAct=t;if(Math.abs(vel[0])+Math.abs(vel[1])<1.5)vel=[0,0]}
+  if(tween){const p=Math.min(1,(t-tween.t0)/tween.d),e=1-Math.pow(1-p,3);rot=[tween.a[0]+(tween.b[0]-tween.a[0])*e,tween.a[1]+(tween.b[1]-tween.a[1])*e];if(p>=1)tween=null}
+  proj.scale(base*k).rotate([rot[0],rot[1]]);
+  const wantA=reactOn||satOn,canR=wantA&&au===B&&!!an;
+  if(canR&&live){an.getByteFrequencyData(fft);let tot=0;for(let i=0;i<24;i++)tot+=fft[i];if(tot>0){vzNz=t;vizFake=false}else if(t-vzNz>2500)vizFake=true}else vzNz=t;   // a stream the browser won't let us analyse reads as pure silence: fall back to the simulated bars
+  realOn=canR&&!vizFake;
+  if(wantA&&live){
+    let l=0,hit=false;
+    if(realOn){   // auto-gain: scale to the loudest recent level so quiet and loud stations both swing the full range
+      let sm=0,bs=0;for(let i=1;i<12;i++)sm+=fft[i];for(let i=1;i<5;i++)bs+=fft[i];
+      const raw=sm/12/255;bs=bs/4/255;
+      lvPk=Math.max(raw,lvPk+(raw-lvPk)*Math.min(1,dt*.9),.04);lvMn=Math.min(raw,lvMn+(raw-lvMn)*Math.min(1,dt*.35));   // recent loudest and quietest level
+      l=Math.min(1,Math.pow(Math.max(0,raw-lvMn)/Math.max(.04,lvPk-lvMn),.75)*rGain());
+      bsAvg+=(bs-bsAvg)*Math.min(1,dt*3);
+      if(bs>bsAvg*1.1+.015&&t-lastBt>190){hit=true}
+    }else{l=.3+.35*Math.abs(Math.sin(t/190)*Math.sin(t/520));if(Math.floor(t/520)!==simBt){simBt=Math.floor(t/520);if(t-lastBt>230)hit=true}}
+    if(hit){beat=1;lastBt=t;rips.push(t);if(rips.length>5)rips.shift()}
+    lvlS+=(l-lvlS)*(l>lvlS?.8:.22);
+  }else lvlS+=(0-lvlS)*.15;
+  beat=Math.max(0,beat-dt*3.4);
+  const dl=reactOn?lvlS:0,bt=reactOn?beat:0,ds=(1.3+dl*1.1+bt*.5)*(1+Math.log2(Math.max(1,k))*.28),dh=ds/2,gb=glowK*glowK*1.6,zf=Math.min(1,.3+k*.14);   // smaller dots and a softer glow when zoomed out; slider is quadratic so low settings are really dim
+  satTick(dt);
+  ctx.setTransform(DPR,0,0,DPR,0,0);ctx.clearRect(0,0,W,H);
+  const gR=proj.scale(),gT=proj.translate(),gx=gT[0],gy=gT[1],ea=0;   // the earth itself breathes with the music
+  ctx.beginPath();path(sphere);ctx.fillStyle='rgba('+TH.dk+',.92)';ctx.shadowColor=TH.c;ctx.shadowBlur=QL>=3?10:28+dl*40+bt*34;ctx.fill();ctx.shadowBlur=0;
+  ctx.lineWidth=1.2+bt*2.6+dl*.8;ctx.strokeStyle=bt>.5?TH.m:TH.c;ctx.stroke();
+  if(QL<2){ctx.beginPath();path(grat);ctx.lineWidth=.5;ctx.strokeStyle='rgba('+TH.cr+',.14)';ctx.stroke()}
+  if(land){
+    ctx.beginPath();path(land);ctx.fillStyle='rgba('+TH.mr+','+'.06'+')';ctx.fill();ctx.lineWidth=.8;ctx.strokeStyle='rgba('+TH.cr+',.8)';ctx.stroke();
+    if(hoverF){ctx.beginPath();path(hoverF);ctx.fillStyle='rgba('+TH.cr+',.16)';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1;ctx.stroke()}
+  }
+  const c=[-rot[0],-rot[1]];
+  const la0=-rot[1]*RAD,lo0=-rot[0]*RAD,cx=Math.cos(la0)*Math.cos(lo0),cy=Math.cos(la0)*Math.sin(lo0),cz=Math.sin(la0);
+  const rl0=rot[0]*RAD,cL=Math.cos(rl0),sL=Math.sin(rl0),cP=Math.cos(rot[1]*RAD),sP=Math.sin(rot[1]*RAD),tx=gx,ty=gy;   // same rotation + orthographic maths as d3, without the per-point allocations
+  ctx.globalCompositeOperation='lighter';
+  const gMax=QL>=2?120:QL>=1?400:1e9,gStep=QL>=3?2:1,gz=Math.min(Math.sqrt(k),3)*zf;let gn=0;
+  for(let i=0;i<clus.length&&gn<gMax;i+=gStep){const q=clus[i];const x1=q.x*cL-q.y*sL,X=x1*cP-q.z*sP;if(X<.12)continue;gn++;const r=(10+Math.min(q.n,60)*.9)*gz;ctx.globalAlpha=Math.min(.45,(.06+q.n*.012)*gb*(.4+.6*zf));ctx.drawImage(glow,tx+gR*(q.x*sL+q.y*cL)-r,ty-gR*(q.z*cP+x1*sP)-r,2*r,2*r)}
+  ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
+  const main=S();
+  if(activeGenre!==null){ctx.shadowBlur=0;ctx.fillStyle='rgba('+TH.cr+',.13)';for(let i=0;i<stations.length;i++){const s=stations[i];const x1=s.x*cL-s.y*sL,X=x1*cP-s.z*sP;if(X<.02||(s.g&&s.g.includes(activeGenre)))continue;ctx.fillRect(tx+gR*(s.x*sL+s.y*cL)-.8,ty-gR*(s.z*cP+x1*sP)-.8,1.6,1.6)}}
+  ctx.fillStyle=TH.m;ctx.shadowColor=TH.m;ctx.shadowBlur=QL<1&&main.length<5000?6*gb:0;
+  for(let i=0;i<main.length;i++){const s=main[i];const x1=s.x*cL-s.y*sL;if(x1*cP-s.z*sP<.02)continue;ctx.fillRect(tx+gR*(s.x*sL+s.y*cL)-dh,ty-gR*(s.z*cP+x1*sP)-dh,ds,ds)}
+  ctx.shadowBlur=0;
+  if(k>1.5&&clus.length){ctx.fillStyle=TH.m;for(const q of clus){if(q.x*cx+q.y*cy+q.z*cz<.02)continue;const p=proj([q.lon,q.lat]);if(p)ctx.fillRect(p[0]-1.5,p[1]-1.5,3,3)}}
+  if(hovCl&&hovCl.x*cx+hovCl.y*cy+hovCl.z*cz>.02){const p=proj([hovCl.lon,hovCl.lat]);if(p){ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(p[0],p[1],7,0,7);ctx.stroke()}}
+  if(sel&&d3.geoDistance(sel,c)<1.5){const p=proj(sel),r=8+6*((t/600)%1);ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(p[0],p[1],5,0,7);ctx.stroke();ctx.strokeStyle='rgba(255,255,255,'+(1-(t/600)%1)+')';ctx.beginPath();ctx.arc(p[0],p[1],r,0,7);ctx.stroke()}
+  rain(t);viz(t);barAscii(t);requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* audio-reactive: darkened ASCII spectrum drawn behind the bottom bar */
+const bgv=$('bgv'),bgx=bgv.getContext('2d');let bgOn=false,bgTk=[];
+function barAscii(t){
+  const on=reactOn&&live;
+  if(!on){if(bgOn){bgx.clearRect(0,0,bgv.width,bgv.height);bgOn=false}return}
+  if(QL>=3&&(t|0)%2)return;
+  const bE=$('bar'),w=bE.clientWidth,h=bE.clientHeight,d=Math.min(DPR,2);
+  if(bgv.width!==Math.round(w*d)||bgv.height!==Math.round(h*d)){bgv.width=Math.round(w*d);bgv.height=Math.round(h*d)}
+  bgOn=true;bgx.setTransform(d,0,0,d,0,0);bgx.clearRect(0,0,w,h);
+  const cw=8,ch=10,cols=Math.floor(w/cw),rows=Math.floor(h/ch);
+  bgx.font=ch+'px monospace';bgx.textBaseline='bottom';bgx.fillStyle=TH.c;
+  for(let c=0;c<cols;c++){
+    const f=c/cols,pos=1+Math.pow(f,1.15)*22,i0=Math.floor(pos),fr=pos-i0;
+    let v=realOn?Math.min(1,((fft[i0]*(1-fr)+fft[i0+1]*fr)/255)*Math.min(2.6,.85/lvPk)):(.25+.75*Math.abs(Math.sin(t/180+c*.35)*Math.sin(t/410+c*.17)));
+    v=Math.pow(v,1.3);bgTk[c]=(bgTk[c]||0);bgTk[c]+=(v-bgTk[c])*(v>bgTk[c]?.6:.18);
+    const n=Math.round(bgTk[c]*rows);
+    for(let j=0;j<n;j++){bgx.globalAlpha=j===n-1?.28:.15;bgx.fillText(j===n-1?'+':(j&1?'=':'#'),c*cw,h-j*ch)}
+  }
+  bgx.globalAlpha=1;
+}
+function viz(t){
+  const w=220,h=64;vc.clearRect(0,0,w,h);vc.fillStyle=live?TH.m:TH.dim;
+  for(let i=0;i<22;i++){const a=live?(realOn?Math.max(3,Math.min(h,fft[i+1]/255*h*Math.min(2.6,.85/lvPk))):(.25+.75*Math.abs(Math.sin(t/180+i*.9)*Math.sin(t/410+i*1.7)))*h):3;vc.fillRect(i*10,h-a,7,a)}
+}
+
+/* ---------- interaction ---------- */
+function ptr(e){const r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+let hvT=0,vel=[0,0],mvT=0;const ptrs=new Map();let pinch=0;const pd=()=>{const a=[...ptrs.values()];return Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1])};
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,[e.clientX,e.clientY]);if(ptrs.size==2){pinch=pd();drag=null;vel=[0,0]}else drag={x:e.clientX,y:e.clientY,m:0};vel=[0,0];lastAct=performance.now();tween=null});
+cv.addEventListener('pointercancel',e=>{ptrs.delete(e.pointerId);pinch=0;drag=null;vel=[0,0]});
+cv.addEventListener('pointermove',e=>{
+  if(ptrs.has(e.pointerId))ptrs.set(e.pointerId,[e.clientX,e.clientY]);
+  if(ptrs.size==2){const d=pd();if(pinch)k=Math.max(.7,Math.min(KMAX,k*d/pinch));pinch=d;lastAct=performance.now();return}
+  if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.x=e.clientX;drag.y=e.clientY;drag.m+=Math.abs(dx)+Math.abs(dy);const d0=dx*.35/k,d1=-dy*.35/k,mt=Math.max(4,e.timeStamp-mvT);mvT=e.timeStamp;vel=[vel[0]*.4+d0/mt*1000*.6,vel[1]*.4+d1/mt*1000*.6];rot[0]+=d0;rot[1]=Math.max(-85,Math.min(85,rot[1]+d1));lastAct=performance.now();return}
+  if(e.timeStamp-hvT<45)return;hvT=e.timeStamp;const ll=proj.invert(ptr(e));hoverF=null;let n='-';
+  if(ll&&inGlobe(ptr(e))){for(const f of feats)if(d3.geoContains(f,ll)){hoverF=f;n=f.properties.name;break}}
+  $('ctry').textContent=n;
+});
+cv.addEventListener('pointerup',e=>{ptrs.delete(e.pointerId);if(ptrs.size<2)pinch=0;const was=drag;drag=null;lastAct=performance.now();if(!was||e.timeStamp-mvT>90||was.m<6||ptrs.size)vel=[0,0];if(was&&was.m<6){const p=ptr(e);if(inGlobe(p)){const ll=proj.invert(p);if(ll)pick(ll)}}});
+cv.addEventListener('wheel',e=>{e.preventDefault();k=Math.max(.7,Math.min(KMAX,k*(e.deltaY<0?1.12:.89)));lastAct=performance.now()},{passive:false});
+let hovCl=null,hovQ=0;const tipEl=$('tip');
+cv.addEventListener('pointermove',e=>{
+  if(drag||e.pointerType==='touch'){hovCl=null;tipEl.classList.remove('on');return}
+  if(hovQ)return;hovQ=requestAnimationFrame(()=>{hovQ=0;hoverCl(e.clientX,e.clientY)});
+});
+cv.addEventListener('pointerleave',()=>{hovCl=null;tipEl.classList.remove('on')});
+function hoverCl(x,y){
+  const la0=-rot[1]*RAD,lo0=-rot[0]*RAD,cx=Math.cos(la0)*Math.cos(lo0),cy=Math.cos(la0)*Math.sin(lo0),cz=Math.sin(la0);
+  let best=null,bd=196;
+  for(const q of clus){if(q.x*cx+q.y*cy+q.z*cz<.05)continue;const p=proj([q.lon,q.lat]);if(!p)continue;const d=(p[0]-x)**2+(p[1]-y)**2;if(d<bd){bd=d;best=q}}
+  hovCl=best;
+  if(!best){tipEl.classList.remove('on');return}
+  tipEl.innerHTML='<b>'+esc(((best.l||'')+(best.l&&best.cy?', ':'')+(best.cy||T('unknown'))).toUpperCase())+'</b> // '+T(best.n>1?'tipMany':'tipOne',{n:best.n})+best.m.map(s=>'<br>&gt; '+esc(s.n.slice(0,34))).join('')+(best.n>best.m.length?'<br>&gt; '+T('moreN',{n:best.n-best.m.length}):'');
+  tipEl.classList.add('on');const w=tipEl.offsetWidth,h=tipEl.offsetHeight;
+  tipEl.style.left=Math.max(8,Math.min(x+16,innerWidth-w-8))+'px';tipEl.style.top=Math.max(8,Math.min(y+16,innerHeight-h-8))+'px';
+}
+function inGlobe(p){const c=proj.translate();return Math.hypot(p[0]-c[0],p[1]-c[1])<=proj.scale()}
+function flyTo(lon,lat,zoom){tween={a:rot.slice(),b:[-lon,Math.max(-70,Math.min(70,-lat))],t0:performance.now(),d:1100};let da=tween.b[0]-tween.a[0];da=((da+540)%360)-180;tween.b[0]=tween.a[0]+da;if(zoom)k=Math.max(k,zoom);lastAct=performance.now()}
+
+function pick(ll){
+  if(!stations.length){noData();return}
+  let best=null,bd=9;for(const s of S()){const d=d3.geoDistance(ll,[s.lon,s.lat]);if(d<bd){bd=d;best=s}}
+  sel=ll;
+  if(!best||bd>.06*(1.5/Math.sqrt(k))){showList(T('noSigTitle'),'',[]);tuneNoise(.15);return}
+  openPlace(best,true);
+}
+function openPlace(best,autoplay){
+  const near=S().filter(s=>d3.geoDistance([best.lon,best.lat],[s.lon,s.lat])<.02).sort((a,b)=>b.v-a.v);
+  sel=[best.lon,best.lat];flyTo(best.lon,best.lat,1.8);
+  showList((best.st?best.st+', ':'')+best.c,T('nStations',{n:near.length}),near);
+  if(autoplay)play(near[0],near);
+}
+
+function noData(){const p=$('panel');p.classList.remove('min');introOn=false;if(panelHidden)setPanel(true);p.innerHTML='<h2>'+esc(T('notLoaded'))+'</h2><div class="empty">'+esc(loading?T('stillLoading'):(loadErr||T('noneReceived')))+'<br><br><button id="rt">'+esc(T('retry'))+'</button></div>';$('rt').onclick=()=>{p.querySelector('.empty').textContent='Loading...';loadStations().then(()=>{if(stations.length)showList('Ready',stations.length+' stations',[])})}}
+/* ---------- panel ---------- */
+function showList(title,sub,arr){
+  list=arr;const p=$('panel');p.classList.remove('min');introOn=false;if(panelHidden)setPanel(true);
+  p.innerHTML='<h2>'+esc(title)+(sub?' // '+sub:'')+'</h2>'+(arr.length?'':'<div class="empty">'+esc(T('noSigFound'))+'</div>');
+  arr.forEach((s,i)=>{
+    const d=document.createElement('div');d.className='st'+(cur&&cur.id===s.id?' on':'');
+    d.innerHTML='<div class="t"><div class="n">'+esc(s.n)+'</div><div class="s">'+esc([s.c,s.k,s.b?s.b+'k':'',s.a?T('approx'):''].filter(Boolean).join(' / '))+'</div></div><button class="f'+(favs.includes(s.id)?' y':'')+'" aria-label="Favorite">&#9829;</button>';
+    d.onclick=()=>{play(s,arr);if(s.lat||s.lon){sel=[s.lon,s.lat]}};
+    d.querySelector('.f').onclick=ev=>{ev.stopPropagation();toggleFav(s,ev.currentTarget)};
+    p.appendChild(d);
+  });
+}
+function toggleFav(s,btn){const i=favs.indexOf(s.id);if(i<0&&favFull())return openPaywall(T('favLimit',{n:FREE_FAVS}));if(i<0)favs.push(s.id);else favs.splice(i,1);saveFavs();btn.classList.toggle('y',i<0);syncBf()}
+$('fav').onclick=()=>{const a=stations.filter(s=>favs.includes(s.id));showList(T('favorites'),T('savedN',{n:a.length}),a)};
+/* ---------- search: in-page full-text index (accents, typos, prefixes, CJK, "jazz france") ---------- */
+/*SE:start*/
+const SE=(()=>{
+  const FN=['n','t','l','s'],FW={n:3,t:1.5,l:1.2,s:1};
+  const CJKC='\\u3040-\\u30ff\\u3400-\\u9fff\\uac00-\\ud7af';
+  const TOK=new RegExp('['+CJKC+']+|(?:(?![' + CJKC + '])[\\p{L}\\p{N}\\p{M}])+','gu');
+  const CJKT=new RegExp('['+CJKC+']');
+  const SPEC={'đ':'d','ø':'o','ł':'l','ß':'ss','æ':'ae','œ':'oe','ı':'i','þ':'th','ð':'d','ى':'ي','ة':'ه'};
+  const foldW=w=>w.normalize('NFD').replace(/\p{M}+/gu,'').replace(/[đøłßæœıþðىة]/g,c=>SPEC[c]);
+  // native country names, so "deutschland", "españa", "россия", "日本", "việt nam" find stations of that country
+  const CT=`GB|The United Kingdom Of Great Britain And Northern Ireland|UK|Great Britain|Britain|England|United Kingdom|Royaume-Uni|Reino Unido|Vereinigtes Königreich|Великобритания|イギリス|英国|Anh
+US|The United States Of America|USA|United States|America|Estados Unidos|États-Unis|Vereinigte Staaten|США|アメリカ|美国|Mỹ
+DE|Germany|Deutschland|Allemagne|Alemania|Germania|Германия|ドイツ|德国|Đức
+FR|France|Frankreich|Francia|Франция|フランス|法国|Pháp
+ES|Spain|España|Espagne|Spanien|Испания|スペイン|西班牙|Tây Ban Nha
+PT|Portugal|Португалия|ポルトガル|葡萄牙|Bồ Đào Nha
+IT|Italy|Italia|Italie|Italien|Италия|イタリア|意大利|Ý
+NL|The Netherlands|Netherlands|Nederland|Holland|Pays-Bas|Países Bajos|Niederlande|Нидерланды|オランダ|荷兰
+BE|Belgium|België|Belgique|Belgien|Bélgica
+AT|Austria|Österreich|Autriche
+CH|Switzerland|Schweiz|Suisse|Svizzera|Suiza|Швейцария|スイス|瑞士
+SE|Sweden|Sverige|Suède|Schweden|Suecia|Швеция|スウェーデン|瑞典
+PL|Poland|Polska|Pologne|Polen|Polonia|Польша|ポーランド|波兰
+RO|Romania|România|Roumanie|Rumänien|Rumania|Румыния
+GR|Greece|Ελλάδα|Grèce|Griechenland|Grecia|Греция
+TR|Turkey|Türkiye|Turkiye|Turquía|Turquie|Türkei|Турция|トルコ|土耳其|Thổ Nhĩ Kỳ
+RU|Russian Federation|Russia|Россия|Russland|Russie|ロシア|俄罗斯|Nga
+UA|Ukraine|Україна|Ukraina|Украина|ウクライナ|乌克兰
+JP|Japan|Nihon|日本|Japon|Japón|Япония|Nhật Bản
+CN|China|中国|中國|Chine|Китай|Trung Quốc|中华人民共和国
+TW|Taiwan|台灣|臺灣|台湾|Đài Loan|Тайвань
+HK|Hong Kong|香港|Hồng Kông|Гонконг
+KR|The Republic Of Korea|South Korea|Korea|한국|韓國|韩国|韓国|Hàn Quốc|Corea del Sur|Südkorea|Corée du Sud|Южная Корея
+IN|India|Bharat|भारत|Inde|Indien|Индия|インド|印度|Ấn Độ
+VN|Viet Nam|Vietnam|Việt Nam|越南|Вьетнам|ベトナム
+TH|Thailand|ประเทศไทย|Thaïlande|Tailandia|Таиланд|Thái Lan
+ID|Indonesia|Indonésie|Indonesien|Индонезия
+AU|Australia|Australien|Australie|Австралия|オーストラリア|澳大利亚|Úc
+CA|Canada|Canadá|Kanada|Канада|カナダ|加拿大
+MX|Mexico|México|Mexique|Mexiko|Мексика|メキシコ|墨西哥
+BR|Brazil|Brasil|Brésil|Brasilien|Бразилия|ブラジル|巴西
+AR|Argentina|Argentine|Argentinien|Аргентина|アルゼンチン
+JM|Jamaica|Jamaïque|Jamaika
+EG|Egypt|مصر|Égypte|Ägypten|Egipto|Египет|エジプト|埃及
+SA|Saudi Arabia|السعودية|Arabie saoudite|Saudi-Arabien|Arabia Saudita|Саудовская Аравия
+AE|The United Arab Emirates|الإمارات|UAE|Emirates|Émirats arabes unis|Vereinigte Arabische Emirate
+IL|Israel|ישראל|Israël|Израиль`;
+  const ALT={},CCN={};
+  function parse(str){
+    const s=String(str==null?'':str).normalize('NFKC').toLowerCase(),words=[],terms=[];
+    for(const m of s.matchAll(TOK)){
+      let w=m[0];
+      if(CJKT.test(w)){
+        words.push(w);
+        for(let i=0;i<w.length;i++)terms.push(w[i]);
+        for(let i=0;i<w.length-1;i++)terms.push(w.slice(i,i+2));
+      }else{w=foldW(w);if(w){words.push(w);terms.push(w)}}
+    }
+    return{words,terms};
+  }
+  for(const line of CT.split('\n')){const a=line.split('|'),cc=a.shift();ALT[cc]=a;for(const n of a)CCN[parse(n).words.join(' ')]=cc}
+
+  let cur=null,tok=0;
+  const st={src:null,ready:false};
+  const tick=()=>new Promise(r=>setTimeout(r,0));
+
+  async function start(stations){
+    const my=++tok;st.src=stations;st.ready=false;
+    const N=stations.length,P={n:new Map(),t:new Map(),l:new Map(),s:new Map()},DF=new Map();
+    const LEN={n:new Uint8Array(N),t:new Uint8Array(N)},NM=new Array(N),SQS=new Array(N),V=new Float64Array(N),locCache=new Map();
+    const CH=2500;
+    for(let b=0;b<N;b+=CH){
+      for(let i=b,e=Math.min(N,b+CH);i<e;i++){
+        const s=stations[i];V[i]=s.v||0;
+        const co=s.co||CCN[parse(s.c).words.join(' ')]||'',lk=(s.c||'')+'|'+co;
+        let loc=locCache.get(lk);if(!loc){loc=parse((s.c||'')+' '+(ALT[co]||[]).join(' '));locCache.set(lk,loc)}
+        const f={n:parse(s.n),t:parse(s.tg),l:loc,s:parse(s.st)},seen=new Set();
+        for(const k of FN){
+          const terms=f[k].terms,M=P[k];
+          if(LEN[k])LEN[k][i]=Math.min(255,terms.length);
+          for(const t of terms){let m=M.get(t);if(!m){m=[];M.set(t,m)}if(m[m.length-1]!==i)m.push(i);seen.add(t)}
+        }
+        for(const t of seen)DF.set(t,(DF.get(t)||0)+1);
+        NM[i]=f.n.words.join(' ');SQS[i]=f.n.words.join('');
+      }
+      await tick();if(my!==tok)return false;
+    }
+    const VOC=[...DF.keys()].sort();
+    const SQI=Array.from({length:N},(_,i)=>i).sort((a,b)=>SQS[a]<SQS[b]?-1:SQS[a]>SQS[b]?1:0);
+    const LN={n:new Float32Array(N),t:new Float32Array(N)};
+    for(let i=0;i<N;i++){LN.n[i]=1/Math.sqrt(Math.max(1,LEN.n[i]));LN.t[i]=1/Math.sqrt(Math.max(1,LEN.t[i]))}
+    if(my!==tok)return false;
+    cur={N,P,DF,VOC,NM,SQS,SQI,V,LN,stations};st.ready=true;return true;
+  }
+
+  const lb=(arr,x,get)=>{let lo=0,hi=arr.length;while(lo<hi){const m=(lo+hi)>>1;if((get?get(arr[m]):arr[m])<x)lo=m+1;else hi=m}return lo};
+
+  function osa(a,b,max){   // edit distance with transpositions, gives up above max
+    const al=a.length,bl=b.length;let p2=null,p1=Array.from({length:bl+1},(_,j)=>j);
+    for(let i=1;i<=al;i++){
+      const c=[i];let rowMin=i;
+      for(let j=1;j<=bl;j++){
+        let v=Math.min(p1[j]+1,c[j-1]+1,p1[j-1]+(a[i-1]===b[j-1]?0:1));
+        if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])v=Math.min(v,p2[j-2]+1);
+        c[j]=v;if(v<rowMin)rowMin=v;
+      }
+      if(rowMin>max)return max+1;
+      p2=p1;p1=c;
+    }
+    return p1[bl];
+  }
+
+  function termHits(X,term,factor,acc){
+    const idf=Math.log(1+X.N/(X.DF.get(term)||1))/Math.log(1+X.N);
+    for(const k of FN){
+      const p=X.P[k].get(term);if(!p)continue;
+      const w=FW[k]*idf*factor,ln=X.LN[k];
+      for(let j=0;j<p.length;j++){
+        const d=p[j],v=ln?w*ln[d]:w,a=acc.get(d);
+        if(a===undefined)acc.set(d,[v,v]);else{a[1]+=v;if(v>a[0])a[0]=v}
+      }
+    }
+  }
+  const fin=acc=>{const o=new Map();for(const[d,a]of acc)o.set(d,a[0]+.3*(a[1]-a[0]));return o};
+
+  function groupMap(X,g){
+    if(g.cjk){
+      const per=new Map(),total=g.grams.length;
+      for(const gm of g.grams){const a=new Map();termHits(X,gm,1,a);for(const[d,s]of fin(a)){const e=per.get(d);if(e){e.s+=s;e.c++}else per.set(d,{s,c:1})}}
+      const need=total<=2?total:Math.ceil(total*.6),out=new Map();
+      for(const[d,e]of per)if(e.c>=need)out.set(d,e.s/total);
+      return out;
+    }
+    const t=g.t,acc=new Map(),exact=X.DF.has(t);let pc=0;
+    if(exact)termHits(X,t,1,acc);
+    if(t.length>=2)for(let i=lb(X.VOC,t);i<X.VOC.length&&X.VOC[i].startsWith(t)&&pc<400;i++){if(X.VOC[i]===t)continue;pc++;termHits(X,X.VOC[i],.5,acc)}
+    if(!exact&&!pc&&t.length>=4){
+      const d=t.length>5?2:1,c=[];
+      for(const v of X.VOC){
+        if(v.length<t.length-d||v.length>t.length+d||v[0]!==t[0])continue;
+        const dist=osa(t,v,d);if(dist<=d)c.push([v,dist]);
+      }
+      c.sort((a,b)=>a[1]-b[1]||(X.DF.get(b[0])||0)-(X.DF.get(a[0])||0));
+      for(const[v,dist]of c.slice(0,40))termHits(X,v,dist===1?.6:.45,acc);
+    }
+    return fin(acc);
+  }
+
+  // search(query,{limit,pred}) -> station objects, best first. null while the index is still building.
+  function search(q,o){
+    const X=cur;if(!X||!st.ready||X.stations!==st.src)return null;
+    o=o||{};const limit=o.limit||40,pred=o.pred;
+    const{words}=parse(q);if(!words.length)return[];
+    const qn=words.join(' '),qs=words.join('');
+    const groups=words.map(w=>CJKT.test(w)?{cjk:true,grams:w.length===1?[w]:Array.from({length:w.length-1},(_,i)=>w.slice(i,i+2))}:{t:w});
+    const maps=groups.map(g=>groupMap(X,g)).sort((a,b)=>a.size-b.size);
+    const cand=new Map();
+    if(maps[0].size)for(const[d,s0]of maps[0]){
+      let tot=s0,ok=true;
+      for(let j=1;j<maps.length;j++){const v=maps[j].get(d);if(v===undefined){ok=false;break}tot+=v}
+      if(ok)cand.set(d,tot);
+    }
+    if(qs.length>=2){   // typed start of the whole name, spaces/punctuation ignored ("jwave", "los 40")
+      const hits=[];
+      for(let i=lb(X.SQI,qs,d=>X.SQS[d]);i<X.N&&X.SQS[X.SQI[i]].startsWith(qs);i++)hits.push(X.SQI[i]);
+      if(hits.length>200)hits.sort((a,b)=>X.V[b]-X.V[a]).length=200;
+      for(const d of hits)if(!cand.has(d))cand.set(d,0);
+    }
+    const out=[];
+    for(const[d,base]of cand){
+      const s=X.stations[d];if(pred&&!pred(s))continue;
+      let sc=base+.4*Math.log10(1+.05*X.V[d]);
+      const nm=X.NM[d],sq=X.SQS[d];
+      if(nm===qn||sq===qs)sc+=7;
+      if((' '+nm).includes(' '+qn))sc+=3;
+      if(qs.length>=2&&sq.startsWith(qs))sc+=2;
+      out.push([sc,d]);
+    }
+    out.sort((a,b)=>b[0]-a[0]||X.V[b[1]]-X.V[a[1]]);
+    return out.slice(0,limit).map(x=>X.stations[x[1]]);
+  }
+  return{start,search,get src(){return st.src},get ready(){return st.ready}};
+})();
+/*SE:end*/
+const localSearch=q=>S().filter(s=>s.q.includes(q)).slice(0,40);
+const showFound=a=>showList(T('searchTitle'),T('foundN',{n:a.length}),a);
+let seP=null,seWait=false,searchT=0;
+function ensureIdx(){if(SE.src!==stations)seP=SE.start(stations);return seP}
+function runSearch(raw){
+  ensureIdx();
+  if(!SE.ready){   // index still building (first search after load): show the quick substring results meanwhile
+    showFound(localSearch(raw.toLowerCase()));
+    if(!seWait){seWait=true;seP.then(()=>{seWait=false;const r=$('q').value.trim();if(r.length>=2)runSearch(r)})}
+    return;
+  }
+  showFound(SE.search(raw,{limit:40,pred:activeGenre===null?null:s=>s.g&&s.g.includes(activeGenre)})||[]);
+}
+$('q').onfocus=()=>{if(stations.length)ensureIdx()};
+$('q').oninput=e=>{const raw=e.target.value.trim();clearTimeout(searchT);if(raw.length<2)return;searchT=setTimeout(()=>runSearch(raw),80)};
+$('rnd').onclick=()=>{if(!stations.length){noData();return}const L=S();if(!L.length)return;openPlace(L[Math.floor(Math.random()*Math.min(L.length,3000))],true)};
+
+
+/* ---------- audio ---------- */
+const mkAudio=c=>{const e=new Audio();e.setAttribute('playsinline','');e.preload='none';e.volume=1;if(c)e.crossOrigin='anonymous';return e};
+const A=mkAudio(false),B=mkAudio(true);let au=A;   // A: plain playback. B: CORS-enabled, feeds the analyser
+let satOn=false,reactOn=false,glowK=.35,an=null,fft=new Uint8Array(128),realOn=false,lvlS=0,lvPk=.2,lvMn=0,bsAvg=0,beat=0,lastBt=0,simBt=0,rips=[],bGraph=false,vizFake=false,vzNz=0;const corsBad=new Set();
+try{const g=localStorage.getItem('ng_glow');if(g!==null)glowK=Math.min(1,Math.max(0,+g)||0);reactOn=localStorage.getItem('ng_react')==='on';satOn=localStorage.getItem('ng_sat')==='on'}catch(e){}
+function initGraph(){if(bGraph)return true;if(!ac)return false;try{const src=ac.createMediaElementSource(B);an=ac.createAnalyser();an.fftSize=256;an.smoothingTimeConstant=.5;src.connect(an);an.connect(ac.destination);bGraph=true}catch(e){an=null}return bGraph}
+let hlsI=null;const isHlsS=s=>s.h||/\.m3u8(\?|$)/i.test(s.u);
+function killHls(){if(hlsI){try{hlsI.destroy()}catch(e){}hlsI=null}}
+function setSrc(el,s){
+  killHls();
+  if(isHlsS(s)&&!HLS&&window.Hls&&Hls.isSupported()){
+    hlsI=new Hls({lowLatencyMode:false});
+    hlsI.on(Hls.Events.ERROR,(ev,d)=>{if(d&&d.fatal&&el===au&&cur&&cur.u===s.u){killHls();clearTimeout(wd);skip('DEAD')}});
+    hlsI.loadSource(s.u);hlsI.attachMedia(el);
+  }else el.src=s.u;
+}
+function pickEl(s){killHls();const want=((reactOn||satOn)&&!corsBad.has(s.id)&&initGraph())?B:A;if(au!==want){const o=au;au=want;o.pause();o.removeAttribute('src');o.load()}}
+function playOn(el,s){killHls();const o=au;au=el;o.pause();o.removeAttribute('src');o.load();setSrc(au,s);au.play().catch(()=>{})}
+let ac=null;
+function tuneNoise(v){
+  try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();const n=ac.sampleRate*.5,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);
+    for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+    const s=ac.createBufferSource(),g=ac.createGain();g.gain.value=(v||.3)*au.volume*.22;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2600;s.buffer=b;s.connect(lp);lp.connect(g);g.connect(ac.destination);s.start()}catch(e){}
+}
+function setStatus(t,l){stCode=t;$('st').textContent=T(SK[t]||'stIdle');live=!!l}
+function mediaMeta(s,t){if(!('mediaSession' in navigator))return;try{navigator.mediaSession.metadata=new MediaMetadata({title:t||s.n,artist:t?s.n:[s.st,s.c].filter(Boolean).join(', '),album:'E4RTH R4DIO'})}catch(e){}}
+function step(d){const i=list.findIndex(s=>cur&&s.id===cur.id),n=list[i+d];if(n)play(n,list)}
+if('mediaSession' in navigator){const ms=navigator.mediaSession;
+  [['play',()=>{if(cur&&au.paused)play(cur,list)}],['pause',()=>{if(!au.paused)$('play').click()}],['stop',()=>{if(!au.paused)$('play').click()}],['nexttrack',()=>step(1)],['previoustrack',()=>step(-1)]].forEach(([a,f])=>{try{ms.setActionHandler(a,f)}catch(e){}})}
+let playTok=0,wd=0;
+function play(s,arr,auto){
+  if(!s)return;if(!auto)tries=0;cur=s;try{history.replaceState(null,'',location.pathname+location.search+'#s='+encodeURIComponent(s.id))}catch(e){}list=arr||list;tuneNoise(.3);vizFake=false;vzNz=performance.now();const pt=++playTok;clearTimeout(wd);
+  $('np').innerHTML='<div class="n">'+esc(s.n)+'</div><div class="s">'+esc([s.st,s.c].filter(Boolean).join(', '))+'</div>';
+  track='';metaStop();renderTrack();mediaMeta(s);syncBf();histDone=false;tuneStart(s);setStatus('TUNING',false);$('play').innerHTML='&#9632;';
+  pickEl(s);setSrc(au,s);au.play().catch(e=>{if(pt===playTok&&e&&e.name==='NotAllowedError')setStatus('TAP PLAY',false)});
+  wd=setTimeout(()=>{if(pt===playTok&&!live)skip('TIMEOUT')},12000);
+  document.querySelectorAll('.st').forEach((el,i)=>el.classList.toggle('on',list[i]&&list[i].id===s.id));
+}
+function skip(why){
+  setStatus(why,false);tuneNote(T(SK[why]||'stDead'));
+  if(why==='DEAD'&&cur&&!BAD.has(cur.id)){BAD.add(cur.id);try{localStorage.setItem('ng_bad',JSON.stringify([...BAD].slice(-3000)))}catch(e){}const id=cur.id;stations=stations.filter(x=>x.id!==id);buildClusters()}   // refused or broken stream: hide it from now on
+  const i=list.findIndex(s=>cur&&s.id===cur.id);
+  if(i>=0&&i<list.length-1&&tries<5){tries++;setTimeout(()=>play(list[i+1],list,true),600)}else{$('play').innerHTML='&#9654;';tuneEnd(false)}
+}
+const onPlaying=function(){if(this!==au)return;rxNote();if('mediaSession' in navigator)navigator.mediaSession.playbackState='playing';clearTimeout(wd);setStatus('LIVE',true);tries=0;tuneEnd(true);if(!histDone&&cur){histDone=true;addHist(cur);metaStart()}};
+const onWaiting=function(){if(this===au)setStatus('BUFFER',false)};
+const onError=function(){if(this!==au||!au.getAttribute('src'))return;
+  if(au===B&&cur){corsBad.add(cur.id);playOn(A,cur);return}   // stream blocks analysis: play it plainly instead
+  clearTimeout(wd);skip('DEAD')};
+[A,B].forEach(e=>{e.onplaying=onPlaying;e.onwaiting=onWaiting;e.onerror=onError});
+$('play').onclick=()=>{
+  if(!cur)return;
+  if(au.paused){play(cur,list)}else{playTok++;clearTimeout(wd);tuneEnd(null);metaStop();track='';renderTrack();killHls();au.pause();au.removeAttribute('src');au.load();setStatus('IDLE',false);$('play').innerHTML='&#9654;'}
+};
+/* ---------- tune terminal ---------- */
+let tuneI=0,tuneP=0,tuneH=0,histDone=true;
+const tnBar=()=>{const n=Math.round(tuneP/5);$('tnb').textContent='> ['+'#'.repeat(n)+'.'.repeat(20-n)+'] '+String(Math.round(tuneP)).padStart(3,' ')+'%'};
+function tuneStart(s){
+  clearInterval(tuneI);clearTimeout(tuneH);tuneP=0;
+  $('tnn').textContent='> '+T('tnLock')+' '+s.n.slice(0,26);
+  $('tno').textContent='> '+T('tnOrigin')+' '+([s.st,s.c].filter(Boolean).join(', ')||T('unknown')).slice(0,26);
+  tuneNote(T('tnHandshake'));tnBar();$('tn').classList.add('on');
+  tuneI=setInterval(()=>{tuneP+=(92-tuneP)*.09+.3;if(tuneP>92)tuneP=92;tnBar()},60);
+}
+function tuneNote(w){$('tns').textContent='> '+T('tnStatus')+' '+w}
+function tuneEnd(ok){
+  clearInterval(tuneI);clearTimeout(tuneH);
+  if(ok===null){$('tn').classList.remove('on');return}
+  if(ok){tuneP=100;tnBar();tuneNote(T('tnLocked'))}else tuneNote(T('tnLost'));
+  tuneH=setTimeout(()=>$('tn').classList.remove('on'),ok?500:1100);
+}
+/* ---------- history, account, menu ---------- */
+let hist=[],user=null;try{hist=JSON.parse(localStorage.getItem('ng_hist')||'[]')}catch(e){}
+const NATIVE=IN_APP&&window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.r4dio;
+let PRO=!!window.R4DIO_PRO,proPrice='',proBusy=false,proMsg='',curIcon='',iconAsk=false;   // Pro only exists inside the iOS app; the web page is fully free
+const isPro=()=>!NATIVE||PRO;
+const FREE_G=new Set(['pop','rock','news']);
+const FREE_FAVS=5,favFull=()=>!isPro()&&favs.length>=FREE_FAVS;   // free: 5 favorites, Pro: unlimited
+const genreLocked=k=>k!==null&&!FREE_G.has(k)&&!isPro();
+function post(m){try{NATIVE&&NATIVE.postMessage(m)}catch(e){}}
+function saveAll(sync){try{localStorage.setItem('ng_favs',JSON.stringify(favs));localStorage.setItem('ng_hist',JSON.stringify(hist))}catch(e){}if(sync!==false&&user)post({type:'save',data:{favs,hist}})}
+function addHist(s){hist=hist.filter(h=>h.id!==s.id);hist.unshift({id:s.id,n:s.n,u:s.u,lat:s.lat,lon:s.lon,c:s.c,st:s.st,t:Date.now()});hist.length=Math.min(hist.length,100);saveAll()}
+function ago(t){const m=Math.floor((Date.now()-t)/6e4);if(m<1)return T('agoNow');if(m<60)return T('agoM',{n:m});const h=Math.floor(m/60);return h<24?T('agoH',{n:h}):T('agoD',{n:Math.floor(h/24)})}
+function showHist(){
+  const p=$('panel');p.classList.remove('min');introOn=false;if(panelHidden)setPanel(true);list=hist;
+  p.innerHTML='<h2>'+esc(T('history'))+' // '+hist.length+'</h2>'+(hist.length?'':'<div class="empty">'+esc(T('noLog'))+'</div>');
+  hist.forEach(h=>{const d=document.createElement('div');d.className='st'+(cur&&cur.id===h.id?' on':'');
+    d.innerHTML='<div class="t"><div class="n">'+esc(h.n)+'</div><div class="s">'+esc([h.st,h.c].filter(Boolean).join(', '))+' / '+ago(h.t)+'</div></div>';
+    d.onclick=()=>{sel=[h.lon,h.lat];flyTo(h.lon,h.lat,1.8);play(h,hist)};p.appendChild(d)});
+  if(hist.length){const b=document.createElement('div');b.className='st';b.innerHTML='<div class="t"><div class="n">'+esc(T('clearHist'))+'</div></div>';b.onclick=()=>{hist=[];saveAll();showHist()};p.appendChild(b)}
+}
+function mergeData(d){
+  favs=[...new Set([...(d.favs||[]),...favs])];
+  const m=new Map();[...(d.hist||[]),...hist].forEach(h=>{const o=m.get(h.id);if(!o||h.t>o.t)m.set(h.id,h)});
+  hist=[...m.values()].sort((a,b)=>b.t-a.t).slice(0,100);saveAll();
+}
+function renderAcct(msg){
+  $('apl').textContent=user?(user.name?T('signedInAs',{n:user.name}):T('signedIn')):T('signIn');
+  $('am').textContent=msg||T(user?'acctSaved':NATIVE?'acctPrompt':'acctIos');
+}
+window.r4dioNative=m=>{
+  if(m.type==='user'){user=m.user;renderAcct()}
+  else if(m.type==='data'&&m.data)mergeData(m.data);
+  else if(m.type==='error'){renderAcct(m.msg);$('menu').classList.add('on')}
+  else if(m.type==='meta')setTrack(m.id,m.title||'');
+  else if(m.type==='cmd')runCmd(m);
+  else if(m.type==='pro'){const was=PRO;PRO=!!m.pro;proPrice=m.price||'';proBusy=!!m.busy;proMsg=m.msg||'';if(PRO!==was){enforcePro();if(PRO)setTimeout(typeMx,700)}proUI()}
+  else if(m.type==='icon'){curIcon=m.name||'';if(iconAsk){iconAsk=false;if(m.ok===false)toast(T('proFail'));else toast(T('iconDone'))}renderIcons()}
+};
+$('hb').onclick=showHist;
+$('mn').onclick=e=>{e.stopPropagation();$('gpop').classList.remove('on');$('menu').classList.toggle('on')};
+$('gb').onclick=e=>{e.stopPropagation();$('menu').classList.remove('on');$('gpop').classList.toggle('on')};
+document.addEventListener('click',e=>{if(!e.target.closest('#menu,#mn'))$('menu').classList.remove('on');if(!e.target.closest('#gpop,#gb'))$('gpop').classList.remove('on')});
+$('apl').onclick=()=>post({type:user?'signout':'signin'});
+if(NATIVE)$('apl').hidden=false;renderAcct();
+function rxNote(){}
+const arLabel=()=>$('ar').textContent=T('rotation')+': '+T(autoRot?'on':'off');arLabel();
+$('ar').onclick=()=>{autoRot=!autoRot;arLabel();try{localStorage.setItem('ng_rot',autoRot?'on':'off')}catch(e){}};
+const rGain=()=>.575;   // fixed reactive sensitivity (the old slider at 5%)
+const lk=()=>isPro()?'':' '+T('proLock');
+const rxLabel=()=>$('rx').textContent=T('audioReactive')+': '+T(reactOn?'on':'off')+lk();rxLabel();rxNote();
+$('rx').onclick=()=>{if(!isPro())return openPaywall();reactOn=!reactOn;rxLabel();try{localStorage.setItem('ng_react',reactOn?'on':'off')}catch(e){}if(cur&&live)play(cur,list,true);rxNote()};
+$('glw').value=Math.round(glowK*100);
+$('glw').oninput=e=>{glowK=e.target.value/100;try{localStorage.setItem('ng_glow',glowK)}catch(e2){}};
+/* ---------- favorite button, now playing, music links ---------- */
+function syncBf(){
+  const y=!!cur&&favs.includes(cur.id);$('bf').classList.toggle('y',y);
+  document.querySelectorAll('.st').forEach((el,i)=>{const f=el.querySelector('.f');if(f&&list[i])f.classList.toggle('y',favs.includes(list[i].id))});
+}
+$('bf').onclick=()=>{if(!cur)return;const i=favs.indexOf(cur.id);if(i<0&&favFull())return openPaywall(T('favLimit',{n:FREE_FAVS}));if(i<0)favs.push(cur.id);else favs.splice(i,1);saveFavs();syncBf()};
+let track='',metaT=0;
+function parseIcy(t){const m=/StreamTitle='(.*?)';/s.exec(t);return m?m[1].trim():''}
+function setTrack(id,title){
+  if(!cur||cur.id!==id)return;
+  title=(title||'').replace(/\s+/g,' ').trim();if(title.toLowerCase()===cur.n.toLowerCase())title='';
+  if(title===track)return;track=title;renderTrack();mediaMeta(cur,track);
+}
+function renderTrack(){
+  const np=$('np'),old=np.querySelector('.k');if(old)old.remove();
+  if(!track){$('mus').classList.remove('on');return}
+  const b=document.createElement('button');b.className='k';b.textContent='\u266A '+track;b.title=T('findSong');
+  b.onclick=e=>{e.stopPropagation();$('mq').textContent='\u266A '+track;$('mus').classList.toggle('on')};np.appendChild(b);
+}
+function requestMeta(){if(!cur||!live)return;if(NATIVE)post({type:'meta',id:cur.id,url:cur.u});else webMeta(cur)}
+function metaStart(){clearInterval(metaT);setTimeout(requestMeta,1500);metaT=setInterval(requestMeta,25000)}
+function metaStop(){clearInterval(metaT)}
+async function webMeta(s){   // works only on streams whose servers allow it; the iOS app reads it natively instead
+  const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),12000);
+  try{
+    const r=await fetch(s.u,{headers:{'Icy-MetaData':'1'},signal:ctl.signal}),mi=+r.headers.get('icy-metaint');
+    if(!mi)return;
+    const rd=r.body.getReader();let buf=new Uint8Array(0);
+    while(buf.length<mi*3+8192){
+      const{value,done}=await rd.read();if(done)break;
+      const nb=new Uint8Array(buf.length+value.length);nb.set(buf);nb.set(value,buf.length);buf=nb;
+      if(buf.length>mi){const len=buf[mi]*16;
+        if(len===0)return;
+        if(buf.length>=mi+1+len){setTrack(s.id,parseIcy(new TextDecoder().decode(buf.slice(mi+1,mi+1+len))));return}}
+    }
+  }catch(e){}finally{clearTimeout(to);ctl.abort()}
+}
+document.querySelectorAll('#mus [data-s]').forEach(b=>b.onclick=()=>{
+  const q=encodeURIComponent(track),u={spotify:'https://open.spotify.com/search/'+q,yt:'https://www.youtube.com/results?search_query='+q,apple:'https://music.apple.com/search?term='+q}[b.dataset.s];
+  if(NATIVE)post({type:'open',url:u});else window.open(u,'_blank','noopener');
+  $('mus').classList.remove('on');
+});
+document.addEventListener('click',e=>{if(!e.target.closest('#mus,.k'))$('mus').classList.remove('on')});
+/* ---------- movable / hideable station list ---------- */
+const panelEl=$('panel');let pDrag=null;
+function setPanel(show){panelHidden=!show;panelEl.classList.toggle('hide',!show);$('pt').classList.toggle('on',show);if(W<900)resize()}
+$('pt').onclick=()=>setPanel(panelHidden);
+function clampPanel(){
+  if(W<560){['left','top','right','bottom'].forEach(k2=>panelEl.style[k2]='');return}
+  if(panelEl.style.left){const r=panelEl.getBoundingClientRect();panelEl.style.left=Math.max(4,Math.min(r.left,W-r.width-4))+'px';panelEl.style.top=Math.max(4,Math.min(r.top,H-60))+'px'}
+}
+try{const sp=JSON.parse(localStorage.getItem('ng_ppos')||'null');if(sp&&W>=560){panelEl.style.left=sp.x+'px';panelEl.style.top=sp.y+'px';panelEl.style.right='auto';clampPanel()}}catch(e){}
+panelEl.addEventListener('pointerdown',e=>{
+  const h=e.target.closest('h2');if(!h||(e.pointerType==='mouse'&&e.button!==0))return;
+  const r=panelEl.getBoundingClientRect();pDrag={x:e.clientX,y:e.clientY,l:r.left,t:r.top,dy:0};h.setPointerCapture(e.pointerId);
+});
+panelEl.addEventListener('pointermove',e=>{
+  if(!pDrag)return;const dx=e.clientX-pDrag.x,dy=e.clientY-pDrag.y;pDrag.dy=dy;
+  if(W>=560){panelEl.style.right='auto';panelEl.style.left=Math.max(4,Math.min(pDrag.l+dx,W-panelEl.offsetWidth-4))+'px';panelEl.style.top=Math.max(4,Math.min(pDrag.t+dy,H-60))+'px'}
+  else if(dy>0)panelEl.style.transform='translateY('+dy+'px)';
+});
+function pEnd(){
+  if(!pDrag)return;
+  if(W>=560){try{localStorage.setItem('ng_ppos',JSON.stringify({x:parseFloat(panelEl.style.left),y:parseFloat(panelEl.style.top)}))}catch(e){}}
+  else{panelEl.style.transform='';if(pDrag.dy>60)setPanel(false)}
+  pDrag=null;
+}
+panelEl.addEventListener('pointerup',pEnd);panelEl.addEventListener('pointercancel',pEnd);
+addEventListener('resize',clampPanel);
+/* ---------- satellite ---------- */
+const satEl=$('sat'),satI=$('sati');let satA=0;
+function satTick(dt){
+  if(!satOn)return;
+  const l=live?lvlS:0;
+  if(!RM)satA=(satA+((live?50:22)+l*380)*dt)%360;
+  satI.style.setProperty('--lv',Math.min(1,l*1.6).toFixed(2));
+  satI.style.transform='rotateZ(-18deg) rotateY('+satA.toFixed(1)+'deg) scale('+(1+l*.3+(reactOn?beat*.18:0)).toFixed(3)+')';
+}
+const sbLabel=()=>$('sb').textContent=T('satellite')+': '+T(satOn?'on':'off')+lk();
+function applySat(){satEl.classList.toggle('on',satOn);sbLabel();rxNote()}
+$('sb').onclick=()=>{if(!isPro())return openPaywall();satOn=!satOn;try{localStorage.setItem('ng_sat',satOn?'on':'off')}catch(e){}applySat();if(cur&&live)play(cur,list,true)};
+applySat();
+/* ---------- M4X owners: now and then the logo types out M4X ---------- */
+let mxT=0,mxLoop=0;
+function typeMx(){
+  if(!NATIVE||!isPro()||RM||activeGenre!==null||document.hidden)return;
+  const h=document.querySelector('h1');if(h.querySelector('.mx'))return;
+  const sp=document.createElement('span');sp.className='mx';h.appendChild(sp);
+  const word='M4X';let i=0,dir=1,hold=0;
+  clearInterval(mxT);
+  mxT=setInterval(()=>{
+    if(activeGenre!==null||!isPro()){clearInterval(mxT);sp.remove();return}   // a genre name takes the spot
+    if(dir===1){i++;sp.textContent=word.slice(0,i);if(i>=word.length){dir=0;hold=30}}   // type it, hold ~2.7s
+    else if(dir===0){if(--hold<=0)dir=-1}
+    else{i--;sp.textContent=word.slice(0,i);if(i<=0){clearInterval(mxT);sp.remove()}}   // backspace it away
+  },90);
+}
+function mxSchedule(){clearTimeout(mxLoop);mxLoop=setTimeout(()=>{typeMx();mxSchedule()},14000+Math.random()*16000)}
+if(NATIVE){mxSchedule();setTimeout(typeMx,2500)}
+/* ---------- genre typed next to the title ---------- */
+let gtT=0,gtTxt='';
+function titleGenre(text){
+  clearInterval(gtT);const h=document.querySelector('h1');let sp=h.querySelector('.gt');
+  const target=(text||'').toUpperCase();
+  if(!target&&!sp)return;
+  if(!sp){sp=document.createElement('span');sp.className='gt';h.appendChild(sp)}
+  if(RM){sp.textContent=target;if(!target)sp.remove();gtTxt=target;return}
+  gtT=setInterval(()=>{
+    const cur=sp.textContent;
+    if(cur!==target&&!target.startsWith(cur)){sp.textContent=cur.slice(0,-1)}                 // backspace the old genre
+    else if(cur.length<target.length){sp.textContent=target.slice(0,cur.length+1)}           // type the new one
+    else{clearInterval(gtT);if(!target)sp.remove()}
+    if(!target&&!sp.textContent){clearInterval(gtT);sp.remove()}
+  },50);
+  gtTxt=target;
+}
+/* ---------- genre filter ---------- */
+function renderGenres(){
+  const c=$('gc');if(!c)return;
+  const cnt={};for(const s of stations)if(s.g)for(const g of s.g)cnt[g]=(cnt[g]||0)+1;
+  const fmt=n=>n>=1000?(n/1000).toFixed(1)+'k':n;
+  c.innerHTML='';
+  const mk=(key,label,n)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',activeGenre===key);if(activeGenre===key)b.className='on';b.innerHTML=esc(label)+(n!=null?'<i>'+(genreLocked(key)?esc(T('proLock')):fmt(n))+'</i>':'');b.onclick=()=>setGenre(key);c.appendChild(b)};
+  mk(null,T('all'),stations.length);
+  GENRES.forEach(g=>{if(cnt[g[0]])mk(g[0],GN(g[0]),cnt[g[0]])});
+}
+function gbLabel(){const gl=activeGenre===null?null:GN(activeGenre);$('gb').title=gl?T('genreTitle',{g:gl}):T('genre');$('gb').setAttribute('aria-label',gl?T('genreFilterOn',{g:gl}):T('genreFilter'))}
+function setGenre(key){
+  if(genreLocked(key)){$('gpop').classList.remove('on');return openPaywall()}
+  activeGenre=key;gList=null;hovCl=null;$('tip').classList.remove('on');
+  buildClusters();$('gb').classList.toggle('on',key!==null);$('gpop').classList.remove('on');
+  titleGenre(key===null?null:GN(key));gbLabel();
+  if(!panelHidden){
+    if(key===null)showList(T('genreOff'),T('nStations',{n:stations.length}),[]);
+    else{const L=S().slice().sort((a,b)=>b.v-a.v).slice(0,40);showList(GN(key),T('nStations',{n:S().length}),L)}
+  }
+}
+/* ---------- random text glitches ---------- */
+const GL_SEL=['h1','#panel h2','#np .n','#np .s','#np .k','#hud','#panel .empty','#panel .st .n','#tn pre','#st'],GL_CH='01$#%&@*+<>/=ｱｲｳｴｵｶｷ';
+function scramble(el){
+  const orig=el.textContent;let n=0,cur=orig;
+  const iv=setInterval(()=>{
+    if(el.textContent!==cur){clearInterval(iv);return}   // the app changed it meanwhile: leave it alone
+    if(++n>4){el.textContent=orig;clearInterval(iv);return}
+    cur=[...orig].map(c=>c===' '||Math.random()>.22?c:GL_CH[Math.floor(Math.random()*GL_CH.length)]).join('');
+    el.textContent=cur;
+  },60);
+}
+function glitchTick(){
+  if(!RM&&!document.hidden){
+    const els=[...document.querySelectorAll(GL_SEL[Math.floor(Math.random()*GL_SEL.length)])].filter(e=>e.getClientRects().length),el=els[Math.floor(Math.random()*els.length)];
+    if(el){el.classList.add('gfx');setTimeout(()=>el.classList.remove('gfx'),400);
+      if(!el.children.length&&el.textContent.trim().length>2&&Math.random()<.7)scramble(el)}
+  }
+  setTimeout(glitchTick,1800+Math.random()*4200);
+}
+setTimeout(glitchTick,3000);
+/* ---------- incoming transmissions ---------- */
+const TX_CHANCE=.55;let txOn=true,txS=null,txT=0,txExp=0;
+try{txOn=localStorage.getItem('ng_tx')!=='off'}catch(e){}
+function beep(){if(!ac||ac.state!=='running')return;try{[0,.18,.36].forEach((d,i)=>{const o=ac.createOscillator(),g=ac.createGain(),t0=ac.currentTime+d;o.type='square';o.frequency.value=i%2?880:1320;g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(.08*au.volume+.0002,t0+.01);g.gain.exponentialRampToValueAtTime(.0001,t0+.14);o.connect(g);g.connect(ac.destination);o.start(t0);o.stop(t0+.15)})}catch(e){}}
+function showTx(){
+  const L=S();if(txS||!L.length)return;
+  let s=null;for(let i=0;i<30;i++){const c=L[Math.floor(Math.random()*L.length)];if(c&&(!cur||c.id!==cur.id)&&(!cur||c.c!==cur.c||i>20)){s=c;break}}
+  if(!s)return;txS=s;
+  $('txo').textContent=[s.st,s.c].filter(Boolean).join(', ').toUpperCase()+' ['+Math.abs(s.lat).toFixed(1)+(s.lat<0?'S':'N')+' '+Math.abs(s.lon).toFixed(1)+(s.lon<0?'W':'E')+']';
+  $('txf').textContent=(87.5+Math.random()*20.5).toFixed(1)+' MHz';
+  $('txs').textContent=Math.floor(35+Math.random()*60)+'%';
+  const t=$('tx');t.classList.add('on');const bar=t.querySelector('.tm i');bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';
+  beep();clearTimeout(txExp);txExp=setTimeout(()=>endTx(false),15000);$('acc').focus({preventScroll:true});
+}
+function endTx(accept){
+  clearTimeout(txExp);const s=txS;txS=null;$('tx').classList.remove('on');if(!s)return;
+  if(accept){const hid=panelHidden;openPlace(s,false);play(s,list);if(hid)setPanel(false)}else tuneNoise(.12);
+}
+function txSchedule(){clearTimeout(txT);txT=setTimeout(()=>{if(txOn&&!txS&&!drag&&!document.hidden&&Math.random()<TX_CHANCE)showTx();txSchedule()},35000+Math.random()*45000)}
+$('acc').onclick=()=>endTx(true);$('rej').onclick=()=>endTx(false);
+const ixLabel=()=>$('ix').textContent=T('intercept')+': '+T(txOn?'on':'off');ixLabel();
+$('ix').onclick=()=>{txOn=!txOn;ixLabel();try{localStorage.setItem('ng_tx',txOn?'on':'off')}catch(e){}};
+document.querySelector('h1').onclick=()=>{podOn=!podOn;try{localStorage.setItem('ng_pod',podOn?'on':'off')}catch(e){}applyPod()};   // tap the logo to show or hide the alien mini player
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!txS){$('gpop').classList.remove('on');$('menu').classList.remove('on')}if(e.key==='Escape'&&txS)endTx(false);if((e.key==='t'||e.key==='T')&&!/INPUT|SELECT/.test(document.activeElement.tagName))showTx()});
+txSchedule();
+
+
+
+/* ---------- mini player ---------- */
+let podOn=false;try{podOn=localStorage.getItem('ng_pod')==='on'}catch(e){}
+
+/* ---------- sleep timer ---------- */
+let sleepEnd=0,sleepT=0;const SLEEP_STEPS=[0,15,30,60];
+function slLabel(){const left=sleepEnd-Date.now();$('sl').textContent=T('sleepTimer')+': '+(sleepEnd&&left>0?Math.floor(left/60000)+':'+String(Math.floor(left/1000)%60).padStart(2,'0'):T('off'))}
+function sleepStop(){sleepEnd=0;clearInterval(sleepT);sleepT=0;slLabel();post({type:'sleep',end:0})}
+function sleepTick(){if(!sleepEnd)return;if(Date.now()>=sleepEnd){sleepStop();if(!au.paused)$('play').click();toast('\u263E '+T('sleepTimer'));return}slLabel()}
+$('sl').onclick=()=>{
+  const m=sleepEnd?Math.round((sleepEnd-Date.now())/60000):0;   // current setting: next step up the list
+  const cur0=sleepEnd?(m>30?60:m>15?30:15):0,nx=SLEEP_STEPS[(SLEEP_STEPS.indexOf(cur0)+1)%SLEEP_STEPS.length];
+  if(!nx){sleepStop();return}
+  sleepEnd=Date.now()+nx*60000;clearInterval(sleepT);sleepT=setInterval(sleepTick,1000);slLabel();post({type:'sleep',end:sleepEnd})};
+slLabel();
+const podEl=$('pod'),pbLabel=()=>$('pb').textContent=T('miniPlayer')+': '+T(podOn?'on':'off');
+function podTick(){
+  if(!podOn)return;
+  podEl.querySelector('.l1').textContent=cur?cur.n:T('noSignal');
+  podEl.querySelector('.l2').textContent=track?'\u266A '+track:T(SK[stCode]||'stIdle');
+  podEl.classList.toggle('live',!!live);
+  {const y=!!cur&&favs.includes(cur.id),h=$('pd');h.classList.toggle('y',y);h.innerHTML=y?'&#9829;':'&#9825;'}
+  $('pc').innerHTML=au&&!au.paused?'&#10074;&#10074;':'&#9654;';
+}
+let podT=0;
+function applyPod(){podEl.classList.toggle('on',podOn);clearInterval(podT);if(podOn){podTick();podT=setInterval(podTick,400)}pbLabel()}
+$('pb').onclick=()=>{podOn=!podOn;try{localStorage.setItem('ng_pod',podOn?'on':'off')}catch(e){}applyPod()};
+$('pc').onclick=()=>{if(cur)$('play').click();else $('rnd').click();setTimeout(podTick,50)};
+$('pd').onclick=()=>{if(cur){$('bf').click();podTick()}};
+$('pu').onclick=()=>$('rnd').click();
+$('pa').onclick=()=>step(-1);$('pn').onclick=()=>step(1);
+{let d=null;
+ podEl.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;const r=podEl.getBoundingClientRect();d={x:e.clientX-r.left,y:e.clientY-r.top};podEl.setPointerCapture(e.pointerId)});
+ podEl.addEventListener('pointermove',e=>{if(!d)return;podEl.style.left=Math.max(4,Math.min(e.clientX-d.x,innerWidth-podEl.offsetWidth-4))+'px';podEl.style.top=Math.max(4,Math.min(e.clientY-d.y,innerHeight-podEl.offsetHeight-60))+'px'});
+ const end=()=>{if(!d)return;d=null;try{localStorage.setItem('ng_podpos',JSON.stringify({x:parseFloat(podEl.style.left),y:parseFloat(podEl.style.top)}))}catch(e){}};
+ podEl.addEventListener('pointerup',end);podEl.addEventListener('pointercancel',end);
+ try{const p=JSON.parse(localStorage.getItem('ng_podpos')||'null');if(p&&p.x<innerWidth-60&&p.y<innerHeight-100){podEl.style.left=p.x+'px';podEl.style.top=p.y+'px'}}catch(e){}}
+applyPod();
+
+
+/* ---------- native commands: Siri / Shortcuts, widgets, deep links, sleep timer ---------- */
+function runCmd(m){
+  if(m.cmd==='open'&&m.id)openShared(m.id);
+  else if(m.cmd==='pause'){if(!au.paused)$('play').click()}
+  else if(m.cmd==='play'){if(cur&&au.paused)play(cur,list);else if(!cur&&favs.length)openShared(favs[0])}
+  else if(m.cmd==='randomFav'){if(favs.length)openShared(favs[Math.floor(Math.random()*favs.length)])}
+  else if(m.cmd==='m4x')openPaywall();
+}
+// tell the app what is playing (lock-screen Live Activity) and which favorites exist (widgets, Siri)
+let lastNow='',lastFavs='';
+function nowPost(){
+  if(!NATIVE)return;
+  const n=JSON.stringify({playing:!!(cur&&!au.paused&&live),id:cur?cur.id:'',name:cur?cur.n:'',sub:cur?[cur.st,cur.c].filter(Boolean).join(', '):'',title:track||''});
+  if(n!==lastNow){lastNow=n;post({type:'now',...JSON.parse(n)})}
+  const f=JSON.stringify(favs.slice(0,16).map(id=>{const x=stations.find(s=>s.id===id);return x?{id,n:x.n,c:x.c||''}:null}).filter(Boolean));
+  if(f!==lastFavs&&f!=='[]'||(f==='[]'&&lastFavs&&favs.length===0)){lastFavs=f;post({type:'favs',list:JSON.parse(f)})}
+}
+if(NATIVE)setInterval(nowPost,1500);
+
+/* ---------- sharing ---------- */
+const SHARE_BASE='';   // optional: public URL of this page, used for share links when it runs from a file or inside the iOS app
+const shareBase=()=>/^https?:$/.test(location.protocol)?location.origin+location.pathname:(SHARE_BASE||window.R4DIO_SHARE_BASE||'');
+const shareUrl=s=>{const b=shareBase();return b?b+'#s='+encodeURIComponent(s.id):s.u};   // no page URL available: share the stream itself
+let toastT=0;
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200)}
+async function shareStation(){
+  if(!cur)return;
+  const url=shareUrl(cur);
+  if(NATIVE){const web=/^https?:/.test(url)&&shareBase()?url:'';NATIVE.postMessage({type:'share',text:cur.n+(cur.c?' ('+cur.c+')':'')+' - E4RTH R4DIO\nr4dio://station/'+cur.id,url:web});return}
+  try{if(navigator.share){await navigator.share({title:cur.n+' - E4RTH R4DIO',text:cur.n+(cur.c?' ('+cur.c+')':''),url});return}}catch(e){if(e&&e.name==='AbortError')return}
+  try{await navigator.clipboard.writeText(url)}catch(e){const ta=document.createElement('textarea');ta.value=url;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e2){}ta.remove()}
+  toast(T('linkCopied'));
+}
+$('sh').onclick=shareStation;
+// opening a shared link (page.html#s=<station id>): look the station up directly, fly to it and tune in
+async function openShared(id){
+  let s=null;
+  try{for(const h of (await mirrors()).slice(0,3)){try{const a=await (await fetch(h+'/json/stations/byuuid/'+encodeURIComponent(id),{signal:tmo(6000)})).json();if(a&&a[0]){s=conv(a[0]);break}}catch(e){}}}catch(e){}
+  if(!s)return;
+  sel=[s.lon,s.lat];flyTo(s.lon,s.lat,2.2);
+  const near=stations.filter(x=>d3.geoDistance([s.lon,s.lat],[x.lon,x.lat])<.02).sort((a,b)=>b.v-a.v),arr=near.some(x=>x.id===s.id)?near:[s,...near];
+  showList((s.st?s.st+', ':'')+s.c,T('nStations',{n:arr.length}),arr);
+  play(s,arr);
+}
+const sharedId=()=>{const m=/^#s=([0-9a-fA-F-]{8,40})$/.exec(location.hash);return m?m[1]:null};
+{const id=sharedId();if(id)openShared(id)}
+addEventListener('hashchange',()=>{const id=sharedId();if(id&&(!cur||cur.id!==id))openShared(id)});
+/* ---------- space bar = play / stop ---------- */
+{const typing=t=>t&&(/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)||t.isContentEditable);
+ addEventListener('keydown',e=>{
+  if(e.code!=='Space'||e.ctrlKey||e.metaKey||e.altKey||typing(e.target)||txS)return;
+  e.preventDefault();if(e.repeat)return;
+  if(document.activeElement&&document.activeElement.tagName==='BUTTON')document.activeElement.blur();   // otherwise the focused button would also fire
+  if(cur)$('play').click();
+ });
+ addEventListener('keyup',e=>{if(e.code==='Space'&&!typing(e.target)&&!txS)e.preventDefault()});}
+/* ---------- M4X unlock (iOS app only) ---------- */
+const ICONS=[["AppIcon", "Broadcast", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAAkFBMVEUEyjcJgygGZyAFVRsLRh0DRRcCRRQHNxcDNxICOBAJLxgGLRYFLhQFKRQFJRIDLg8DJw0FIxEEIQ8CIQoEGwwCGggCFAgBFAYCDQUBDgQECQUCCQMCCAMBCQMCBwIBBwMBBgIABwECBQIBBQIBBQEABQECAwIBBAIBBAEBAwIBAwEAAwEAAgECAAAAAQAAAAB+qExvAAANvklEQVR42o1aiXbjqBIVIBA4lkALWuJ10vOcdCbq/v+/e7fQYkl2+nRlemI79r21AVWFo98L+QX5gnySfLxDfkxyfZD5T/S+j/AR+ixhLDGjv4C/fit/QRE9xV/A39EuC9lyzBQPDNEGf1Z/hX55KiuOpRFLhuiOv1R/Ab+EPAZ5JFlRrBmib/HX8McHeaRYMvyeGKIt/kr978DXJCsjRobXyYZojb9Sf4V+2MiK43o9n5dGfP2sv0aGaBXfJf4S/vBUlhT//bdy09fvKQ7RbMAdfwN/+IOMFMf3PP88E8WUr/99fc0E3+Gv0duNrDmubTtE4jjbMDJEf8RfgHddA6kh9LvrFiT0zv/9bwj28ceGIXqCv1afwIHsIeUo9Bg83cQxh2Idh8AQfY8/wncEXpbOuQF58aQmjplizNgNw5LgEb9tmwaAgMP/rRI8iFC2nF5tmoFiy7AgeI4/wteE470TLNoIE/Q6OOo7xTOG6Fv8Eb70lg+AyiglIAoPBkJuwxtGiucMI8Eyf0b8rgmfVoBiymxNYMIMfwlvQixmhuvEMBNsDBjxoT4+KQI6gTOYoC2i66yGAeGlwCFAQUYsGRYmBIIHfLiHPqYAEhzEDbLGWauDWEvPTPiDBYUiVYKbHhiIYOGgGb+D+t6xiDlOigJba0PIQfCQnriSTOPhbXh73T0wkAnRwkFrfHiHtBeutIPWYEGYEWLyVLDGlk6QFeSnDcPspOjRAOBjFbFI4IO8dATknBGcQbAKWPgtDBFq7UooYUXEsPyI4cGEaDRgiU9LNYrwSeYI3jkFVC51VlS0F1WVk4FEjX9m0COKaG0vGCYToqUBk/7eRFGD4JXWaGeRMkxWBFwMUuGJlvSysE4bW6rwduPvNuAEGk2I1gYgfwI+I5UcwQflgZ0H5AWJlcEwonBkMAsMLTEA6/w6mhCtDRjxETfmrbHYIpiQUg+wlZb7fTEzFFpq+rvDGxEyZMTAcDy+nu5RiDYGYHewSPuIV1BMB3gpRU36F3ggRT4xFLVQkjYNpmGqBzyPEmI4nNvDGGeYAIK7AQdaXyUWF6IG1wqKrNjzXEh4aC/piajy2QJZcCc0HCVKbZATWHQlrbjD5Tgn0ke0XAMHCjDcGfAdH9Xfc50UeRqe4NmoP8iALzUWhmQc6QAGBI4CfVgmUjR7KDiorBkSgnksLKSOFinPhNzLKitEAv8k+BlMqCTyKJWi4AWMYAyLwoeP1uSk43H2UbQwAA7C9kNqED4PCmd8D8+n8L9MBvwsz/Mir/CClsYRvsR2GBjIeIVDqF2YsCAgB8E7PMI+4IAP36RC4L9E5hloEvAVWUYEiEiiVBzHfCdUiAQxWEefLoOTVgSDhyjCDYtcpJwukRpCQ/1U8gS+SfI8uChP04wosiJRseDEEO+4hxFgKLVT+DhrKM6zjxYEnccKwBs84sUonAIMEv+HdwoYlCZJlg4MWV7sYkF7n9N4oCiZEGnjSUHjfbcgmD1EBuCggoOwvIL38xBGmeBX+rKXwE2DEEG8q2pJFhhfwYiKGLDkXISjj0yYfTQRwEMUYXgR1QMb45voAC8kXJPm6V2KeFeUMW14jOW+5imd05Jh7XDysfejjwaC2UNdxBAjBFgIjfQUuRD7hDwks5f0Bf9N+NkuBj6PsVupmAldc1UJKzkCjSxhUbfw0UwAD5mIlrDjfHQQD/AJ4py9TBII4CC3Y2GzSxTnVsQ5pathnI4HiygEH90J4C8Y0GLngQGGSWQFOQjxpX+yeFkKMcQvPg5nJYsSi50iZl4qDSdZmIDTp4UJYxBGghMtskhhmyYDJgcl0D7fv2wEEY8L2qeimGJg4liJnZJwEmUStm0V0WI7LQlO176tBRnnzJBBmSQLeJLugbdleIlzyXTM4ggcWDM+56agTEKcHTla1G1/Pd0JTl+Hsa7yJcfbsKK4TAUPmf/y8oQgraA3Q5oOFqQ7K7A7KcO582Nl1n6dJoLLDxx4whhs6NBHKmwKIqclvKfMn2B3kIkhTnHSIc6QTrLM7jJboAygOMNFHFCoNpofl5Hg1EdRHwRnAdIBG5yGg3gaFtYdfmbI4h2O5Lgr4rjqWFxXu6JV2olKXLDOygELmKeB4NSbqD1SN9H0iAP2IGwM2KWr9AF/tiHOBUKQNxlWQ13vdr561cILnAqR6BvqWY5tZPrTSMCjvgt9xM1GTmJzriS25fR7giyJcUqEEmlXYhnUlcK5LZwybWRvAarrI74iOH+8fRx6y3FS4Yjf7/Nx55kJEvxMDOkepZcwchfHqOfjVGGxGFEqY6yw/QFQ5y3BQeITrleipRKiEknxQJDcTUhfNDII+7figSPOrMBuAfheqd4JweVhawF1eE3PdZFRjVIV2ZZgYJjWWsUTHgvsppyjegITDmnUaBZnXN9Qn/joore3t8OZFwW3YMChNTI8D3KWkPYxl3ECdKGdhgVSlcJ7fj4A6sFFHXVx54aj8OQ6MKwI1mn6kmY4nuVeaxybYr/HeaphgbUIc8ubM2E9iwGvPK+Lyu0nE9Itw7wbYSvkdFAgzBa/cFgKU0pZCvfGfcWfxKCtK1+dLa+RbZrqki3BervLZUIioJbaO0UWKLKgbC/CnktfYTN6iMH53BvRFlUWStHZR+mTvSgn7Xki9voFW6lAlQMKhxNa1W/C9OfzkxgcWqyNQFCMBJMJ6YP+Wb4nCyQVGggBTg+JJkI6K61qQTCAPYmBBwHVnFWxMiHd6F+QjxECqZO9jvF7b3F4wwrjlLsJ41cxeB9j0Pja3wIBKCoy4DkDHcnQHibgrAZLnBC6gvYKJ7RVILgBqhlj8D4RDDGwvA34Oqsq4M9OmjiGh9jKQ5261ykOP0G+QRI5DSOUvaxjcCfAQKi7uYkAZlNXk2ULirvABBTGlKjSxjsEWNlCUa4aq47c3QDVbglCDMoGaUoMUlPgdP4NQyGpltlrhNdwGihgDAMKZY0qL7wpFzGg8n2IAQY3zaHjhG9RN0uNhoMX2RMGekWEPMXiVUNbSw2h0wiBaXl3ANRowftM0J0hh0/u6qH52lNxh1AEG5YcoTJNxV7Sj6Y28GWfosbgjGur3LHknwfC2hKge23qrhcKBDU2GUleoizPR4qFoHrPePASgFHY6QR9OUdtiuPgbEQfoNqJ4OP9HgPXDwtBDfAy0TKnhmMDTwm8rzQyAYqH2gKlI8fEx5iSFrK7xwA92uf7tJLR4n461lY1Oq/ZBJyd+bQmRvA8H3taC3jRUJeAMo8rlF3G9cx9hIHk6CJqxBdn8kcZVZVHEqnBBARDoyfLVzI3yhWcwhs4i8+RRvVs+sWZTI345wW1xEDQ4dBX8JFVKsBTpy1DV1Zs0INYZijKYTLiacp5aEqkrehGAtFfwqzi388Oj8muI4oZHqIMBipmgw2k6wp4asRtmIj49vha+6qigWpV3/qz4IQFrTtAh3EOmSBuqJWoReO6rmpL+DKEgmyQssq3FFWFkYtpzi0O82FURGrXrjn0HKXXTQwGBIKPKxgGMV7xV2isCJpI6Bce46DbqK9RSfdthtMdaT+PuD99deiHOlf01zCQCiO1a39CI8FVU9qSORjslB5soNVE7QLKvYX2mFMw2zfOt1idi1n8ufH/9IJ2DnXqr8NIbRg6Xn5SOXmiaS6ZgEptiELwETgUrYh7+tSSHfqyPCzR8QSMbMdZR1g/L8PYMZrGpqfTCQN2jP9KptEPIpNo8jf6SaDioXpgkoI1va9uC9XPB8xZq7cr9iSM5gE2DU6HwewwFrycaJiJFgQEdRWwMQEMOx8YqoVojhOq/IeAX8MMBTnk87zB1mGb5nS5TzW/VqPlU5j2es7fQECBVpa8g6MWoaiXDEz1fRVTZlIZV3X/vL2iCcdSRvPUnVaj5V/TbJla/hM5yZXMvHqM5YwOHCEYSi0JfMEZGtjfr+c2btFhx8NadkTYna7TdVQYjv/aMJCTLCtbTwQBHpsOftqlATQVHEb9odMMLRNmdjTG3uBvLyiGMJSK1S1lqglWKEyr9coAugFBqVZgDOzltAlhBol5FwVgc0GxukG4jFNr1raEbYYf9Ef1AhzwdU3/sCXUYavjaI5xc1E27WV9P/FrfUl0D7RAKqGf0IZoKuNrP0u9lM6RnzhNH6kl6S7XNf72mmsI9MDgccISvoWm9Ro2SLiS6gy6DRwFTNHFhSkvG/yRYM0weUkn9BljWv8EHpNg8pFHfmE2zGloTlP/ZoX/a3kTOEd6ZCgxhEAdYtRT9NlDCj0NIz0owljD1wn/fhO4ZXj/F7lEA1QMvlD1l+134JDaeQwELV1ZhAXw/nOD/3Dd+/H+8/UVDN3oJmaP7Xf4Td2eoYQabnHG/N/gP7uwfjuPbiIj4F5/OzxF7y43pIIIN4M0XPmxudf/85X7dTCi9ERh2tvGjq59u7WYV+AyrQzqIz2f4q++NDAzBIrLaaJAechNCchbuCLE79sBrQRSpxzhB/Wf4f/paw8woh0ovFPDFSNyxRozXDkq5wd4eOf6F197ePLFDfITrAgcDV1lTneZdJk5vBq0v/74qy9u3Bnufhoc1YUbU083o6OEp004ukbnzOpvv3uyJNgaMVCQGcN19X07Gq6sJ+VH+KdfbdkQrI0YYzFwBJZJWno+oo/Oear+I8EjxcDxPk4/A/AwThxe//gz/BOCwLCkuJNsZQJfwD/g//4/fw0nsJCQP3EAAAAASUVORK5CYII="],  ["IconWaves", "Waves", "data:image/png;base64,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"], ["IconOrbit", "Orbit", "data:image/png;base64,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"],   ["IconRain", "Rain", "data:image/png;base64,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"], ["IconAlien", "Alien", "data:image/png;base64,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"],  ["IconClassic", "Classic", "data:image/png;base64,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"]];
+function enforcePro(){   // free users keep their saved choices on disk, but the locked features are off until Pro is back
+  if(!NATIVE)return;
+  if(isPro()){try{reactOn=localStorage.getItem('ng_react')==='on';satOn=localStorage.getItem('ng_sat')==='on'}catch(e){}}
+  else{reactOn=false;satOn=false;if(genreLocked(activeGenre))setGenre(null)}
+  applyPod();applySat();rxLabel();rxNote();applyTheme();
+}
+function renderPw(){
+  const on=isPro();
+  $('pwb').textContent=on?T('proOn'):T('proBuy',{p:proPrice||'...'});$('pwb').disabled=on||proBusy;$('pwr').hidden=on;
+  $('pwm').textContent=proBusy?T('proBusy'):(proMsg==='pending'?T('proPending'):proMsg?T('proFail')+(proMsg.length>6?' ['+proMsg.replace(/^failed:?\s*/,'').slice(0,90)+']':''):pwNote);
+}
+function renderIcons(){
+  const g=$('ig');if(!g)return;g.innerHTML='';
+  ICONS.forEach(([id,name,src])=>{const b=document.createElement('button');b.type='button';b.className='ico'+((id==='AppIcon'?'':id)===curIcon?' on':'');b.innerHTML='<img alt="" src="'+src+'"><span>'+esc(name)+'</span>';
+    b.onclick=()=>{if(!isPro()){$('ip').classList.remove('on');return openPaywall()}iconAsk=true;post({type:'icon',name:id==='AppIcon'?'':id})};g.appendChild(b)});
+}
+function proUI(){
+  if(!NATIVE)return;
+  $('pro').hidden=false;$('ic').hidden=false;
+  $('pro').textContent=isPro()?T('proMenuOn'):T('proMenu')+(proPrice?' '+proPrice:'');
+  $('ic').textContent=T('appIcon')+lk();
+  rxLabel();sbLabel();pbLabel();thLabel();renderGenres();renderPw();renderIcons();
+}
+let pwNote='';
+function openPaywall(note){if(!NATIVE)return;proMsg='';pwNote=typeof note==='string'?note:'';renderPw();$('menu').classList.remove('on');$('pw').classList.add('on');post({type:'pro',action:'status'})}
+$('pro').onclick=openPaywall;
+$('ic').onclick=()=>{$('menu').classList.remove('on');renderIcons();$('ip').classList.add('on')};
+$('pwb').onclick=()=>{if(isPro()||proBusy)return;proBusy=true;proMsg='';renderPw();post({type:'pro',action:'buy'})};
+$('pwr').onclick=()=>{proBusy=true;proMsg='';renderPw();post({type:'pro',action:'restore'})};
+$('pwx').onclick=()=>$('pw').classList.remove('on');$('ipx').onclick=()=>$('ip').classList.remove('on');
+[$('pw'),$('ip')].forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on')}));
+/* colorway: green (default) or red; red is part of M4X */
+let theme='green';try{theme=localStorage.getItem('ng_theme')==='red'?'red':'green'}catch(e){}
+const thLabel=()=>$('th').textContent=T('colorway')+': '+T(theme==='red'&&isPro()?'themeRed':'themeGreen')+lk();
+function applyTheme(){
+  const red=theme==='red'&&isPro();
+  document.documentElement.classList.toggle('red',red);
+  const cs=getComputedStyle(document.documentElement),g=n=>cs.getPropertyValue(n).trim();
+  TH.c=g('--c');TH.m=g('--m');TH.dim=g('--dim');TH.cr=g('--cr');TH.mr=g('--mr');TH.dk=g('--dk');
+  mkGlow();thLabel();
+}
+$('th').onclick=()=>{if(!isPro())return openPaywall();theme=theme==='red'?'green':'red';try{localStorage.setItem('ng_theme',theme)}catch(e){}applyTheme()};
+podEl.addEventListener('click',e=>{if(!NATIVE||isPro()||!e.target.closest('button'))return;e.stopImmediatePropagation();e.preventDefault();openPaywall()},true);   // the mini player shows for everyone; its buttons need M4X
+enforcePro();applyTheme();
+/* ---------- language switcher ---------- */
+const APPSTORE_URL='';   // paste the App Store link here once the app is live
+function dlLabel(){const d=$('dl');if(IN_APP){d.hidden=true;return}d.hidden=false;d.textContent=T(APPSTORE_URL?'getIos':'iosSoon');d.disabled=!APPSTORE_URL}
+$('dl').onclick=()=>{if(APPSTORE_URL)window.open(APPSTORE_URL,'_blank','noopener')};
+document.querySelectorAll('#lk a').forEach(a=>a.addEventListener('click',e=>{if(NATIVE){e.preventDefault();post({type:'open',url:a.href})}}));
+function applyLang(){
+  const de=document.documentElement;de.lang=lang;de.classList.toggle('rtl',lang==='ar');
+  document.querySelectorAll('[data-i18n]').forEach(e=>{e.textContent=T(e.dataset.i18n)});
+  document.querySelectorAll('[data-i18n-attr]').forEach(e=>e.dataset.i18nAttr.split(',').forEach(p=>{const a=p.split(':');e.setAttribute(a[0],T(a[1]))}));
+  ixLabel();arLabel();rxLabel();sbLabel();pbLabel();slLabel();rxNote();renderAcct();proUI();thLabel();dlLabel();
+  setCnt(cntK,cntV);$('st').textContent=T(SK[stCode]||'stIdle');
+  renderGenres();gbLabel();if(activeGenre!==null)titleGenre(GN(activeGenre));
+  renderTrack();
+  if(introOn)$('panel').innerHTML=introHTML();
+}
+function setLang(l){if(!I18N[l])return;lang=l;try{localStorage.setItem('ng_lang',l)}catch(e){}applyLang()}
+{const sel=$('lg');LANGS.forEach(a=>{const o=document.createElement('option');o.value=a[0];o.textContent=a[1];sel.appendChild(o)});sel.value=lang;sel.onchange=()=>setLang(sel.value)}
+applyLang();
+</script>
+</body></html>
