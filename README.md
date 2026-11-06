@@ -1,4 +1,4 @@
-# r4dio.net
+# e4rth.net
 
 Static site for E4RTH R4DIO (GitHub Pages). `/play/` is the browser version of the app.
 
