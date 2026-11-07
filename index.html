@@ -1354,7 +1354,7 @@ enforcePro();applyTheme();
 /* ---------- language switcher ---------- */
 const APPSTORE_URL='https://apps.apple.com/us/app/e4rth-r4dio/id6831391291';   // paste the App Store link here once the app is live
 function dlLabel(){const d=$('dl');if(IN_APP){d.hidden=true;return}d.hidden=false;d.textContent=T('getIos');d.disabled=false}
-$('dl').onclick=()=>{location.href='/app.html'};   // web: goes to the /app page, which links to the App Store
+$('dl').onclick=()=>{location.href='/app'};   // web: goes to the /app page, which links to the App Store
 document.querySelectorAll('#lk a').forEach(a=>a.addEventListener('click',e=>{if(NATIVE){e.preventDefault();post({type:'open',url:a.href})}}));
 function applyLang(){
   const de=document.documentElement;de.lang=lang;de.classList.toggle('rtl',lang==='ar');
