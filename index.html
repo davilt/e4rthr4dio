@@ -428,6 +428,8 @@ let rzT=0;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(resize
 
 /* ---------- data ---------- */
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r=>r.json()).then(t=>{feats=topojson.feature(t,t.objects.countries).features;land={type:'FeatureCollection',features:feats};setTimeout(trySpread,0)}).catch(()=>{});
+let stateLines=null;
+fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r=>r.json()).then(t=>{stateLines=topojson.mesh(t,t.objects.states)}).catch(()=>{});   // US state borders
 const FALLBACK=['de1','de2','nl1','at1'].map(x=>`https://${x}.api.radio-browser.info`);
 const tmo=ms=>{const c=new AbortController();setTimeout(()=>c.abort(),ms);return c.signal};
 async function mirrors(){
@@ -467,13 +469,23 @@ const okSt=s=>{const u=s.url_resolved;if(!u||BAD.has(s.stationuuid)||LOGIN.test(
 const GV=2;   // bump when the genre rules change
 const GENRES=[['pop','Pop',/\bpop\b|top ?40|chart|hits/],['rock','Rock',/rock|punk|grunge/],['metal','Metal',/metal|hardcore|thrash|doom|death ?metal/],['alt','Alternative',/alternative|\balt\b|indie|emo|shoegaze|post-?punk|new wave/],['elec','Electronic',/electro|techno|house|trance|\bedm\b|dance|dubstep|drum ?(&|and|n)? ?bass|\bdnb\b|club/],['hiphop','Hip-hop',/hip.?hop|\brap\b|r&b|\brnb\b|urban|trap/],['jazz','Jazz & blues',/jazz|swing|bebop|blues|smooth/],['class','Classical',/classical|opera|orchestra|baroque|symphon/],['news','News & talk',/news|talk|politic|sport|information/],['amb','Ambient',/ambient|chill|lounge|relax|downtempo|meditat|sleep|new age/],['country','Country & folk',/country|folk|bluegrass|americana/],['latin','Latin',/latin|salsa|reggaeton|cumbia|bachata|tropical|merengue|regional mexican/],['world','Reggae & world',/reggae|\bska\b|afro|world|bollywood|arab|k-?pop|j-?pop/],['oldies','Oldies & soul',/oldies|\b[5-9]0s\b|retro|disco|funk|soul|motown|classic hits/],['faith','Faith',/christian|gospel|religio|islam|quran|catholic|worship|bible/]];
 function genresOf(t){t=(t||'').toLowerCase();return t?GENRES.filter(g=>g[2].test(t)).map(g=>g[0]):[]}
-function S(){return activeGenre===null?stations:(gList||(gList=stations.filter(s=>s.g&&s.g.includes(activeGenre))))}
+let vis=null,visN=-1;
+function V(){if(!vis||vis.src!==stations||visN!==stations.length){vis=stations.filter(s=>!s.h0);vis.src=stations;visN=stations.length}return vis}   // stations that have a place on the globe
+function SA(){return activeGenre===null?stations:stations.filter(s=>s.g&&s.g.includes(activeGenre))}   // all of them, for search
+function S(){return activeGenre===null?V():(gList||(gList=V().filter(s=>s.g&&s.g.includes(activeGenre))))}
 const CEN={};'AF:33.9,67.7,4;AL:41.2,20.2;DZ:28,2.6,6;AD:42.5,1.6;AO:-11.2,17.9,5;AG:17.1,-61.8;AR:-34,-64,6;AM:40.1,45;AU:-25.7,134,8;AT:47.5,14.6;AZ:40.4,47.6;BS:25,-77.4;BH:26,50.5;BD:23.7,90.4;BB:13.2,-59.5;BY:53.7,27.9;BE:50.6,4.7;BZ:17.2,-88.5;BJ:9.3,2.3;BT:27.5,90.4;BO:-16.3,-63.6,4;BA:44,17.8;BW:-22.3,24.7;BR:-10,-52,8;BN:4.5,114.7;BG:42.7,25.5;BF:12.2,-1.6;BI:-3.4,29.9;KH:12.6,104.9;CM:5.7,12.7;CA:56,-96,9;CV:16,-24;CF:6.6,20.9;TD:15.5,18.7;CL:-35,-71,5;CN:35,103,8;CO:4.6,-74.1,3;KM:-11.9,43.3;CG:-0.7,15.2;CD:-2.9,23.7,6;CR:9.9,-84.1;CI:7.5,-5.5;HR:45.1,15.2;CU:21.5,-79.5,2.5;CY:35.1,33.4;CZ:49.8,15.5;DK:56,9.5;DJ:11.8,42.6;DM:15.4,-61.4;DO:18.9,-70.2;EC:-1.8,-78.2;EG:26.8,30.8,4;SV:13.8,-88.9;GQ:1.6,10.3;ER:15.2,39.8;EE:58.7,25.5;SZ:-26.5,31.5;ET:9.1,40.5,4;FJ:-17.7,178;FI:62,26,3;FR:46.6,2.4,3;GA:-0.8,11.6;GM:13.4,-15.4;GE:42.3,43.4;DE:51.1,10.4,3;GH:7.9,-1;GR:39,22,3;GD:12.1,-61.7;GT:15.5,-90.3;GN:10.9,-10.9;GW:12,-15;GY:4.9,-58.9;HT:19,-72.7;HN:14.8,-86.6;HU:47.2,19.5;IS:64.9,-18.6,2.5;IN:22.9,79,8;ID:-2.5,118,8;IR:32.4,53.7,5;IQ:33,43.7,3;IE:53.2,-8.1;IL:31.5,34.9,.8;IT:42.8,12.6,3;JM:18.1,-77.3;JP:36.2,138.3,4;KZ:48,67,8;KE:.2,37.9;KP:40.3,127.2;KR:36.5,127.9,1.5;KW:29.3,47.5;KG:41.2,74.8;LA:18.2,103.9;LV:56.9,24.6;LB:33.9,35.9;LS:-29.6,28.2;LR:6.4,-9.4;LY:27,17,5;LI:47.2,9.6;LT:55.2,23.9;LU:49.8,6.1;MG:-19,46.7,3;MW:-13.3,34.3;MY:3.8,102,3;MV:3.2,73.2;ML:17.6,-4,6;MT:35.9,14.4;MR:20.3,-10.9,5;MU:-20.3,57.6;MX:23.6,-102.5,6;MD:47.4,28.4;MC:43.7,7.4;MN:46.9,103.8,6;ME:42.7,19.4;MA:31.8,-7.1,3;MZ:-18.7,35.5,4;MM:21.9,95.9,4;NA:-22.6,17.1,4;NP:28.4,84.1,2;NL:52.1,5.3;NZ:-41,173,4;NI:12.9,-85.2;NE:17.6,8.1,5;NG:9.1,8.7,4;MK:41.6,21.7;NO:62,10,4;OM:21.5,55.9,3;PK:30.4,69.3,4;PA:8.5,-80.8;PG:-6.3,143.9,3;PY:-23.4,-58.4,2;PE:-9.2,-75,4;PH:12.9,122.8,4;PL:52,19.1,2.5;PT:39.6,-8,1.5;QA:25.3,51.2;RO:45.9,25,2.5;RU:58,56,8;RW:-1.9,29.9;KN:17.3,-62.7;LC:13.9,-61;VC:13.2,-61.2;WS:-13.8,-172.1;SM:43.9,12.5;ST:.2,6.6;SA:24,45,5;SN:14.5,-14.5;RS:44,21;SC:-4.7,55.5;SL:8.5,-11.8;SG:1.35,103.8,.1;SK:48.7,19.7;SI:46.1,14.8;SB:-9.6,160.2;SO:5.2,46.2,4;ZA:-29,24.7,4;SS:7.9,30;ES:40.2,-3.7,3;LK:7.9,80.7;SD:15.6,30,5;SR:3.9,-56;SE:62,15,4;CH:46.8,8.2;SY:34.8,39,2;TW:23.7,121,1;TJ:38.9,71.3;TZ:-6.4,34.9,4;TH:15.9,101,3;TL:-8.9,125.7;TG:8.6,.8;TO:-21.2,-175.2;TT:10.7,-61.2;TN:34,9.5,2;TR:39,35,4;TM:39,59.6;UG:1.4,32.3;UA:48.4,31.2,4;AE:24.3,54.4,1;GB:53,-1.8,3;US:39.5,-98.4,9;UY:-32.8,-56;UZ:41.4,64.6;VU:-15.4,166.9;VA:41.9,12.45;VE:7,-66,4;VN:15.5,107.5,4;YE:15.6,48,3;ZM:-13.1,27.8,4;ZW:-19,29.2;XK:42.6,20.9;PS:31.9,35.2;HK:22.3,114.2,.1;MO:22.2,113.5,.05;PR:18.2,-66.5;GL:72,-40,5'.split(';').forEach(e=>{const[k,v]=e.split(':');CEN[k]=v.split(',').map(Number)});
 function hash(t){let h=2166136261;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
-function place(s){   // stations with no coordinates: spread them around their country's centre
+const STATES={};'AL|alabama:32.8,-86.8,1;AK|alaska:64.2,-152.5,4;AZ|arizona:34.3,-111.7,1.5;AR|arkansas:34.9,-92.4,1;CA|california:37.2,-119.5,2;CO|colorado:39.0,-105.5,1.3;CT|connecticut:41.6,-72.7,.35;DE|delaware:39.0,-75.5,.3;DC|districtofcolumbia|washingtondc:38.9,-77.0,.1;FL|florida:28.6,-82.4,1.5;GA|georgia:32.7,-83.4,1;HI|hawaii:20.8,-156.3,.8;ID|idaho:44.4,-114.6,1.6;IL|illinois:40.0,-89.2,1.3;IN|indiana:39.9,-86.3,.9;IA|iowa:42.1,-93.5,1;KS|kansas:38.5,-98.4,1.3;KY|kentucky:37.5,-85.3,1;LA|louisiana:31.1,-92.0,1;ME|maine:45.3,-69.2,1;MD|maryland:39.0,-76.8,.5;MA|massachusetts:42.3,-71.8,.5;MI|michigan:44.3,-85.4,1.3;MN|minnesota:46.3,-94.3,1.5;MS|mississippi:32.7,-89.7,1;MO|missouri:38.4,-92.5,1.2;MT|montana:47.0,-109.6,2;NE|nebraska:41.5,-99.8,1.3;NV|nevada:39.3,-116.6,1.8;NH|newhampshire:43.7,-71.6,.5;NJ|newjersey:40.1,-74.7,.5;NM|newmexico:34.4,-106.1,1.6;NY|newyork:42.9,-75.5,1.2;NC|northcarolina:35.6,-79.4,1.2;ND|northdakota:47.5,-100.5,1.1;OH|ohio:40.3,-82.8,.9;OK|oklahoma:35.6,-97.5,1.3;OR|oregon:43.9,-120.6,1.4;PA|pennsylvania:40.9,-77.8,1;RI|rhodeisland:41.7,-71.5,.2;SC|southcarolina:33.9,-80.9,.8;SD|southdakota:44.4,-100.2,1.2;TN|tennessee:35.9,-86.4,1.1;TX|texas:31.5,-99.3,2.5;UT|utah:39.3,-111.7,1.3;VT|vermont:44.0,-72.7,.5;VA|virginia:37.5,-78.8,1;WA|washington:47.4,-120.5,1.2;WV|westvirginia:38.6,-80.6,.8;WI|wisconsin:44.6,-89.9,1.2;WY|wyoming:43.0,-107.5,1.5'.split(';').forEach(e=>{const i=e.lastIndexOf(':'),k=e.slice(0,i),p=e.slice(i+1).split(',').map(Number);k.split('|').forEach(n=>STATES['US:'+n.toLowerCase()]=p)});
+const normSt=t=>(t||'').split(',')[0].toLowerCase().replace(/[^a-z]/g,'');
+function placeNoGeo(co,state,key){   // no coordinates: use the state it names; in a huge country with no usable state, keep it off the map (still searchable)
+  const c=CEN[co],h=hash(key||''),st=STATES[co+':'+normSt(state)];
+  if(st){const a=(h%360)*RAD,d=Math.sqrt(((h>>>9)%1000)/1000)*st[2],lat=Math.max(-85,Math.min(85,st[0]+d*Math.sin(a)));return[lat,st[1]+d*Math.cos(a)/Math.max(.3,Math.cos(lat*RAD)),3]}
+  if((c[2]||1.5)>=6)return[c[0],c[1],4];
+  const a=(h%360)*RAD,d=Math.sqrt(((h>>>9)%1000)/1000)*(c[2]||1.5),lat=Math.max(-85,Math.min(85,c[0]+d*Math.sin(a)));return[lat,c[1]+d*Math.cos(a)/Math.max(.3,Math.cos(lat*RAD)),1];
+}
+function place(s){
   if(s.geo_lat||s.geo_long)return[s.geo_lat,s.geo_long,0];
-  const c=CEN[s.countrycode],h=hash(s.stationuuid||s.name||''),a=(h%360)*RAD,d=Math.sqrt(((h>>>9)%1000)/1000)*(c[2]||1.5);
-  const lat=Math.max(-85,Math.min(85,c[0]+d*Math.sin(a)));return[lat,c[1]+d*Math.cos(a)/Math.max(.3,Math.cos(lat*RAD)),1];
+  return placeNoGeo(s.countrycode,s.state,s.stationuuid||s.name||'');
 }
 function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 function bboxHas(f,pt){const b=d3.geoBounds(f);let x=pt[0];const x0=b[0][0];let x1=b[1][0];if(x0>x1){x1+=360;if(x<x0)x+=360}return x>=x0&&x<=x1&&pt[1]>=b[0][1]&&pt[1]<=b[1][1]}
@@ -518,7 +530,7 @@ function fixCoords(){   // user-entered coordinates are often wrong (swapped, wr
       if(Math.abs(p[0])<=90&&Math.abs(p[1])<=180&&inBox(bx,p[0],p[1])){fix=p;break}
     }
     if(fix){s.lat=fix[0];s.lon=fix[1];const a=s.lat*RAD,o=s.lon*RAD;s.x=Math.cos(a)*Math.cos(o);s.y=Math.cos(a)*Math.sin(o);s.z=Math.sin(a)}
-    else{s.a=1;s.cc=s.co}   // no repair fits: let the spreader drop it inside its country
+    else{const pl=placeNoGeo(s.co,s.st,s.id||s.n);s.cc=s.co;s.a=pl[2];if(pl[2]!==1){s.lat=pl[0];s.lon=pl[1];const a=s.lat*RAD,o=s.lon*RAD;s.x=Math.cos(a)*Math.cos(o);s.y=Math.cos(a)*Math.sin(o);s.z=Math.sin(a);if(pl[2]===4)s.h0=1}}   // no repair fits: use its state, or keep it off the map
     n++;
   }
   return n;
@@ -539,17 +551,17 @@ function trySpread(){   // move approximate stations from the little disc to ran
     if(ok){const la=lat*RAD,lo=lon*RAD;s.lat=lat;s.lon=lon;s.x=Math.cos(la)*Math.cos(lo);s.y=Math.cos(la)*Math.sin(lo);s.z=Math.sin(la);s.a=2;moved++}
   }
   spreadBusy=false;
-  if(moved){gList=null;buildClusters()}
+  if(moved){vis=null;gList=null;buildClusters()}
 }
 function conv(s){
   const pl=place(s);s.geo_lat=pl[0];s.geo_long=pl[1];
   const la=s.geo_lat*RAD,lo=s.geo_long*RAD,n=(s.name||'').trim().slice(0,80)||'Unnamed',tg=(s.tags||'').slice(0,40);
-  return{a:pl[2],cc:pl[2]?s.countrycode:'',co:s.countrycode||'',h:s.hls?1:0,id:s.stationuuid,n,u:s.url_resolved,lat:s.geo_lat,lon:s.geo_long,c:s.country,st:s.state,b:s.bitrate,k:s.codec,v:s.votes,tg,g:genresOf(s.tags),
+  return{a:pl[2],h0:pl[2]===4?1:0,cc:pl[2]?s.countrycode:'',co:s.countrycode||'',h:s.hls?1:0,id:s.stationuuid,n,u:s.url_resolved,lat:s.geo_lat,lon:s.geo_long,c:s.country,st:s.state,b:s.bitrate,k:s.codec,v:s.votes,tg,g:genresOf(s.tags),
     q:(n+' '+s.country+' '+(s.state||'')+' '+tg).toLowerCase(),x:Math.cos(la)*Math.cos(lo),y:Math.cos(la)*Math.sin(lo),z:Math.sin(la)};
 }
 async function loadStations(){
   if(loading)return;loading=true;loadErr='';
-  const key=IN_APP?'app5':'web5',cached=await idb.get('stations');
+  const key=IN_APP?'app6':'web6',cached=await idb.get('stations');
   if(cached&&cached.key===key&&cached.list&&cached.list.length){
     stations=cached.list.filter(s=>!BAD.has(s.id)&&!LOGIN.test(s.u));const regen=cached.gv!==GV;stations.forEach(s=>{if(regen||!s.g)s.g=genresOf(s.tg)});buildClusters();trySpread();setCnt('cCached',{n:stations.length});
     if(Date.now()-cached.t<TTL&&!regen){loading=false;return}
@@ -624,6 +636,7 @@ function frame(t){
   if(QL<2){ctx.beginPath();path(grat);ctx.lineWidth=.5;ctx.strokeStyle='rgba('+TH.cr+',.14)';ctx.stroke()}
   if(land){
     ctx.beginPath();path(land);ctx.fillStyle='rgba('+TH.mr+','+'.06'+')';ctx.fill();ctx.lineWidth=.8;ctx.strokeStyle='rgba('+TH.cr+',.8)';ctx.stroke();
+    if(stateLines&&QL<2){ctx.beginPath();path(stateLines);ctx.lineWidth=.6;ctx.strokeStyle='rgba('+TH.cr+','+Math.min(.5,.12+.16*(k-.7))+')';ctx.stroke()}
     if(hoverF){ctx.beginPath();path(hoverF);ctx.fillStyle='rgba('+TH.cr+',.16)';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1;ctx.stroke()}
   }
   const c=[-rot[0],-rot[1]];
@@ -917,7 +930,7 @@ IL|Israel|ישראל|Israël|Израиль`;
   return{start,search,get src(){return st.src},get ready(){return st.ready}};
 })();
 /*SE:end*/
-const localSearch=q=>S().filter(s=>s.q.includes(q)).slice(0,40);
+const localSearch=q=>SA().filter(s=>s.q.includes(q)).slice(0,40);
 const showFound=a=>showList(T('searchTitle'),T('foundN',{n:a.length}),a);
 let seP=null,seWait=false,searchT=0;
 function ensureIdx(){if(SE.src!==stations)seP=SE.start(stations);return seP}
