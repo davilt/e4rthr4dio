@@ -429,7 +429,8 @@ let rzT=0;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(resize
 /* ---------- data ---------- */
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r=>r.json()).then(t=>{feats=topojson.feature(t,t.objects.countries).features;land={type:'FeatureCollection',features:feats};setTimeout(trySpread,0)}).catch(()=>{});
 let stateLines=null;
-fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r=>r.json()).then(t=>{stateLines=topojson.mesh(t,t.objects.states)}).catch(()=>{});   // US state borders
+let stateFeat=null;
+fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(r=>r.json()).then(t=>{stateLines=topojson.mesh(t,t.objects.states);stateFeat=new Map();for(const g of topojson.feature(t,t.objects.states).features){const arr=STATES['US:'+normSt(g.properties.name)];if(arr)stateFeat.set(arr,{f:g,b:d3.geoBounds(g)})}if(typeof enforceStates==='function'&&enforceStates()){vis=null;gList=null;buildClusters()}}).catch(()=>{});   // US state borders
 const FALLBACK=['de1','de2','nl1','at1'].map(x=>`https://${x}.api.radio-browser.info`);
 const tmo=ms=>{const c=new AbortController();setTimeout(()=>c.abort(),ms);return c.signal};
 async function mirrors(){
@@ -535,6 +536,21 @@ function fixCoords(){   // user-entered coordinates are often wrong (swapped, wr
   }
   return n;
 }
+function enforceStates(){   // a US station that names a state is kept inside that state's real outline
+  if(!stateFeat||!stations.length)return 0;
+  let n=0;
+  for(const s of stations){
+    if(s.sk||s.co!=='US'||!s.st||s.a===4)continue;
+    const e=stateFeat.get(STATES['US:'+normSt(s.st)]);if(!e)continue;
+    s.sk=1;
+    if(Math.abs(s.lat)<=90&&Math.abs(s.lon)<=180&&s.lon>=e.b[0][0]&&s.lon<=e.b[1][0]&&s.lat>=e.b[0][1]&&s.lat<=e.b[1][1]&&d3.geoContains(e.f,[s.lon,s.lat]))continue;
+    const r=rng(hash(s.id||s.n||''));let lat=0,lon=0,ok=false;
+    for(let t=0;t<300;t++){lon=e.b[0][0]+r()*(e.b[1][0]-e.b[0][0]);lat=e.b[0][1]+r()*(e.b[1][1]-e.b[0][1]);if(d3.geoContains(e.f,[lon,lat])){ok=true;break}}
+    if(!ok)continue;
+    const la=lat*RAD,lo=lon*RAD;s.lat=lat;s.lon=lon;s.x=Math.cos(la)*Math.cos(lo);s.y=Math.cos(la)*Math.sin(lo);s.z=Math.sin(la);s.a=3;s.h0=0;n++;
+  }
+  return n;
+}
 function trySpread(){   // move approximate stations from the little disc to random points inside their country outline
   if(!feats.length||!stations.length||spreadBusy)return;
   spreadBusy=true;let moved=fixCoords();const cache={};
@@ -550,7 +566,7 @@ function trySpread(){   // move approximate stations from the little disc to ran
     if(!ok&&reg.verts.length){const v=reg.verts[Math.floor(r()*reg.verts.length)];lon=v[0];lat=v[1];ok=true}   // coastline point: still inside the country
     if(ok){const la=lat*RAD,lo=lon*RAD;s.lat=lat;s.lon=lon;s.x=Math.cos(la)*Math.cos(lo);s.y=Math.cos(la)*Math.sin(lo);s.z=Math.sin(la);s.a=2;moved++}
   }
-  spreadBusy=false;
+  spreadBusy=false;moved+=enforceStates();
   if(moved){vis=null;gList=null;buildClusters()}
 }
 function conv(s){
