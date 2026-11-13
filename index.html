@@ -536,6 +536,45 @@ function fixCoords(){   // user-entered coordinates are often wrong (swapped, wr
   }
   return n;
 }
+const CFEAT={};
+function countryFeat(cc){   // the country's whole outline (every island), only when its centre point lies inside it
+  if(cc in CFEAT)return CFEAT[cc];
+  const c=CEN[cc];let r=null;
+  if(c){const f=feats.find(f=>d3.geoContains(f,[c[1],c[0]]));if(f)r={f,b:d3.geoBounds(f),segs:null}}
+  return CFEAT[cc]=r;
+}
+function snapIn(e,lon,lat){   // nearest point on the outline: [lon,lat,distance in degrees]
+  if(!e.segs){e.segs=[];(function walk(a){if(typeof a[0][0]==='number'){for(let i=1;i<a.length;i++)e.segs.push([a[i-1],a[i]])}else a.forEach(walk)})(e.f.geometry.type==='Polygon'?e.f.geometry.coordinates:e.f.geometry.coordinates.flat())}
+  const k=Math.max(.2,Math.cos(lat*RAD));let bd=1e9,bp=null;
+  for(const[p,q]of e.segs){
+    const dx=q[0]-p[0];if(Math.abs(dx)>180)continue;
+    const dy=q[1]-p[1],ax=dx*k,ay=dy,L=ax*ax+ay*ay;
+    let t=L?(((lon-p[0])*k)*ax+(lat-p[1])*ay)/L:0;t=t<0?0:t>1?1:t;
+    const x=p[0]+dx*t,y=p[1]+dy*t,d=Math.hypot((lon-x)*k,lat-y);
+    if(d<bd){bd=d;bp=[x,y]}
+  }
+  return bp?[bp[0],bp[1],bd]:null;
+}
+function enforceCountries(){   // stations with their own coordinates that fall out at sea (more than ~25 km off their country's outline) are pulled back to its coast
+  if(!feats.length||!stations.length)return 0;
+  const by={};
+  for(const s of stations){if(s.a!==0||s.ok2||!s.co)continue;(by[s.co]||(by[s.co]=[])).push(s)}
+  let n=0;
+  for(const cc in by){
+    const e=countryFeat(cc),list=by[cc];
+    for(const s of list)s.ok2=1;
+    if(!e)continue;
+    const out=[];
+    for(const s of list){
+      if(Math.abs(s.lat)>90||Math.abs(s.lon)>180)continue;
+      if(d3.geoContains(e.f,[s.lon,s.lat]))continue;
+      const p=snapIn(e,s.lon,s.lat);if(p&&p[2]>.25)out.push([s,p]);
+    }
+    if(!out.length||out.length>list.length*.35)continue;   // that many "outside" means the outline is the wrong one: leave the country alone
+    for(const[s,p]of out){const la=p[1]*RAD,lo=p[0]*RAD;s.lat=p[1];s.lon=p[0];s.x=Math.cos(la)*Math.cos(lo);s.y=Math.cos(la)*Math.sin(lo);s.z=Math.sin(la);n++}
+  }
+  return n;
+}
 function enforceStates(){   // a US station that names a state is kept inside that state's real outline
   if(!stateFeat||!stations.length)return 0;
   let n=0;
@@ -566,7 +605,7 @@ function trySpread(){   // move approximate stations from the little disc to ran
     if(!ok&&reg.verts.length){const v=reg.verts[Math.floor(r()*reg.verts.length)];lon=v[0];lat=v[1];ok=true}   // coastline point: still inside the country
     if(ok){const la=lat*RAD,lo=lon*RAD;s.lat=lat;s.lon=lon;s.x=Math.cos(la)*Math.cos(lo);s.y=Math.cos(la)*Math.sin(lo);s.z=Math.sin(la);s.a=2;moved++}
   }
-  spreadBusy=false;moved+=enforceStates();
+  spreadBusy=false;moved+=enforceCountries()+enforceStates();
   if(moved){vis=null;gList=null;buildClusters()}
 }
 function conv(s){
