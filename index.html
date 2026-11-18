@@ -1674,7 +1674,29 @@ function drawDenied(o,t,lv,real,hit){
   const aw=Math.max(...LOCK.map(x=>x.length)),out=L.map((s,i)=>' '.repeat(Math.max(0,Math.floor((o.cols-(i<LOCK.length?aw:s.length))/2)))+s).slice(0,o.rows).join('\n');
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
-function rk(){const r=Math.random();return mode==='virus'?(r<.3?'denied':r<.52?'viz':'err'):(r<.12?'viz':r<.2?'denied':'win')}
+function rk(){const r=Math.random();return mode==='virus'?(r<.3?'denied':'err'):(r<.1?'denied':'win')}
+/* standalone visualizer toggle: popup windows, or one docked strip that stays on */
+const VMODES=['off','popup','on'];let vmode='off',vwins=[],dock=null,dockB=0;
+function mkDock(){
+  const vw=innerWidth,w=Math.min(360,vw-24),h=100;
+  const el=document.createElement('div');el.className='csw';
+  el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.round((vw-w)/2)+'px;bottom:calc(84px + env(safe-area-inset-bottom,0px))';
+  el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
+  el.querySelector('span').textContent='spectrum.exe — LIVE';layer.appendChild(el);
+  return{el,pre:el.querySelector('.bd'),vw,draw:drawViz,vt:'bars',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
+}
+function vizFrame(t,dt,lv,real,hit){
+  if(vmode==='popup'){
+    if(hit&&vwins.length<(innerWidth<560?2:3)&&(vwins.length<1||Math.random()<.5))vwins.push(mk('viz'));
+    for(const o of vwins)o.draw(o,t,lv,real,hit);
+    vwins=vwins.filter(o=>{if(t>o.die&&(hit||t>o.die+1500)){kill(o);return false}return true});
+  }else{
+    if(dock&&dock.vw!==innerWidth){dock.el.remove();dock=null}
+    if(!dock)dock=mkDock();
+    dock.draw(dock,t,lv,real,hit);
+    if(hit&&++dockB%24===0)dock.vt=pick(['bars','scope','vu','bars']);
+  }
+}
 function frame(t){
   raf=requestAnimationFrame(frame);
   const dt=Math.min(.1,(t-last)/1000||.016);last=t;
@@ -1683,6 +1705,10 @@ function frame(t){
   let hit=false;
   if(real){const b=beat;if(b>prevB+.4)hit=true;prevB=b}   // the page's own beat detector, fed by the analyser
   else if(t-simT>(isLive?480:1500)){simT=t;hit=true}        // streams the browser won't let us analyse: steady pulse instead
+  if(on)exeFrame(t,dt,lv,real,hit);
+  if(vmode!=='off')vizFrame(t,dt,lv,real,hit);
+}
+function exeFrame(t,dt,lv,real,hit){
   if(mode==='virus')virusTick(t,hit);
   if(hit){
     beats++;
@@ -1702,21 +1728,38 @@ function frame(t){
   }
   if(mode!=='virus')wins=wins.filter(o=>{if(t>o.die&&(hit||t>o.die+1500)){kill(o);return false}return true});
 }
+const need=()=>on||vmode!=='off';
+function sync(){try{csOn=need()}catch(e){}}
+function ensure(){if(need()){if(!raf){last=performance.now();raf=requestAnimationFrame(frame)}}else{cancelAnimationFrame(raf);raf=0}}
 function label(){btn.textContent='.exe: '+mode.toUpperCase()}
 function set(m){
-  const was=on;mode=MODES.includes(m)?m:'off';on=mode!=='off';try{csOn=on}catch(e){}label();
+  const was=on||vmode!=='off';mode=MODES.includes(m)?m:'off';on=mode!=='off';sync();label();
   wipe();cX=0;cY=0;beats=0;hjN=0;hjNext=performance.now()+3500;try{[A,B].forEach(e=>{e.muted=false;e.playbackRate=1})}catch(e){}
-  if(on){last=performance.now();if(!raf)raf=requestAnimationFrame(frame)}
-  else{cancelAnimationFrame(raf);raf=0}
-  return was!==on;
+  ensure();
+  return was!==(on||vmode!=='off');
 }
 btn.onclick=()=>{
   const changed=set(MODES[(MODES.indexOf(mode)+1)%MODES.length]);
   try{localStorage.setItem('ng_cs',mode)}catch(e){}
   if(changed)try{if(typeof cur!=='undefined'&&cur&&live&&typeof play==='function')play(cur,list,true)}catch(e){}   // switch to / from the analysed audio path
 };
+const vbtn=document.createElement('button');vbtn.id='vz';
+btn.nextSibling?menu.insertBefore(vbtn,btn.nextSibling):menu.appendChild(vbtn);
+const vlabel=()=>vbtn.textContent='Visualizer: '+vmode.toUpperCase();
+function setV(m){
+  const was=need();vmode=VMODES.includes(m)?m:'off';sync();vlabel();
+  vwins.forEach(o=>o.el.remove());vwins=[];if(dock){dock.el.remove();dock=null}
+  ensure();return was!==need();
+}
+vbtn.onclick=()=>{
+  const changed=setV(VMODES[(VMODES.indexOf(vmode)+1)%VMODES.length]);
+  try{localStorage.setItem('ng_vz',vmode)}catch(e){}
+  if(changed)try{if(typeof cur!=='undefined'&&cur&&live&&typeof play==='function')play(cur,list,true)}catch(e){}
+};
 let init='off';try{init=localStorage.getItem('ng_cs')||'off';if(init==='on')init='storm'}catch(e){}
 set(init);
+let vi='off';try{vi=localStorage.getItem('ng_vz')||'off'}catch(e){}
+setV(vi);
 })();
 </script>
 </body></html>
