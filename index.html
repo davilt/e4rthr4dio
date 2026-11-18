@@ -1977,10 +1977,61 @@ function drawMusic(o,t,lv,real,hit){
   }
   gout(o,g);
 }
+/* anime girls: original characters with headphones, blinking, beat-reactive mouth, swaying tails, floating sparkles/hearts */
+const ANI_HEAD=[
+"       .-~''''''~-.       ",
+"    .-'  _.-----._  '-.    ",
+"   / .-'/|/|/|/|/|'-. \\   ",
+"  | /  /|/|/|/|/|/|  \\ |  ",
+" [#]  /|/         \\|\\  [#] ",
+" [#]  |   LLL RRR   |  [#] ",
+" [#]  |  ::     ::  |  [#] ",
+"  |    \\    MMM    /    |  ",
+"   '.   '-._____.-'   .'   ",
+"     '-.     | |     .-'     "
+].map(l=>l.padEnd(27).slice(0,27));
+const ANI_EARS=["  /\\_/\\             /\\_/\\  ","  / . \\           / . \\  "].map(l=>l.padEnd(27).slice(0,27));
+function aniRows(o,t,lev,pp){
+  const s=o.as||(o.as={nb:t+1500,bl:0});
+  if(t>s.nb&&!s.bl){s.bl=t;s.nb=t+rnd(2200,4600)}
+  let blink=false;if(s.bl){if(t-s.bl>170)s.bl=0;else blink=true}
+  const happy=o.av.mood==='happy',
+        eye=blink?'---':happy?'(^)':'(@)',
+        mouth=pp>.35||lev>.55?'(O)':happy?'\\_/':' w ';
+  const rows=ANI_HEAD.map(l=>l.replace('LLL',eye).replace('RRR',eye).replace('MMM',mouth));
+  if(o.av.neko)rows.unshift(...ANI_EARS);
+  return rows;
+}
+function drawAnime(o,t,lv,real,hit){
+  const n=o.cols,r=o.rows,g=gnew(r,n),lev=real?lvlS:lv;
+  if(hit)o.pp=1;o.pp=Math.max(0,(o.pp||0)-.05);
+  if(!o.av)o.av={mood:pick(['happy','wide','wide']),neko:Math.random()<.4,tail:pick(['twin','long'])};
+  stars(g,n,r,t);
+  const head=aniRows(o,t,lev,o.pp),sw=27,x0=Math.floor((n-sw)/2),bob=Math.round(Math.sin(t/420)*(.4+lev)),
+        tl=o.av.tail==='long'?8:5,hh=head.length,
+        y0=Math.max(0,Math.floor((r-(hh+3))/2))+bob;
+  const put=(row,y,x)=>{for(let i=0;i<row.length;i++)if(row[i]!==' ')gset(g,n,r,x+i,y,row[i])};
+  const bp=t/260,ey=o.av.neko?2:0;
+  // twin tails hang beside the head and sway with the beat
+  for(let k=0;k<tl;k++){
+    const y=y0+ey+4+k,off=Math.round(Math.sin(bp+k*.55)*(1+lev*1.6)*(k/tl+.25));
+    gset(g,n,r,x0-1-off,y,k<tl-1?'|':'}');gset(g,n,r,x0-2-off,y,k<tl-1?'|':'~');
+    gset(g,n,r,x0+sw+off,y,k<tl-1?'|':'{');gset(g,n,r,x0+sw+1+off,y,k<tl-1?'|':'~');
+  }
+  head.forEach((row,i)=>put(row,y0+i,x0));
+  put('.-----|_|-----.',y0+hh,x0+6);
+  put('/  ###  ###  ###  \\',y0+hh+1,x0+4);
+  // floating sparkles / hearts / notes launched on beats
+  o.fx=o.fx||[];
+  if(hit||Math.random()<.02+lev*.05)o.fx.push({x:Math.random()*n,y:r-1,v:.15+Math.random()*.2,c:pick(['*','+','<3','~','*','o','.']),p:Math.random()*6});
+  o.fx.forEach(q=>{q.y-=q.v});o.fx=o.fx.filter(q=>q.y>-1);
+  o.fx.forEach(q=>{const x=Math.round(q.x+Math.sin(q.y*.5+q.p)*1.5);for(let i=0;i<q.c.length;i++)gset(g,n,r,x+i,Math.round(q.y),q.c[i])});
+  gout(o,g);
+}
 function mkAsc(){
   const vw=innerWidth,vh=innerHeight,nar=vw<560;
-  const sub=pick(['skull','eye','radar','globe','dna','spider','spider','planet','planet','planet','music','music','music','viz']);
-  const dim={skull:[230,280,205,225],eye:[260,320,190,215],radar:[170,240,130,170],globe:[170,240,130,170],dna:[160,220,130,170],spider:[190,260,150,200],planet:[200,280,140,190],music:[170,260,120,190],viz:[180,280,80,120]}[sub];
+  const sub=pick(['skull','eye','radar','globe','dna','spider','spider','planet','planet','planet','music','music','music','viz','anime','anime','anime']);
+  const dim={skull:[230,280,205,225],eye:[260,320,190,215],radar:[170,240,130,170],globe:[170,240,130,170],dna:[160,220,130,170],spider:[190,260,150,200],planet:[200,280,140,190],music:[170,260,120,190],viz:[180,280,80,120],anime:[230,290,200,250]}[sub];
   const w=Math.min(vw-16,rnd(dim[0],dim[1])),h=rnd(dim[2],dim[3])+26;
   const el=document.createElement('div');el.className='csw big';
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.max(4,rnd(4,vw-w-4))+'px;top:'+Math.max(54,rnd(54,vh-h-96))+'px';
@@ -1988,6 +2039,7 @@ function mkAsc(){
   layer.appendChild(el);
   const o={el,pre:el.querySelector('.bd'),big:true,asc:true,sub,rows:Math.max(3,Math.floor((h-24)/CHA)),cols:Math.max(10,Math.floor((w-12)/CWA)),lines:[],line:'',ci:0,acc:0,hitT:0,last:'',sv:[],bl:0,msg:'',v:Math.floor(Math.random()*2),code:'',ch:'#',die:performance.now()+rnd(3500,9000)};
   if(sub==='skull')o.draw=drawSkull;else if(sub==='eye')o.draw=drawEye;
+  else if(sub==='anime')o.draw=drawAnime;
   else if(sub==='radar'||sub==='globe'||sub==='dna'){o.draw=drawArt;o.at=sub}
   else if(sub==='spider'){o.draw=drawSpider;o.sv2=pick(['crawl','hang','web'])}
   else if(sub==='planet'){o.draw=drawPlanet;o.pv=pick(['sat','moon','gas','solar'])}
