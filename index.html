@@ -1713,7 +1713,7 @@ const VMODES=['off','popup','on'];let vmode='off',vwins=[],dock=null,dockB=0;
 function mkDock(){
   const vw=innerWidth,w=Math.min(360,vw-24),h=100;
   const el=document.createElement('div');el.className='csw tap';
-  el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.round((vw-w)/2)+'px;bottom:calc(84px + env(safe-area-inset-bottom,0px))';
+  el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.round((vw-w)/2)+'px;bottom:calc(104px + env(safe-area-inset-bottom,0px))';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
   const ttl=el.querySelector('span');ttl.textContent='spectrum.exe — LIVE (tap to hold)';layer.appendChild(el);
   const d={el,pre:el.querySelector('.bd'),vw,lock:false,draw:drawViz,vt:'vu',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
@@ -1731,6 +1731,8 @@ function vizFrame(t,dt,lv,real,hit){
   }else{
     if(dock&&dock.vw!==innerWidth){dock.el.remove();dock=null}
     if(!dock)dock=mkDock();
+    if(!dock.pt||t-dock.pt>200){dock.pt=t;   // ride above the bottom bar, which grows taller when a song is identified
+      try{const br=document.getElementById('bar');if(br){const tp=br.getBoundingClientRect().top;if(tp>0)dock.el.style.bottom=Math.round(innerHeight-tp+16)+'px'}}catch(e){}}
     dock.draw(dock,t,lv,real,hit);
     if(hit&&++dockB%24===0&&!dock.lock){const o=VTS.filter(v=>v!==dock.vt);dock.vt=pick(o)}
   }
