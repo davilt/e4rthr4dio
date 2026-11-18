@@ -1537,6 +1537,7 @@ function glitch(to,done){
 }
 function loop(){
   clearTimeout(timer);
+  if(window.__mal){timer=setTimeout(loop,600);return}   // m4lware.exe owns the logo while it runs
   if(!isMiku()){clearInterval(anim);h.classList.remove('sw');if(cur!=='en'||lg.textContent!==EN){cur='en';show(EN)}timer=setTimeout(loop,600);return}
   if(cur==='en'&&lg.textContent===EN&&!loop.started){loop.started=1;cur='en';glitch('jp',()=>{timer=setTimeout(loop,5200)});return}
   if(cur==='jp')glitch('en',()=>{timer=setTimeout(loop,2200)});
@@ -1558,6 +1559,8 @@ loop();
 .csw.err .tb i{border-color:#000}
 .csw.hit{border-color:var(--m);box-shadow:0 0 22px rgba(var(--cr),.7)}
 .csw.out{opacity:0;transform:scale(.92)}
+#lgo.hk{color:#ff2a2a;text-shadow:2px 0 #0ff,-2px 0 #f0f}
+h1.sw{animation:cswj .45s steps(1) 1}@keyframes cswj{0%{transform:translate(3px,0);text-shadow:-4px 0 #f0f,4px 0 #0ff}35%{transform:translate(-3px,1px);text-shadow:4px 0 #f0f,-4px 0 #0ff}70%{transform:translate(2px,-1px)}100%{transform:none}}
 .csw.tap{pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .csw.lock{border-color:var(--m);box-shadow:0 0 18px rgba(var(--cr),.55)}
 </style>
@@ -1626,11 +1629,55 @@ function wipe(){wins.forEach(o=>o.el.remove());wins=[]}
 /* virus: actually hijacks the radio. Bursts of rapid station changes, with audio stutter on the beat */
 let bpmS=0,lastHit=0;const VTS=['scope','vu','hz','sweep','env','lissa','tele'];
 let hjN=0,hjT=0,hjNext=0,hjUntil=0;
+/* m4lware.exe: the whole interface glitches, not only the popups */
+const GL_SKIP=new Set(['SCRIPT','STYLE','LINK','META']);let glRest=[],glNext=0;
+function glTargets(){return [...document.body.children].filter(e=>!GL_SKIP.has(e.tagName)&&e.id!=='cs-layer'&&e.id!=='boot'&&getComputedStyle(e).display!=='none')}
+function glitchUI(str){
+  let T=[];try{T=glTargets()}catch(e){}
+  const k=Math.min(T.length,1+Math.floor(rnd(1,3+str*4)));
+  for(let i=0;i<k;i++){
+    const e=pick(T);if(!e||e._gl)continue;e._gl=1;
+    const st=e.style,pv={f:st.filter,tr:st.translate,cp:st.clipPath,op:st.opacity},d=rnd(-1,1)*(6+str*16),a=rnd(2,3+str*4);
+    st.translate=d.toFixed(1)+'px '+(Math.random()<.3?rnd(-4,4).toFixed(1):0)+'px';
+    st.filter='drop-shadow('+a.toFixed(1)+'px 0 rgba(255,0,60,.85)) drop-shadow('+(-a).toFixed(1)+'px 0 rgba(0,255,255,.85))'+(Math.random()<.12?' invert(1)':'')+(Math.random()<.2?' hue-rotate('+Math.floor(rnd(60,300))+'deg)':'');
+    if(Math.random()<.4){const a1=rnd(0,80),h=rnd(5,25);st.clipPath='inset('+a1.toFixed(0)+'% 0 '+Math.max(0,100-a1-h).toFixed(0)+'% 0)'}
+    if(Math.random()<.15)st.opacity='.35';
+    const undo=()=>{st.filter=pv.f;st.translate=pv.tr;st.clipPath=pv.cp;st.opacity=pv.op;e._gl=0};
+    glRest.push(undo);setTimeout(()=>{undo();glRest=glRest.filter(f=>f!==undo)},rnd(70,200)+str*120);
+  }
+  for(const sel of ['#ctry','#cnt','#st','#np .n','#np .s']){   // scramble a few labels for a moment
+    if(Math.random()>.18+str*.25)continue;
+    const el=document.querySelector(sel);if(!el||el.children.length)continue;
+    const orig=el.textContent,scr=orig.replace(/[A-Za-z0-9]/g,c=>Math.random()<.35+str*.3?pick('█▓▒░#%@$&01X'):c);
+    el.textContent=scr;setTimeout(()=>{if(el.textContent===scr)el.textContent=orig},rnd(110,260));
+  }
+}
+function glReset(){glRest.forEach(f=>f());glRest=[]}
+/* m4lware.exe: the logo flips between E4RTH R4DIO and H4CKED R4DIO */
+const LGE=document.getElementById('lgo'),LGH=document.querySelector('h1'),LN='E4RTH R4DIO',LHK='H4CKED R4DIO',LPOOL='░▒▓#@4$%&01X';
+let lgT=0,lgI=0,lgS='n';
+function lgShow(t){if(LGE)LGE.textContent=t}
+function lgMorph(to,done){
+  const tgt=to==='h'?LHK:LN,from=to==='h'?LN:LHK,n=Math.max(from.length,tgt.length);let f=0;const F=9;
+  clearInterval(lgI);if(LGH)LGH.classList.add('sw');
+  lgI=setInterval(()=>{
+    f++;if(f>=F){clearInterval(lgI);lgS=to;lgShow(tgt);if(LGE)LGE.classList.toggle('hk',to==='h');if(LGH)LGH.classList.remove('sw');done&&done();return}
+    const p=f/F;let o='';for(let i=0;i<n;i++){const r=Math.random();o+=r<p*.75?(tgt[i]||''):r<p*.75+(1-p)*.45?(from[i]||''):pick(LPOOL)}
+    lgShow(o);
+  },48);
+}
+function lgLoop(){   // normal for a while, then H4CKED for a moment, then back
+  clearTimeout(lgT);
+  lgT=setTimeout(()=>lgMorph('h',()=>{lgT=setTimeout(()=>lgMorph('n',lgLoop),rnd(700,1800))}),rnd(1400,3400));
+}
+function lgStart(){window.__mal=1;lgS='n';lgShow(LN);if(LGE)LGE.classList.remove('hk');lgLoop()}
+function lgStop(){clearTimeout(lgT);clearInterval(lgI);if(window.__mal){window.__mal=0;lgShow(LN);if(LGE)LGE.classList.remove('hk');if(LGH)LGH.classList.remove('sw')}}
 function hijackStep(){
   let p=[];try{p=V()}catch(e){}
   if(p.length<10||typeof play!=='function')return;
   const r=()=>p[Math.floor(Math.random()*p.length)],s=r(),arr=[s];for(let i=0;i<9;i++)arr.push(r());
   try{play(s,arr,true)}catch(e){}
+  glitchUI(1);setTimeout(()=>glitchUI(.8),170);
   if(wins.length<MAXW())wins.push(mk('err','SIGNAL HIJACKED: '+(s.n||'').slice(0,24)));
 }
 function stutter(){
@@ -1640,7 +1687,9 @@ function stutter(){
     if(typeof tuneNoise==='function')tuneNoise(.25);
   }catch(e){}
 }
-function virusTick(t,hit){
+function virusTick(t,hit,lv){
+  if(hit&&Math.random()<.6)glitchUI(.3+(lv||0)*.6);
+  if(t>glNext){glNext=t+rnd(600,1600);glitchUI(.15)}
   if(typeof cur==='undefined'||!cur)return;
   if(hjN>0){if(t>=hjT){hijackStep();hjN--;hjT=t+rnd(700,1500);if(!hjN){hjUntil=t+1500;hjNext=t+rnd(9000,16000)}}}
   else if(t>=hjNext){hjN=3+Math.floor(Math.random()*3);hjT=t}
@@ -1905,7 +1954,7 @@ function frame(t){
   if(vmode!=='off')vizFrame(t,dt,lv,real,hit);
 }
 function exeFrame(t,dt,lv,real,hit){
-  if(mode==='virus')virusTick(t,hit);
+  if(mode==='virus')virusTick(t,hit,lv);
   if(hit){
     beats++;
     if(mode==='virus'){
@@ -1927,10 +1976,10 @@ function exeFrame(t,dt,lv,real,hit){
 const need=()=>on||vmode!=='off';
 function sync(){try{csOn=need()}catch(e){}}
 function ensure(){if(need()){if(!raf){last=performance.now();raf=requestAnimationFrame(frame)}}else{cancelAnimationFrame(raf);raf=0}}
-function label(){btn.textContent='.exe: '+mode.toUpperCase()}
+function label(){btn.textContent={off:'.exe: OFF',storm:'terminal.exe: ON',virus:'m4lware.exe: ON'}[mode]||'.exe: OFF'}
 function set(m){
   const was=on||vmode!=='off';mode=MODES.includes(m)?m:'off';on=mode!=='off';sync();label();
-  wipe();cX=0;cY=0;beats=0;hjN=0;hjNext=performance.now()+3500;try{[A,B].forEach(e=>{e.muted=false;e.playbackRate=1})}catch(e){}
+  wipe();glReset();lgStop();if(mode==='virus')lgStart();cX=0;cY=0;beats=0;hjN=0;hjNext=performance.now()+3500;try{[A,B].forEach(e=>{e.muted=false;e.playbackRate=1})}catch(e){}
   ensure();
   return was!==(on||vmode!=='off');
 }
