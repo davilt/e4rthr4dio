@@ -665,7 +665,7 @@ function frame(t){
     rot[0]+=vel[0]*dt;rot[1]=Math.max(-85,Math.min(85,rot[1]+vel[1]*dt));const f=Math.pow(.06,dt);vel[0]*=f;vel[1]*=f;lastAct=t;if(Math.abs(vel[0])+Math.abs(vel[1])<1.5)vel=[0,0]}
   if(tween){const p=Math.min(1,(t-tween.t0)/tween.d),e=1-Math.pow(1-p,3);rot=[tween.a[0]+(tween.b[0]-tween.a[0])*e,tween.a[1]+(tween.b[1]-tween.a[1])*e];if(p>=1)tween=null}
   proj.scale(base*k).rotate([rot[0],rot[1]]);
-  const wantA=reactOn||satOn,canR=wantA&&au===B&&!!an;
+  const wantA=reactOn||satOn||csOn,canR=wantA&&au===B&&!!an;
   if(canR&&live){an.getByteFrequencyData(fft);let tot=0;for(let i=0;i<24;i++)tot+=fft[i];if(tot>0){vzNz=t;vizFake=false}else if(t-vzNz>2500)vizFake=true}else vzNz=t;   // a stream the browser won't let us analyse reads as pure silence: fall back to the simulated bars
   realOn=canR&&!vizFake;
   if(wantA&&live){
@@ -1006,7 +1006,7 @@ $('rnd').onclick=()=>{if(!stations.length){noData();return}const L=S();if(!L.len
 /* ---------- audio ---------- */
 const mkAudio=c=>{const e=new Audio();e.setAttribute('playsinline','');e.preload='none';e.volume=1;if(c)e.crossOrigin='anonymous';return e};
 const A=mkAudio(false),B=mkAudio(true);let au=A;   // A: plain playback. B: CORS-enabled, feeds the analyser
-let satOn=false,reactOn=false,glowK=.35,an=null,fft=new Uint8Array(128),realOn=false,lvlS=0,lvPk=.2,lvMn=0,bsAvg=0,beat=0,lastBt=0,simBt=0,rips=[],bGraph=false,vizFake=false,vzNz=0;const corsBad=new Set();
+let satOn=false,csOn=false,reactOn=false,glowK=.35,an=null,fft=new Uint8Array(128),realOn=false,lvlS=0,lvPk=.2,lvMn=0,bsAvg=0,beat=0,lastBt=0,simBt=0,rips=[],bGraph=false,vizFake=false,vzNz=0;const corsBad=new Set();
 try{const g=localStorage.getItem('ng_glow');if(g!==null)glowK=Math.min(1,Math.max(0,+g)||0);reactOn=localStorage.getItem('ng_react')==='on';satOn=localStorage.getItem('ng_sat')==='on'}catch(e){}
 function initGraph(){if(bGraph)return true;if(!ac)return false;try{const src=ac.createMediaElementSource(B);an=ac.createAnalyser();an.fftSize=256;an.smoothingTimeConstant=.5;src.connect(an);an.connect(ac.destination);bGraph=true}catch(e){an=null}return bGraph}
 let hlsI=null;const isHlsS=s=>s.h||/\.m3u8(\?|$)/i.test(s.u);
@@ -1019,7 +1019,7 @@ function setSrc(el,s){
     hlsI.loadSource(s.u);hlsI.attachMedia(el);
   }else el.src=s.u;
 }
-function pickEl(s){killHls();const want=((reactOn||satOn)&&!corsBad.has(s.id)&&initGraph())?B:A;if(au!==want){const o=au;au=want;o.pause();o.removeAttribute('src');o.load()}}
+function pickEl(s){killHls();const want=((reactOn||satOn||csOn)&&!corsBad.has(s.id)&&initGraph())?B:A;if(au!==want){const o=au;au=want;o.pause();o.removeAttribute('src');o.load()}}
 function playOn(el,s){killHls();const o=au;au=el;o.pause();o.removeAttribute('src');o.load();setSrc(au,s);au.play().catch(()=>{})}
 let ac=null;
 function tuneNoise(v){
@@ -1533,4 +1533,91 @@ function loop(){
 new MutationObserver(()=>{if(!isMiku()){loop.started=0}clearTimeout(timer);timer=setTimeout(loop,30)}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
 loop();
 })()</script>
+<style id="csCss">
+#cs-layer{position:fixed;inset:0;z-index:7;pointer-events:none;overflow:hidden}
+.csw{position:absolute;display:flex;flex-direction:column;background:rgba(0,10,3,.9);border:1px solid var(--c);box-shadow:0 0 12px rgba(var(--cr),.3);font:10px/12.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--c);transition:opacity .15s,transform .15s}
+.csw .tb{display:flex;gap:4px;align-items:center;height:16px;padding:0 5px;background:var(--hd);color:var(--m);font-size:9px;white-space:nowrap;overflow:hidden;flex:none}
+.csw .tb i{width:6px;height:6px;border:1px solid var(--c);border-radius:50%;flex:none}
+.csw .bd{margin:0;padding:4px 6px;overflow:hidden;white-space:pre;flex:1;font:inherit}
+.csw.big{background:rgba(0,10,3,.72);font-size:8px;line-height:10px}
+.csw.hit{border-color:var(--m);box-shadow:0 0 22px rgba(var(--cr),.7)}
+.csw.out{opacity:0;transform:scale(.92)}
+</style>
+<script>
+(()=>{
+const menu=document.getElementById('menu');if(!menu)return;
+const rnd=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.floor(Math.random()*a.length)];
+const btn=document.createElement('button');btn.id='cs';
+const sb=document.getElementById('sb');sb&&sb.nextSibling?menu.insertBefore(btn,sb.nextSibling):menu.appendChild(btn);
+const layer=document.createElement('div');layer.id='cs-layer';document.body.appendChild(layer);
+let src=null;
+const codeLines=()=>src||(src=[...document.scripts].filter(s=>!s.src).map(s=>s.textContent).join('\n').split('\n').map(l=>l.trim()).filter(l=>l.length>5&&l.length<140));
+const hx=n=>Math.floor(Math.random()*Math.pow(16,n)).toString(16).padStart(n,'0');
+const OPS=['mov','xor','push','pop','call','jmp','cmp','lea','shl','add','sub','ret','int','test','jnz'],REG=['eax','ebx','rcx','rdx','rsi','rdi','r8','r15','esp','[rbp-0x18]','0x'+'ff'];
+const WORDS=['carrier','lock','uplink','demod','squelch','buffer','relay','sync','packet','decode','stream','handshake','node','ping','tuner'];
+const GEN={
+  code:()=>{let i=Math.floor(Math.random()*1e6)%Math.max(1,codeLines().length);return()=>{const L=codeLines();i=(i+1)%L.length;return L[i]||'nop;'}},
+  hex:()=>{let a=Math.floor(Math.random()*0xffffff);return()=>{a+=16;let b='';for(let i=0;i<8;i++)b+=hx(2)+' ';return a.toString(16).padStart(6,'0')+': '+b+' |'+hx(6)+'|'}},
+  asm:()=>()=>'  '+pick(OPS)+' '+pick(REG)+', '+pick(REG),
+  log:()=>()=>'['+pick([' OK ','WARN','FAIL','SYNC'])+'] '+pick(WORDS)+'_'+hx(3)+' '+pick(WORDS)+' 0x'+hx(4),
+  bin:()=>()=>Array.from({length:6},()=>Math.floor(Math.random()*256).toString(2).padStart(8,'0')).join(' ')
+};
+const NAMES=['r4dio.js','globe.c','stream.rs','audio_graph.ts','beat.cpp','sat.py','xmit.go','dsp.asm','tuner.swift','uplink.kt'];
+let on=false,raf=0,last=0,prevB=0,simT=0,wins=[];
+const MAXW=()=>innerWidth<560?4:8;
+function mk(big){
+  const vw=innerWidth,vh=innerHeight,nar=vw<560;
+  const w=big?Math.min(vw-16,vw*.6,520):rnd(150,nar?vw-24:340),h=big?Math.min(vh*.45,340):rnd(76,nar?150:210);
+  const kind=big?'code':pick(['code','code','code','hex','asm','log','bin']);
+  const el=document.createElement('div');el.className='csw'+(big?' big':'');
+  el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.max(4,rnd(4,vw-w-4))+'px;top:'+Math.max(54,rnd(54,vh-h-96))+'px';
+  el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
+  el.querySelector('span').textContent=(kind==='code'?pick(NAMES):kind+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
+  layer.appendChild(el);
+  const rowH=big?10:12.5,colW=big?4.8:6;
+  const o={el,pre:el.querySelector('.bd'),big,next:GEN[kind](),rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+rnd(2500,7000)};
+  return o;
+}
+function type(o,k){
+  while(k>0){
+    if(!o.line){o.line=(o.next()||' ').slice(0,o.cols)||' ';o.ci=0}
+    const take=Math.min(k,o.line.length-o.ci);o.ci+=take;k-=take;
+    if(o.ci>=o.line.length){o.lines.push(o.line);o.line='';o.ci=0;if(o.lines.length>o.rows)o.lines.shift()}
+  }
+  o.pre.textContent=o.lines.slice(-(o.rows-1)).concat((o.line.slice(0,o.ci))+'█').join('\n');
+}
+function kill(o){o.el.classList.add('out');setTimeout(()=>o.el.remove(),170)}
+function frame(t){
+  raf=requestAnimationFrame(frame);
+  const dt=Math.min(.1,(t-last)/1000||.016);last=t;
+  const isLive=typeof live!=='undefined'&&live,real=isLive&&typeof realOn!=='undefined'&&realOn;
+  const lv=real?lvlS:(isLive?.35+.3*Math.abs(Math.sin(t/190)*Math.sin(t/520)):.1);
+  let hit=false;
+  if(real){const b=beat;if(b>prevB+.4)hit=true;prevB=b}   // the page's own beat detector, fed by the analyser
+  else if(t-simT>(isLive?480:1500)){simT=t;hit=true}        // streams the browser won't let us analyse: steady pulse instead
+  if(hit){
+    if(wins.length<MAXW()&&(wins.length<2||Math.random()<.55+lv*.3))wins.push(mk(Math.random()<.06+lv*.05));
+    for(const o of wins){o.hitT=t;o.el.classList.add('hit');o.el.style.transform='translate('+rnd(-3,3).toFixed(1)+'px,'+rnd(-2,2).toFixed(1)+'px)';o.acc+=18+lv*90+Math.random()*40}
+  }
+  for(const o of wins){
+    o.acc+=(25+lv*200)*(o.big?2.2:1)*dt;
+    const k=Math.floor(o.acc);if(k>0){o.acc-=k;type(o,k)}
+    if(o.hitT&&t-o.hitT>110){o.hitT=0;o.el.classList.remove('hit');o.el.style.transform=''}
+  }
+  wins=wins.filter(o=>{if(t>o.die&&(hit||t>o.die+1500)){kill(o);return false}return true});
+}
+function label(){btn.textContent='Code storm: '+(on?'ON':'OFF')}
+function set(v){
+  on=!!v;try{csOn=on}catch(e){}label();
+  if(on){last=performance.now();if(!raf)raf=requestAnimationFrame(frame)}
+  else{cancelAnimationFrame(raf);raf=0;wins.forEach(o=>o.el.remove());wins=[]}
+}
+btn.onclick=()=>{
+  set(!on);try{localStorage.setItem('ng_cs',on?'on':'off')}catch(e){}
+  try{if(typeof cur!=='undefined'&&cur&&live&&typeof play==='function')play(cur,list,true)}catch(e){}   // switch to the analysed audio path
+};
+let init=false;try{init=localStorage.getItem('ng_cs')==='on'}catch(e){}
+set(init);
+})();
+</script>
 </body></html>
