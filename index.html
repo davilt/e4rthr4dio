@@ -1587,29 +1587,30 @@ const NAMES=['r4dio.js','globe.c','stream.rs','audio_graph.ts','beat.cpp','sat.p
 let mode='off',on=false,raf=0,last=0,prevB=0,simT=0,wins=[],beats=0,cX=0,cY=0;
 const MAXW=()=>{const n=innerWidth<560;return mode==='virus'?(n?6:10):(n?4:8)};
 function mk(kind,msg){
-  const vw=innerWidth,vh=innerHeight,nar=vw<560,viz=kind==='viz',den=kind==='denied',sk=kind==='skull',art=kind==='art',err=kind==='err'||den||sk||art,big=kind==='big';
+  const vw=innerWidth,vh=innerHeight,nar=vw<560,viz=kind==='viz',den=kind==='denied',sk=kind==='skull',art=kind==='art',ey=kind==='eye',err=kind==='err'||den||sk||art||ey,big=kind==='big';
   let w,h;
   if(big){w=Math.min(vw-16,vw*.6,520);h=Math.min(vh*.45,340)}
   else if(viz){w=rnd(180,nar?vw-30:300);h=rnd(88,nar?120:150)}
   else if(den){w=rnd(200,nar?vw-30:250);h=rnd(134,150)}
   else if(sk){w=Math.min(vw-16,rnd(230,280));h=rnd(205,225)}
+  else if(ey){w=Math.min(vw-16,rnd(260,320));h=rnd(190,215)}
   else if(art){w=rnd(190,nar?vw-30:250);h=rnd(140,172)}
   else if(err){w=rnd(180,nar?vw-30:270);h=rnd(64,96)}
   else{w=rnd(150,nar?vw-24:340);h=rnd(76,nar?150:210)}
-  const AT=pick([['radar','radar.exe'],['globe','globe.sys'],['dna','helix.dll'],['ecg','pulse.exe'],['eye','watcher.exe']]);
+  const AT=pick([['radar','radar.exe'],['globe','globe.sys'],['dna','helix.dll']]);
   const gk=err?'err':big?'code':pick(['code','code','code','hex','asm','log','bin']);
   let x=Math.max(4,rnd(4,vw-w-4)),y=Math.max(54,rnd(54,vh-h-96));
-  if(err&&!den&&!sk&&!art){   // cascade: each new dialog lands just below-right of the last one
+  if(err&&!den&&!sk&&!art&&!ey){   // cascade: each new dialog lands just below-right of the last one
     if(cX>4&&cY>54&&cX+w<vw-4&&cY+h<vh-90&&Math.random()<.8){x=cX+16;y=cY+18}
     cX=x;cY=y;
   }
-  const el=document.createElement('div');el.className='csw'+(big||sk?' big':'')+(err?' err':'');
+  const el=document.createElement('div');el.className='csw'+(big||sk||ey?' big':'')+(err?' err':'');
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+x+'px;top:'+y+'px';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
-  el.querySelector('span').textContent=sk?pick(['skull.sys','dead_signal.exe','reaper.exe'])+' — pid '+Math.floor(rnd(100,9999)):art?AT[1]+' — pid '+Math.floor(rnd(100,9999)):den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
+  el.querySelector('span').textContent=ey?'watcher.exe — pid '+Math.floor(rnd(100,9999)):sk?pick(['skull.sys','dead_signal.exe','reaper.exe'])+' — pid '+Math.floor(rnd(100,9999)):art?AT[1]+' — pid '+Math.floor(rnd(100,9999)):den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
   layer.appendChild(el);
-  const rowH=big||sk?10:12.5,colW=big||sk?4.8:6;
-  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den||sk||art)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:sk?drawSkull:art?drawArt:null,at:AT[0],v:Math.floor(Math.random()*2),msg:pick(SKM),vt:pick(VTS),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
+  const rowH=big||sk||ey?10:12.5,colW=big||sk||ey?4.8:6;
+  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den||sk||art||ey)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:sk?drawSkull:ey?drawEye:art?drawArt:null,at:AT[0],v:Math.floor(Math.random()*2),msg:pick(SKM),vt:pick(VTS),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
 }
 function type(o,k){
   while(k>0){
@@ -1738,6 +1739,60 @@ function drawSkull(o,t,lv,real,hit){
   const out=L.slice(0,o.rows).join('\n');
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
+/* a large, detailed ascii eye: lashes, brow, lid creases, veined sclera, fibred iris, pupil that dilates with the level, catchlight, blinks and saccades */
+const nz=(x,y)=>{const v=Math.sin(x*12.9898+y*78.233)*43758.5453;return v-Math.floor(v)};
+function drawEye(o,t,lv,real,hit){
+  const n=o.cols,r=o.rows,lev=real?lvlS:lv,CW=4.8,CH=10,cx=(n-1)/2,cy=(r-1)/2+1.7,W=(n/2-1)*CW,H=Math.min(r*CH*.25,W*.46);
+  if(!o.s)o.s={nb:t+2000,bl:0,gx:0,gy:0,tx:0,ty:0,ng:t+1200,pp:0};
+  const s=o.s;let op=1;
+  if(t>s.nb&&!s.bl){s.bl=t;s.nb=t+rnd(2600,5200)}
+  if(s.bl){const k=(t-s.bl)/260;if(k>=1)s.bl=0;else op=Math.max(.04,Math.abs(k*2-1))}
+  if(t>s.ng){s.ng=t+rnd(900,2800);s.tx=rnd(-1,1);s.ty=rnd(-.6,.6)}
+  if(hit){s.pp=1;s.tx=rnd(-1,1)}
+  s.pp=Math.max(0,s.pp-.06);s.gx+=(s.tx-s.gx)*.14;s.gy+=(s.ty-s.gy)*.14;
+  const ix=s.gx*W*.32,iy=s.gy*H*.35,Ri=H*.82,Rp=Ri*(.27+lev*.3+s.pp*.12);
+  const g=[];for(let y=0;y<r;y++)g.push(Array(n).fill(' '));
+  const sh=u=>Math.pow(Math.max(0,1-(u/W)*(u/W)),.8);
+  for(let y=0;y<r;y++){
+    const v=(y-cy)*CH;
+    for(let x=0;x<n;x++){
+      const u=(x-cx)*CW;if(Math.abs(u)>W*1.02)continue;
+      const s0=sh(u),tp=-H*op*s0,bt=H*(.35+.65*op)*.75*s0;
+      let c=' ';
+      const bv=-H*1.55-H*.45*s0-s.pp*CH*.7;
+      if(Math.abs(u)<W*.92&&Math.abs(v-bv)<CH*.5)c=Math.abs(u)>W*.62?'~':'=';
+      else if(op>.5&&Math.abs(u)<W*.88&&Math.abs(v-(tp-H*.42*op))<CH*.4)c='-';
+      else if(Math.abs(u)<W*.7&&Math.abs(v-(bt+H*.38))<CH*.3)c='.';
+      if(s0>.03){
+        if(Math.abs(v-tp)<=CH*.5)c='#';
+        else if(Math.abs(v-bt)<=CH*.5)c='=';
+        else if(v>tp&&v<bt){
+          const dx=u-ix,dy=v-iy,d=Math.hypot(dx,dy),q=nz(x,y);
+          if(d<Rp)c=Math.hypot(dx+Ri*.32,dy+Ri*.34)<Ri*.14?'@':' ';
+          else if(d<Ri){
+            const rad=d/Ri,a=(((Math.atan2(dy,dx)%Math.PI)+Math.PI)%Math.PI);
+            if(rad>.9)c='#';
+            else if(Math.abs(rad-.58)<.07)c='%';
+            else c=q>.8?':':['-','\\','|','/'][Math.floor(a/Math.PI*4+.5)%4];
+          }else{
+            c=' ';
+            if(Math.abs(u)>W*.82)c=u<0?'o':',';
+            else if(q>.955&&Math.abs(u)>W*.4)c=',';
+            else if(q>.86)c='.';
+          }
+        }
+      }
+      g[y][x]=c;
+    }
+  }
+  for(let x=0;x<n;x++){   // lashes
+    const u=(x-cx)*CW;if(x%2||Math.abs(u)>W*.9)continue;
+    const tp=-H*op*sh(u),yb=Math.round(cy+tp/CH),dir=u<-W*.15?-1:u>W*.15?1:0,L=2+(s.pp>.3?1:0),ch=dir<0?'\\':dir>0?'/':'|';
+    for(let k=1;k<=L;k++){const yy=yb-k,xx=x+dir*Math.floor(k/2);if(yy>=0&&yy<r&&xx>=0&&xx<n&&g[yy][xx]===' ')g[yy][xx]=ch}
+  }
+  const out=g.map(a=>a.join('')).join('\n');
+  if(out!==o.last){o.last=out;o.pre.textContent=out}
+}
 /* animated ascii art: radar sweep, spinning globe, dna helix, heartbeat trace, watching eye */
 function drawArt(o,t,lv,real,hit){
   const n=o.cols,r=o.rows,lev=real?lvlS:lv,cx=(n-1)/2,cy=(r-1)/2,ry=cy,rx=Math.min(cx,cy*2.1);
@@ -1807,7 +1862,7 @@ function drawDenied(o,t,lv,real,hit){
   const aw=Math.max(...LOCK.map(x=>x.length)),out=L.map((s,i)=>' '.repeat(Math.max(0,Math.floor((o.cols-(i<LOCK.length?aw:s.length))/2)))+s).slice(0,o.rows).join('\n');
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
-function rk(){const r=Math.random();return mode==='virus'?(r<.22?'denied':r<.4?'skull':r<.56?'art':'err'):(r<.08?'denied':r<.18?'skull':r<.34?'art':'win')}
+function rk(){const r=Math.random();return mode==='virus'?(r<.2?'denied':r<.36?'skull':r<.5?'eye':r<.62?'art':'err'):(r<.08?'denied':r<.18?'skull':r<.26?'eye':r<.4?'art':'win')}
 /* standalone visualizer toggle: popup windows, or one docked strip that stays on */
 const VMODES=['off','popup','on'];let vmode='off',vwins=[],dock=null,dockB=0;
 function mkDock(){
