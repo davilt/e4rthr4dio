@@ -1587,27 +1587,29 @@ const NAMES=['r4dio.js','globe.c','stream.rs','audio_graph.ts','beat.cpp','sat.p
 let mode='off',on=false,raf=0,last=0,prevB=0,simT=0,wins=[],beats=0,cX=0,cY=0;
 const MAXW=()=>{const n=innerWidth<560;return mode==='virus'?(n?6:10):(n?4:8)};
 function mk(kind,msg){
-  const vw=innerWidth,vh=innerHeight,nar=vw<560,viz=kind==='viz',den=kind==='denied',sk=kind==='skull',err=kind==='err'||den||sk,big=kind==='big';
+  const vw=innerWidth,vh=innerHeight,nar=vw<560,viz=kind==='viz',den=kind==='denied',sk=kind==='skull',art=kind==='art',err=kind==='err'||den||sk||art,big=kind==='big';
   let w,h;
   if(big){w=Math.min(vw-16,vw*.6,520);h=Math.min(vh*.45,340)}
   else if(viz){w=rnd(180,nar?vw-30:300);h=rnd(88,nar?120:150)}
   else if(den){w=rnd(200,nar?vw-30:250);h=rnd(134,150)}
-  else if(sk){w=rnd(190,nar?vw-30:240);h=rnd(160,175)}
+  else if(sk){w=Math.min(vw-16,rnd(230,280));h=rnd(205,225)}
+  else if(art){w=rnd(190,nar?vw-30:250);h=rnd(140,172)}
   else if(err){w=rnd(180,nar?vw-30:270);h=rnd(64,96)}
   else{w=rnd(150,nar?vw-24:340);h=rnd(76,nar?150:210)}
+  const AT=pick([['radar','radar.exe'],['globe','globe.sys'],['dna','helix.dll'],['ecg','pulse.exe'],['eye','watcher.exe']]);
   const gk=err?'err':big?'code':pick(['code','code','code','hex','asm','log','bin']);
   let x=Math.max(4,rnd(4,vw-w-4)),y=Math.max(54,rnd(54,vh-h-96));
-  if(err&&!den&&!sk){   // cascade: each new dialog lands just below-right of the last one
+  if(err&&!den&&!sk&&!art){   // cascade: each new dialog lands just below-right of the last one
     if(cX>4&&cY>54&&cX+w<vw-4&&cY+h<vh-90&&Math.random()<.8){x=cX+16;y=cY+18}
     cX=x;cY=y;
   }
-  const el=document.createElement('div');el.className='csw'+(big?' big':'')+(err?' err':'');
+  const el=document.createElement('div');el.className='csw'+(big||sk?' big':'')+(err?' err':'');
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+x+'px;top:'+y+'px';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
-  el.querySelector('span').textContent=sk?pick(['pwned.exe','skull.sys','dead_signal.exe'])+' — pid '+Math.floor(rnd(100,9999)):den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
+  el.querySelector('span').textContent=sk?pick(['skull.sys','dead_signal.exe','reaper.exe'])+' — pid '+Math.floor(rnd(100,9999)):art?AT[1]+' — pid '+Math.floor(rnd(100,9999)):den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
   layer.appendChild(el);
-  const rowH=big?10:12.5,colW=big?4.8:6;
-  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den||sk)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:sk?drawSkull:null,v:Math.floor(Math.random()*3),msg:pick(SKM),vt:pick(VTS),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
+  const rowH=big||sk?10:12.5,colW=big||sk?4.8:6;
+  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den||sk||art)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:sk?drawSkull:art?drawArt:null,at:AT[0],v:Math.floor(Math.random()*2),msg:pick(SKM),vt:pick(VTS),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
 }
 function type(o,k){
   while(k>0){
@@ -1701,35 +1703,101 @@ function drawViz(o,t,lv,real){
   }
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
-/* skull ascii art for .exe: eyes flip and the jaw drops with the beat and level */
+/* detailed skulls for .exe: pupils pulse with the level, eyes flip on the beat, the jaw drops further the louder it gets */
 const SK=[
-String.raw`      _____
-   .-'     '-.
-  /   _   _   \
- |   (@) (@)   |
-  \     ^     /
-   '-._____.-'`,
-String.raw`    .------.
-   / @    @ \
-   | .    . |
-   \   /\   /
-    '-.__.-'`,
-String.raw`   _.-""""-._
-  /   @  @   \
- |    __     |
-  \  (  )   /
-   '._||_.'`
+String.raw`          _.-"""""""""-._
+       .-'               '-.
+     .'      .-.   .-.      '.
+    /       / @ \ / @ \       \
+   |       |  @  |  @  |       |
+   |        \   / \   /        |
+    \        '-'  ^  '-'      /
+     '.          / \         .'
+       '-.      /___\     .-'
+          '--._|     |_.--'`,
+String.raw`        _,.-"""""""-.,_
+     .-'   \       /   '-.
+    /   ,   \  ^  /   ,   \
+   |   / \   )   (   / \   |
+   |  | @ |  |   |  | @ |  |
+    \  \_/   |   |   \_/  /
+     \       '---'       /
+      '-.      ^      .-'
+         '-.._____..-'`
 ].map(a=>a.split('\n'));
-const SKJ=[['     |I I I|',"     '-----'"],['     |HHHH|',"     '----'"],['     |TTT|',"     '---'"]];
-const SKM=['PWNED','YOU ARE NEXT','0xDEAD','SIGNAL LOST','NO SURVIVORS','RIP'];
+const SKM=['YOU ARE NEXT','0xDEAD','SIGNAL LOST','NO SURVIVORS','NOTHING LEFT TO TUNE'];
 function drawSkull(o,t,lv,real,hit){
   if(hit)o.bl^=1;
-  const lev=real?lvlS:lv,open=lev>.45||(hit&&o.bl),eye=o.bl?'X':'O';
-  const jaw=SKJ[o.v].slice();if(open)jaw.splice(1,0,jaw[0].replace(/\|(.*)\|/,(m,x)=>'|'+' '.repeat(x.length)+'|'));
-  const art=SK[o.v].map(l=>l.replace(/@/g,eye)).concat(jaw),aw=Math.max(...art.map(x=>x.length));
-  const L=art.map(s=>' '.repeat(Math.max(0,Math.floor((o.cols-aw)/2)))+s);
-  const m='>> '+o.msg;L.push(' '.repeat(Math.max(0,Math.floor((o.cols-m.length)/2)))+m);
+  const lev=real?lvlS:lv,tgt=lev>.65?3:lev>.45?2:lev>.2?1:0;
+  o.jv=(o.jv||0)+(tgt-(o.jv||0))*.35;const g=Math.round(o.jv);
+  const eye=o.bl&&hit?'X':lev>.6?'@':lev>.3?'O':'o';
+  const head=SK[o.v].map(l=>l.replace(/@/g,eye));
+  const jaw=['  |_|_|_|_|_|_|_|'];for(let i=0;i<g;i++)jaw.push('  |             |');jaw.push('  |"|"|"|"|"|"|"|');jaw.push("   \\___________/");
+  const blk=a=>{const w=Math.max(...a.map(x=>x.length)),p=' '.repeat(Math.max(0,Math.floor((o.cols-w)/2)));return a.map(s=>p+s)};
+  const m='>> '+o.msg,L=blk(head).concat(blk(jaw),[' '.repeat(Math.max(0,Math.floor((o.cols-m.length)/2)))+m]);
   const out=L.slice(0,o.rows).join('\n');
+  if(out!==o.last){o.last=out;o.pre.textContent=out}
+}
+/* animated ascii art: radar sweep, spinning globe, dna helix, heartbeat trace, watching eye */
+function drawArt(o,t,lv,real,hit){
+  const n=o.cols,r=o.rows,lev=real?lvlS:lv,cx=(n-1)/2,cy=(r-1)/2,ry=cy,rx=Math.min(cx,cy*2.1);
+  const g=[];for(let y=0;y<r;y++)g.push(Array(n).fill(' '));
+  const put=(x,y,c)=>{x=Math.round(x);y=Math.round(y);if(y>=0&&y<r&&x>=0&&x<n)g[y][x]=c};
+  if(o.at==='radar'){
+    o.bp=o.bp||[];if(hit)o.bp.push({a:Math.random()*6.283,d:.25+Math.random()*.7,l:1});
+    const beam=(t/650)%6.283;
+    for(let y=0;y<r;y++)for(let x=0;x<n;x++){
+      const dx=(x-cx)/rx,dy=(y-cy)/ry,d=Math.hypot(dx,dy);if(d>1)continue;
+      let df=(beam-Math.atan2(dy,dx))%6.283;if(df<0)df+=6.283;
+      let c=' ';if(df<1.3)c=' .:-=+*#'[Math.min(7,Math.floor((1-df/1.3)*8))];
+      if(d>.93)c=c===' '?'.':c;else if(Math.abs(d-.5)<.06&&c===' ')c='.';
+      if((Math.abs(dx)<.03||Math.abs(dy)<.05)&&c===' ')c='+';
+      g[y][x]=c;
+    }
+    o.bp.forEach(b=>{b.l-=.012;put(cx+Math.cos(b.a)*b.d*rx,cy+Math.sin(b.a)*b.d*ry,b.l>.5?'@':'o')});o.bp=o.bp.filter(b=>b.l>0);
+  }else if(o.at==='globe'){
+    const a=t/900;
+    for(let y=0;y<r;y++)for(let x=0;x<n;x++){
+      const px=(x-cx)/rx,py=(y-cy)/ry,d2=px*px+py*py;if(d2>1)continue;
+      const z=Math.sqrt(1-d2),xr=px*Math.cos(a)+z*Math.sin(a),zr=-px*Math.sin(a)+z*Math.cos(a),lon=Math.atan2(xr,zr),lat=Math.asin(-py);
+      const land=Math.sin(lon*2+1)+Math.sin(lat*3+lon)+Math.sin(lon*5-lat*2)*.5>.7;
+      const gl=Math.abs(((lon*57.3)%30+30)%30-15)>13.2||Math.abs(lat)<.07;
+      g[y][x]=gl?'+':land?'#%@'[Math.min(2,Math.floor(z*3))]:' .,'[Math.min(2,Math.floor(z*3))];
+    }
+  }else if(o.at==='dna'){
+    const amp=Math.max(3,Math.min(cx-3,11))*(.6+lev*.4);
+    for(let y=0;y<r;y++){
+      const ph=y*.75+t/190,s=Math.sin(ph),x1=cx+s*amp,x2=cx-s*amp;
+      if(y%2===0){const a=Math.min(x1,x2),b=Math.max(x1,x2);for(let x=Math.ceil(a)+1;x<b;x++)put(x,y,'-');put(cx,y,'ATGC'[(y>>1)%4])}
+      put(x1,y,Math.cos(ph)>0?'O':'o');put(x2,y,Math.cos(ph)>0?'o':'O');
+    }
+  }else if(o.at==='ecg'){
+    o.tr=o.tr||[];o.q=o.q||[];
+    if(hit)o.q=[.1,.3,-.25,1,-.7,.25,.1,0];
+    if(!o.lt||t-o.lt>50){o.lt=t;o.tr.push(o.q.length?o.q.shift():(Math.random()-.5)*.05);if(o.tr.length>n)o.tr.shift()}
+    let py=null;
+    for(let x=0;x<o.tr.length;x++){
+      const yy=Math.round(cy-o.tr[x]*cy*.95),xx=n-o.tr.length+x;
+      if(py!==null){const a=Math.min(py,yy),b=Math.max(py,yy);for(let k=a+1;k<b;k++)put(xx,k,'|')}
+      put(xx,yy,'*');py=yy;
+    }
+    const lbl='BPM '+Math.round(bpmS||0);for(let i=0;i<lbl.length;i++)put(1+i,0,lbl[i]);
+  }else{
+    const cyc=(t%3400),op=cyc>3200?Math.max(.05,Math.abs(cyc-3300)/100):1,sq=hit?.8:1;
+    o.pa=(o.pa||0)+((Math.sin(t/900)*.35)-(o.pa||0))*.1;
+    const pr=.18+lev*.2;
+    for(let y=0;y<r;y++)for(let x=0;x<n;x++){
+      const dx=(x-cx)/rx,dy=(y-cy)/ry,lid=Math.pow(Math.max(0,1-dx*dx),.8)*op*sq;
+      if(Math.abs(dx)>1)continue;
+      const ad=Math.abs(dy);
+      if(Math.abs(ad-lid)<.9/ry&&lid>.02){g[y][x]=dy<0?'=':'=';continue}
+      if(ad<lid){
+        const ex=dx-o.pa,ed=Math.hypot(ex,dy*1.6);
+        g[y][x]=ed<pr?'#':ed<.45?'O':ed<.52?'o':' ';
+      }
+    }
+  }
+  const out=g.map(a=>a.join('')).join('\n');
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
 const LOCK=['    .-""""-.','   /  .--.  \\','  |  /    \\  |',' .-"-"----"-"-.',' |   ACCESS   |',' |   DENIED   |',' \'------------\''];
@@ -1739,7 +1807,7 @@ function drawDenied(o,t,lv,real,hit){
   const aw=Math.max(...LOCK.map(x=>x.length)),out=L.map((s,i)=>' '.repeat(Math.max(0,Math.floor((o.cols-(i<LOCK.length?aw:s.length))/2)))+s).slice(0,o.rows).join('\n');
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
-function rk(){const r=Math.random();return mode==='virus'?(r<.28?'denied':r<.46?'skull':'err'):(r<.1?'denied':r<.2?'skull':'win')}
+function rk(){const r=Math.random();return mode==='virus'?(r<.22?'denied':r<.4?'skull':r<.56?'art':'err'):(r<.08?'denied':r<.18?'skull':r<.34?'art':'win')}
 /* standalone visualizer toggle: popup windows, or one docked strip that stays on */
 const VMODES=['off','popup','on'];let vmode='off',vwins=[],dock=null,dockB=0;
 function mkDock(){
