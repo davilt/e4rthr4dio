@@ -1970,9 +1970,9 @@ function drawMusic(o,t,lv,real,hit){
     o.bars.forEach(b=>{for(let k=0;k<2;k++)gset(g,n,r,b.k*kw+1,b.y-k,'#');gset(g,n,r,b.k*kw+2,b.y,'#')});
   }else{
     o.nt=o.nt||[];
-    if(hit)for(let k=0;k<1+(Math.random()<.5);k++)o.nt.push({x:Math.random()*(n-8)+1,y:r+1,v:.12+Math.random()*.12,s:Math.floor(Math.random()*2),p:Math.random()*6});
+    if(hit)for(let k=0;k<1+(Math.random()<.5);k++)o.nt.push({x:Math.random()*(n-8)+1,y:r+1,v:.12+Math.random()*.12,s:0,p:Math.random()*6});
     o.nt.forEach(q=>{q.y-=q.v});o.nt=o.nt.filter(q=>q.y>-5);
-    const S=[[' |\\','| \\','|  ','(_)'],[' |==|',' |  |',' |  |','(_)(_)']];
+    const S=[[' |\\','| \\','|  ','(_)']];
     o.nt.forEach(q=>S[q.s].forEach((row,j)=>{for(let i=0;i<row.length;i++)if(row[i]!==' ')gset(g,n,r,q.x+Math.sin(q.y*.5+q.p)*2+i,q.y+j,row[i])}));
   }
   gout(o,g);
