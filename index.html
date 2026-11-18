@@ -1604,7 +1604,7 @@ function mk(kind,msg){
   el.querySelector('span').textContent=den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
   layer.appendChild(el);
   const rowH=big?10:12.5,colW=big?4.8:6;
-  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:null,vt:pick(['bars','bars','scope','vu']),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
+  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:null,vt:pick(VTS),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
 }
 function type(o,k){
   while(k>0){
@@ -1618,6 +1618,7 @@ function kill(o){o.el.classList.add('out');setTimeout(()=>o.el.remove(),170)}
 function wipe(){wins.forEach(o=>o.el.remove());wins=[]}
 
 /* virus: actually hijacks the radio. Bursts of rapid station changes, with audio stutter on the beat */
+let bpmS=0,lastHit=0;const VTS=['scope','vu','hz','sweep','env','lissa','tele'];
 let hjN=0,hjT=0,hjNext=0,hjUntil=0;
 function hijackStep(){
   let p=[];try{p=V()}catch(e){}
@@ -1657,6 +1658,36 @@ function drawViz(o,t,lv,real){
     const mid=(r-1)/2,amp=(.2+lv*.8)*mid;
     for(let x=0;x<n;x++){const y=Math.round(mid+amp*Math.sin(x*.42+t/120)*Math.sin(x*.11+t/430));g[Math.max(0,Math.min(r-1,y))][x]='*';if(g[Math.round(mid)][x]===' ')g[Math.round(mid)][x]='-'}
     out=g.map(a=>a.join('')).join('\n');
+  }else if(o.vt==='hz'){
+    const B=[['60',1],['150',1],['400',2],['1k',6],['2.5k',15],['6k',35],['12k',70]],w=Math.max(6,n-16),L=[];
+    for(let i=0;i<Math.min(B.length,r);i++){
+      let v;
+      if(real)v=Math.min(1,fft[B[i][1]]/255*1.15);else v=Math.max(0,Math.min(1,(.35+.4*Math.sin(t/230+i*1.1)*Math.sin(t/610+i*.4))*(.5+lv)+Math.random()*.1));
+      const p=o.sv[i]||0;v=o.sv[i]=v>p?v:p-.035;
+      const b=Math.round(v*w);L.push((B[i][0]+'Hz').padStart(6)+' ['+'|'.repeat(b)+'.'.repeat(w-b)+'] '+String(Math.round(-60+v*60)).padStart(3)+'dB');
+    }
+    out=L.join('\n');
+  }else if(o.vt==='sweep'){
+    o.hist=o.hist||[];
+    if(!o.lt||t-o.lt>85){o.lt=t;let s='';for(let i=0;i<n;i++)s+=' .:-=+*#%@'[Math.min(9,Math.floor(bandVal(o,i,n,t,lv,real)*10))];o.hist.unshift(s);if(o.hist.length>r)o.hist.pop()}
+    out=o.hist.join('\n');
+  }else if(o.vt==='env'){
+    o.env=o.env||[];
+    if(!o.lt||t-o.lt>55){o.lt=t;o.env.push(Math.min(1,(real?lvlS:lv)*(.7+Math.random()*.5)));if(o.env.length>n)o.env.shift()}
+    const mid=(r-1)/2,g=[];for(let y=0;y<r;y++)g.push(Array(n).fill(' '));
+    for(let x=0;x<o.env.length;x++){const a=o.env[x]*mid,xx=n-o.env.length+x;for(let y=0;y<r;y++){if(Math.abs(y-mid)<=a)g[y][xx]='|'}if(g[Math.round(mid)][xx]===' ')g[Math.round(mid)][xx]='-'}
+    out=g.map(a=>a.join('')).join('\n');
+  }else if(o.vt==='lissa'){
+    const g=[];for(let y=0;y<r;y++)g.push(Array(n).fill(' '));
+    const amp=.25+(real?lvlS:lv)*.75,cx=(n-1)/2,cy=(r-1)/2;
+    for(let k=0;k<60;k++){const ph=t/260+k*.11,x=Math.round(cx+Math.sin(ph*3+Math.sin(t/900))*amp*cx),y=Math.round(cy+Math.cos(ph*2)*amp*cy);if(y>=0&&y<r&&x>=0&&x<n)g[y][x]=k>45?'*':'.'}
+    for(let x=0;x<n;x+=4)if(g[Math.round(cy)][x]===' ')g[Math.round(cy)][x]='-';
+    out=g.map(a=>a.join('')).join('\n');
+  }else if(o.vt==='tele'){
+    let fq=0;if(real){let m=0;for(let i=1;i<100;i++)if(fft[i]>m){m=fft[i];fq=i*172}}else{o.fq=(o.fq||440)+(Math.random()-.5)*60;fq=Math.max(60,Math.min(9000,o.fq))}
+    const lvl=real?lvlS:lv,db=-60+lvl*60;o.pk=Math.max(db,(o.pk===undefined?-60:o.pk)-.15);
+    const ln=(a,b)=>(a+' ').padEnd(8,'.')+' '+b,L=[ln('FREQ',fq.toFixed(1)+' Hz'),ln('AMP',db.toFixed(1)+' dB'),ln('PEAK',o.pk.toFixed(1)+' dB'),ln('TEMPO',Math.round(bpmS||0)+' BPM'),ln('SNR',(30+lvl*20).toFixed(1)+' dB'),ln('LOCK','['+'#'.repeat(Math.round(lvl*10))+'-'.repeat(10-Math.round(lvl*10))+']')];
+    out=L.slice(0,r).join('\n');
   }else{
     const w=Math.max(6,n-12),lvl=real?lvlS:lv,L=[];
     for(const c of ['L','R']){const v=Math.max(0,Math.min(1,lvl*(.8+Math.random()*.35))),b=Math.round(v*w);L.push(c+' ['+'#'.repeat(b)+'-'.repeat(w-b)+'] '+String(Math.round(-60+v*60)).padStart(3)+'dB')}
@@ -1683,7 +1714,7 @@ function mkDock(){
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.round((vw-w)/2)+'px;bottom:calc(84px + env(safe-area-inset-bottom,0px))';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
   el.querySelector('span').textContent='spectrum.exe — LIVE';layer.appendChild(el);
-  return{el,pre:el.querySelector('.bd'),vw,draw:drawViz,vt:'bars',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
+  return{el,pre:el.querySelector('.bd'),vw,draw:drawViz,vt:'scope',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
 }
 function vizFrame(t,dt,lv,real,hit){
   if(vmode==='popup'){
@@ -1694,7 +1725,7 @@ function vizFrame(t,dt,lv,real,hit){
     if(dock&&dock.vw!==innerWidth){dock.el.remove();dock=null}
     if(!dock)dock=mkDock();
     dock.draw(dock,t,lv,real,hit);
-    if(hit&&++dockB%24===0)dock.vt=pick(['bars','scope','vu','bars']);
+    if(hit&&++dockB%24===0)dock.vt=pick(VTS);
   }
 }
 function frame(t){
@@ -1705,6 +1736,7 @@ function frame(t){
   let hit=false;
   if(real){const b=beat;if(b>prevB+.4)hit=true;prevB=b}   // the page's own beat detector, fed by the analyser
   else if(t-simT>(isLive?480:1500)){simT=t;hit=true}        // streams the browser won't let us analyse: steady pulse instead
+  if(hit){const d=t-lastHit;if(d>250&&d<1500)bpmS=bpmS?bpmS*.7+60000/d*.3:60000/d;lastHit=t}
   if(on)exeFrame(t,dt,lv,real,hit);
   if(vmode!=='off')vizFrame(t,dt,lv,real,hit);
 }
