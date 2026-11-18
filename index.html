@@ -1714,7 +1714,7 @@ function mkDock(){
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.round((vw-w)/2)+'px;bottom:calc(84px + env(safe-area-inset-bottom,0px))';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
   el.querySelector('span').textContent='spectrum.exe — LIVE';layer.appendChild(el);
-  return{el,pre:el.querySelector('.bd'),vw,draw:drawViz,vt:'scope',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
+  return{el,pre:el.querySelector('.bd'),vw,draw:drawViz,vt:'vu',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
 }
 function vizFrame(t,dt,lv,real,hit){
   if(vmode==='popup'){
