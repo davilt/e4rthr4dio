@@ -1587,26 +1587,27 @@ const NAMES=['r4dio.js','globe.c','stream.rs','audio_graph.ts','beat.cpp','sat.p
 let mode='off',on=false,raf=0,last=0,prevB=0,simT=0,wins=[],beats=0,cX=0,cY=0;
 const MAXW=()=>{const n=innerWidth<560;return mode==='virus'?(n?6:10):(n?4:8)};
 function mk(kind,msg){
-  const vw=innerWidth,vh=innerHeight,nar=vw<560,viz=kind==='viz',den=kind==='denied',err=kind==='err'||den,big=kind==='big';
+  const vw=innerWidth,vh=innerHeight,nar=vw<560,viz=kind==='viz',den=kind==='denied',sk=kind==='skull',err=kind==='err'||den||sk,big=kind==='big';
   let w,h;
   if(big){w=Math.min(vw-16,vw*.6,520);h=Math.min(vh*.45,340)}
   else if(viz){w=rnd(180,nar?vw-30:300);h=rnd(88,nar?120:150)}
   else if(den){w=rnd(200,nar?vw-30:250);h=rnd(134,150)}
+  else if(sk){w=rnd(190,nar?vw-30:240);h=rnd(160,175)}
   else if(err){w=rnd(180,nar?vw-30:270);h=rnd(64,96)}
   else{w=rnd(150,nar?vw-24:340);h=rnd(76,nar?150:210)}
   const gk=err?'err':big?'code':pick(['code','code','code','hex','asm','log','bin']);
   let x=Math.max(4,rnd(4,vw-w-4)),y=Math.max(54,rnd(54,vh-h-96));
-  if(err&&!den){   // cascade: each new dialog lands just below-right of the last one
+  if(err&&!den&&!sk){   // cascade: each new dialog lands just below-right of the last one
     if(cX>4&&cY>54&&cX+w<vw-4&&cY+h<vh-90&&Math.random()<.8){x=cX+16;y=cY+18}
     cX=x;cY=y;
   }
   const el=document.createElement('div');el.className='csw'+(big?' big':'')+(err?' err':'');
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+x+'px;top:'+y+'px';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
-  el.querySelector('span').textContent=den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
+  el.querySelector('span').textContent=sk?pick(['pwned.exe','skull.sys','dead_signal.exe'])+' — pid '+Math.floor(rnd(100,9999)):den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
   layer.appendChild(el);
   const rowH=big?10:12.5,colW=big?4.8:6;
-  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:null,vt:pick(VTS),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
+  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den||sk)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:sk?drawSkull:null,v:Math.floor(Math.random()*3),msg:pick(SKM),vt:pick(VTS),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
 }
 function type(o,k){
   while(k>0){
@@ -1700,6 +1701,37 @@ function drawViz(o,t,lv,real){
   }
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
+/* skull ascii art for .exe: eyes flip and the jaw drops with the beat and level */
+const SK=[
+String.raw`      _____
+   .-'     '-.
+  /   _   _   \
+ |   (@) (@)   |
+  \     ^     /
+   '-._____.-'`,
+String.raw`    .------.
+   / @    @ \
+   | .    . |
+   \   /\   /
+    '-.__.-'`,
+String.raw`   _.-""""-._
+  /   @  @   \
+ |    __     |
+  \  (  )   /
+   '._||_.'`
+].map(a=>a.split('\n'));
+const SKJ=[['     |I I I|',"     '-----'"],['     |HHHH|',"     '----'"],['     |TTT|',"     '---'"]];
+const SKM=['PWNED','YOU ARE NEXT','0xDEAD','SIGNAL LOST','NO SURVIVORS','RIP'];
+function drawSkull(o,t,lv,real,hit){
+  if(hit)o.bl^=1;
+  const lev=real?lvlS:lv,open=lev>.45||(hit&&o.bl),eye=o.bl?'X':'O';
+  const jaw=SKJ[o.v].slice();if(open)jaw.splice(1,0,jaw[0].replace(/\|(.*)\|/,(m,x)=>'|'+' '.repeat(x.length)+'|'));
+  const art=SK[o.v].map(l=>l.replace(/@/g,eye)).concat(jaw),aw=Math.max(...art.map(x=>x.length));
+  const L=art.map(s=>' '.repeat(Math.max(0,Math.floor((o.cols-aw)/2)))+s);
+  const m='>> '+o.msg;L.push(' '.repeat(Math.max(0,Math.floor((o.cols-m.length)/2)))+m);
+  const out=L.slice(0,o.rows).join('\n');
+  if(out!==o.last){o.last=out;o.pre.textContent=out}
+}
 const LOCK=['    .-""""-.','   /  .--.  \\','  |  /    \\  |',' .-"-"----"-"-.',' |   ACCESS   |',' |   DENIED   |',' \'------------\''];
 function drawDenied(o,t,lv,real,hit){
   if(hit)o.bl^=1;
@@ -1707,7 +1739,7 @@ function drawDenied(o,t,lv,real,hit){
   const aw=Math.max(...LOCK.map(x=>x.length)),out=L.map((s,i)=>' '.repeat(Math.max(0,Math.floor((o.cols-(i<LOCK.length?aw:s.length))/2)))+s).slice(0,o.rows).join('\n');
   if(out!==o.last){o.last=out;o.pre.textContent=out}
 }
-function rk(){const r=Math.random();return mode==='virus'?(r<.3?'denied':'err'):(r<.1?'denied':'win')}
+function rk(){const r=Math.random();return mode==='virus'?(r<.28?'denied':r<.46?'skull':'err'):(r<.1?'denied':r<.2?'skull':'win')}
 /* standalone visualizer toggle: popup windows, or one docked strip that stays on */
 const VMODES=['off','popup','on'];let vmode='off',vwins=[],dock=null,dockB=0;
 function mkDock(){
