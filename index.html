@@ -1558,6 +1558,8 @@ loop();
 .csw.err .tb i{border-color:#000}
 .csw.hit{border-color:var(--m);box-shadow:0 0 22px rgba(var(--cr),.7)}
 .csw.out{opacity:0;transform:scale(.92)}
+.csw.tap{pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.csw.lock{border-color:var(--m);box-shadow:0 0 18px rgba(var(--cr),.55)}
 </style>
 <script>
 (()=>{
@@ -1710,11 +1712,16 @@ function rk(){const r=Math.random();return mode==='virus'?(r<.3?'denied':'err'):
 const VMODES=['off','popup','on'];let vmode='off',vwins=[],dock=null,dockB=0;
 function mkDock(){
   const vw=innerWidth,w=Math.min(360,vw-24),h=100;
-  const el=document.createElement('div');el.className='csw';
+  const el=document.createElement('div');el.className='csw tap';
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.round((vw-w)/2)+'px;bottom:calc(84px + env(safe-area-inset-bottom,0px))';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
-  el.querySelector('span').textContent='spectrum.exe — LIVE';layer.appendChild(el);
-  return{el,pre:el.querySelector('.bd'),vw,draw:drawViz,vt:'vu',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
+  const ttl=el.querySelector('span');ttl.textContent='spectrum.exe — LIVE (tap to hold)';layer.appendChild(el);
+  const d={el,pre:el.querySelector('.bd'),vw,lock:false,draw:drawViz,vt:'vu',ch:'█',sv:[],rows:Math.max(2,Math.floor((h-24)/12.5)),cols:Math.max(8,Math.floor((w-12)/6)),last:''};
+  el.addEventListener('click',()=>{   // tap to hold this view, tap again to carry on rotating
+    d.lock=!d.lock;el.classList.toggle('lock',d.lock);
+    ttl.textContent=d.lock?'spectrum.exe — HELD (tap to resume)':'spectrum.exe — LIVE (tap to hold)';
+  });
+  return d;
 }
 function vizFrame(t,dt,lv,real,hit){
   if(vmode==='popup'){
@@ -1725,7 +1732,7 @@ function vizFrame(t,dt,lv,real,hit){
     if(dock&&dock.vw!==innerWidth){dock.el.remove();dock=null}
     if(!dock)dock=mkDock();
     dock.draw(dock,t,lv,real,hit);
-    if(hit&&++dockB%24===0)dock.vt=pick(VTS);
+    if(hit&&++dockB%24===0&&!dock.lock){const o=VTS.filter(v=>v!==dock.vt);dock.vt=pick(o)}
   }
 }
 function frame(t){
