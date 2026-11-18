@@ -1577,7 +1577,7 @@ const GEN={
   code:()=>{let i=Math.floor(Math.random()*1e6)%Math.max(1,codeLines().length);return()=>{const L=codeLines();i=(i+1)%L.length;return L[i]||'nop;'}},
   hex:()=>{let a=Math.floor(Math.random()*0xffffff);return()=>{a+=16;let b='';for(let i=0;i<8;i++)b+=hx(2)+' ';return a.toString(16).padStart(6,'0')+': '+b+' |'+hx(6)+'|'}},
   asm:()=>()=>'  '+pick(OPS)+' '+pick(REG)+', '+pick(REG),
-  log:()=>()=>'['+pick([' OK ','WARN','FAIL','SYNC'])+'] '+pick(WORDS)+'_'+hx(3)+' '+pick(WORDS)+' 0x'+hx(4),
+  log:()=>()=>Math.random()<.2?'[FAIL] ACCESS DENIED '+pick(WORDS)+'@'+hx(4):'['+pick([' OK ','WARN','FAIL','SYNC'])+'] '+pick(WORDS)+'_'+hx(3)+' '+pick(WORDS)+' 0x'+hx(4),
   bin:()=>()=>Array.from({length:6},()=>Math.floor(Math.random()*256).toString(2).padStart(8,'0')).join(' '),
   err:m0=>{const m=m0||pick(ERRS);let n=0;return()=>{n++;return n===1?m+(m.endsWith('0x')?hx(4):''):n===2?'':n%3===0?'0x'+hx(8)+' '+pick(WORDS):'> '+pick(WORDS)+'.'+pick(['dll','sys','bin','exe'])}}
 };
@@ -1585,24 +1585,26 @@ const NAMES=['r4dio.js','globe.c','stream.rs','audio_graph.ts','beat.cpp','sat.p
 let mode='off',on=false,raf=0,last=0,prevB=0,simT=0,wins=[],beats=0,cX=0,cY=0;
 const MAXW=()=>{const n=innerWidth<560;return mode==='virus'?(n?6:10):(n?4:8)};
 function mk(kind,msg){
-  const vw=innerWidth,vh=innerHeight,nar=vw<560,err=kind==='err',big=kind==='big';
+  const vw=innerWidth,vh=innerHeight,nar=vw<560,viz=kind==='viz',den=kind==='denied',err=kind==='err'||den,big=kind==='big';
   let w,h;
   if(big){w=Math.min(vw-16,vw*.6,520);h=Math.min(vh*.45,340)}
+  else if(viz){w=rnd(180,nar?vw-30:300);h=rnd(88,nar?120:150)}
+  else if(den){w=rnd(200,nar?vw-30:250);h=rnd(134,150)}
   else if(err){w=rnd(180,nar?vw-30:270);h=rnd(64,96)}
   else{w=rnd(150,nar?vw-24:340);h=rnd(76,nar?150:210)}
   const gk=err?'err':big?'code':pick(['code','code','code','hex','asm','log','bin']);
   let x=Math.max(4,rnd(4,vw-w-4)),y=Math.max(54,rnd(54,vh-h-96));
-  if(err){   // cascade: each new dialog lands just below-right of the last one
+  if(err&&!den){   // cascade: each new dialog lands just below-right of the last one
     if(cX>4&&cY>54&&cX+w<vw-4&&cY+h<vh-90&&Math.random()<.8){x=cX+16;y=cY+18}
     cX=x;cY=y;
   }
   const el=document.createElement('div');el.className='csw'+(big?' big':'')+(err?' err':'');
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+x+'px;top:'+y+'px';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
-  el.querySelector('span').textContent=err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
+  el.querySelector('span').textContent=den?'ACCESS_DENIED.exe':viz?pick(['spectrum.exe','oscope.sys','vumeter.dll'])+' — pid '+Math.floor(rnd(100,9999)):err?'ERROR 0x'+hx(4)+'.exe':(gk==='code'?pick(NAMES):gk+'_dump.'+hx(2))+' — pid '+Math.floor(rnd(100,9999));
   layer.appendChild(el);
   const rowH=big?10:12.5,colW=big?4.8:6;
-  return{el,pre:el.querySelector('.bd'),big,err,next:GEN[gk](msg),rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
+  return{el,pre:el.querySelector('.bd'),big,err,next:(viz||den)?null:GEN[gk](msg),draw:viz?drawViz:den?drawDenied:null,vt:pick(['bars','bars','scope','vu']),ch:pick(['█','#','|']),sv:[],bl:0,code:hx(4),last:'',rows:Math.max(2,Math.floor((h-16-8)/rowH)),cols:Math.max(8,Math.floor((w-12)/colW)),lines:[],line:'',ci:0,acc:0,hitT:0,die:performance.now()+(err?rnd(4000,10000):rnd(2500,7000))};
 }
 function type(o,k){
   while(k>0){
@@ -1637,6 +1639,42 @@ function virusTick(t,hit){
   else if(t>=hjNext){hjN=3+Math.floor(Math.random()*3);hjT=t}
   if(hit&&(hjN>0||t<hjUntil))stutter();
 }
+/* ascii audio visualizers (spectrum, scope, vu) and an ACCESS DENIED lock, drawn in popups */
+function bandVal(o,i,n,t,lv,real){
+  let v;
+  if(real){const idx=1+Math.floor(i*Math.min(64,fft.length-1)/n);v=Math.min(1,fft[idx]/255*1.25)}
+  else v=Math.max(0,Math.min(1,(.35+.4*Math.sin(t/230+i*.6)*Math.sin(t/710+i*.23))*(.5+lv)+Math.random()*.12));
+  const p=o.sv[i]||0;return o.sv[i]=v>p?v:p-.04;
+}
+function drawViz(o,t,lv,real){
+  const n=o.cols,r=o.rows;let out;
+  if(o.vt==='bars'){
+    const vals=[];for(let i=0;i<n;i++)vals.push(bandVal(o,i,n,t,lv,real));
+    const L=[];for(let y=0;y<r;y++){let s='';for(let i=0;i<n;i++)s+=vals[i]*r>r-1-y?o.ch:' ';L.push(s)}
+    out=L.join('\n');
+  }else if(o.vt==='scope'){
+    const g=[];for(let y=0;y<r;y++)g.push(Array(n).fill(' '));
+    const mid=(r-1)/2,amp=(.2+lv*.8)*mid;
+    for(let x=0;x<n;x++){const y=Math.round(mid+amp*Math.sin(x*.42+t/120)*Math.sin(x*.11+t/430));g[Math.max(0,Math.min(r-1,y))][x]='*';if(g[Math.round(mid)][x]===' ')g[Math.round(mid)][x]='-'}
+    out=g.map(a=>a.join('')).join('\n');
+  }else{
+    const w=Math.max(6,n-12),lvl=real?lvlS:lv,L=[];
+    for(const c of ['L','R']){const v=Math.max(0,Math.min(1,lvl*(.8+Math.random()*.35))),b=Math.round(v*w);L.push(c+' ['+'#'.repeat(b)+'-'.repeat(w-b)+'] '+String(Math.round(-60+v*60)).padStart(3)+'dB')}
+    L.push('');L.push('20Hz '+'.'.repeat(Math.max(0,n-14))+' 20kHz');
+    const vals=[];for(let i=0;i<n;i++)vals.push(bandVal(o,i,n,t,lv,real));
+    L.push(vals.map(v=>' .:-=+*#%@'[Math.min(9,Math.floor(v*10))]).join(''));
+    out=L.slice(0,r).join('\n');
+  }
+  if(out!==o.last){o.last=out;o.pre.textContent=out}
+}
+const LOCK=['    .-""""-.','   /  .--.  \\','  |  /    \\  |',' .-"-"----"-"-.',' |   ACCESS   |',' |   DENIED   |',' \'------------\''];
+function drawDenied(o,t,lv,real,hit){
+  if(hit)o.bl^=1;
+  const B=o.bl?'▓▓':'░░',L=LOCK.concat([B+' ERR 0x'+o.code+' '+B]);
+  const aw=Math.max(...LOCK.map(x=>x.length)),out=L.map((s,i)=>' '.repeat(Math.max(0,Math.floor((o.cols-(i<LOCK.length?aw:s.length))/2)))+s).slice(0,o.rows).join('\n');
+  if(out!==o.last){o.last=out;o.pre.textContent=out}
+}
+function rk(){const r=Math.random();return mode==='virus'?(r<.3?'denied':r<.52?'viz':'err'):(r<.12?'viz':r<.2?'denied':'win')}
 function frame(t){
   raf=requestAnimationFrame(frame);
   const dt=Math.min(.1,(t-last)/1000||.016);last=t;
@@ -1650,17 +1688,16 @@ function frame(t){
     beats++;
     if(mode==='virus'){
       const n=1+(lv>.5?1:0)+(Math.random()<.3?1:0);
-      for(let i=0;i<n&&wins.length<MAXW();i++)wins.push(mk('err'));
+      for(let i=0;i<n&&wins.length<MAXW();i++)wins.push(mk(rk()));
       if(wins.length>=MAXW()&&Math.random()<.35){   // system "crash": everything closes in one flash
         layer.classList.add('flash');setTimeout(()=>layer.classList.remove('flash'),120);
         wins.forEach(kill);wins=[];cX=0;cY=0;
       }
-    }else if(wins.length<MAXW()&&(wins.length<2||Math.random()<.55+lv*.3))wins.push(mk(Math.random()<.06+lv*.05?'big':'win'));
+    }else if(wins.length<MAXW()&&(wins.length<2||Math.random()<.55+lv*.3))wins.push(mk(Math.random()<.06+lv*.05?'big':rk()));
     for(const o of wins){o.hitT=t;o.el.classList.add('hit');o.el.style.transform='translate('+rnd(-3,3).toFixed(1)+'px,'+rnd(-2,2).toFixed(1)+'px)';o.acc+=18+lv*90+Math.random()*40}
   }
   for(const o of wins){
-    o.acc+=(25+lv*200)*(o.big?2.2:1)*dt;
-    const k=Math.floor(o.acc);if(k>0){o.acc-=k;type(o,k)}
+    if(o.draw)o.draw(o,t,lv,real,hit);else{o.acc+=(25+lv*200)*(o.big?2.2:1)*dt;const k=Math.floor(o.acc);if(k>0){o.acc-=k;type(o,k)}}
     if(o.hitT&&t-o.hitT>110){o.hitT=0;o.el.classList.remove('hit');o.el.style.transform=''}
   }
   if(mode!=='virus')wins=wins.filter(o=>{if(t>o.die&&(hit||t>o.die+1500)){kill(o);return false}return true});
