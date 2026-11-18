@@ -1985,7 +1985,6 @@ function mkAsc(){
   const el=document.createElement('div');el.className='csw big';
   el.style.cssText='width:'+w+'px;height:'+h+'px;left:'+Math.max(4,rnd(4,vw-w-4))+'px;top:'+Math.max(54,rnd(54,vh-h-96))+'px';
   el.innerHTML='<div class="tb"><i></i><i></i><i></i><span></span></div><pre class="bd"></pre>';
-  el.querySelector('span').textContent='░▒▓█▓▒░'.repeat(8);   // title bar carries no words, only a texture
   layer.appendChild(el);
   const o={el,pre:el.querySelector('.bd'),big:true,asc:true,sub,rows:Math.max(3,Math.floor((h-24)/CHA)),cols:Math.max(10,Math.floor((w-12)/CWA)),lines:[],line:'',ci:0,acc:0,hitT:0,last:'',sv:[],bl:0,msg:'',v:Math.floor(Math.random()*2),code:'',ch:'#',die:performance.now()+rnd(3500,9000)};
   if(sub==='skull')o.draw=drawSkull;else if(sub==='eye')o.draw=drawEye;
